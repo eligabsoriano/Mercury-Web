@@ -198,7 +198,9 @@ export async function apiFetch<
     clearTimeout(timeoutTimer);
 
     if (!response.ok) {
-      throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
+      const httpError = new Error(`HTTP Error ${response.status}: ${response.statusText}`);
+      (httpError as unknown as { status: number }).status = response.status;
+      throw httpError;
     }
 
     const latency = Math.round(performance.now() - startTime);
@@ -213,26 +215,36 @@ export async function apiFetch<
       return (await response.json()) as ExtractSuccessResponse<paths[P][M]>;
     }
     return (await response.text()) as ExtractSuccessResponse<paths[P][M]>;
-  } catch (err) {
+  } catch (err: unknown) {
     clearTimeout(timeoutTimer);
 
-    // If caller forbade fallback, propagate error
-    if (options?.skipMockFallback) {
+    const httpStatus = (err as { status?: number })?.status;
+    const isClientHttpError = typeof httpStatus === 'number' && httpStatus >= 400 && httpStatus < 500;
+
+    // If server responded with a client-level status (e.g. 404 Not Found),
+    // the backend API is alive and reachable. Do not mark global status offline.
+    if (isClientHttpError) {
+      const latency = Math.round(performance.now() - startTime);
+      updateConnectionState({
+        status: 'connected',
+        latencyMs: latency,
+        isMock: false,
+      });
+    } else {
+      // True network dropout, abort/timeout, or 5xx internal server error
       updateConnectionState({
         status: 'offline',
         latencyMs: null,
-        isMock: false,
+        isMock: !options?.skipMockFallback,
       });
+    }
+
+    // If caller forbade fallback, propagate error
+    if (options?.skipMockFallback) {
       throw err;
     }
 
     // Otherwise gracefully degrade to typed mock fallback
-    updateConnectionState({
-      status: 'offline',
-      latencyMs: null,
-      isMock: true,
-    });
-
     return resolveMockFallback(path, method, options);
   }
 }
