@@ -15,7 +15,7 @@ The application transforms complex e-commerce transaction logs (Olist Brazilian 
 1. **Contract-First Type Safety**: All API requests and responses strictly adhere to `src/types/api.ts` (4,451 lines, generated from backend `openapi.json`). No untyped `any` or ad-hoc payload structures.
 2. **Offline Resilience & Zero-Flicker Fallbacks**: The frontend operates seamlessly whether connected to a live Uvicorn backend (`http://localhost:8000`) or running offline in presentation mode, using realistic fallback mock fixtures (`src/api/mocks/data.ts`).
 3. **High Executive Information Density**: Dense, high-contrast visual hierarchy prioritizing macro KPIs, natural-language business takeaways, delta indicators, and interactive sensitivity sliders.
-4. **Rich Dark Glassmorphism Design System**: Built with modern CSS using curated HSL design tokens, deep navy/slate canvas (`#0b0f19`), backdrop blur (`16px`), subtle translucent borders (`hsla(217, 33%, 25%, 0.45)`), and neon status accents.
+4. **Executive Light Mode & Zero Gradients Design System**: Built with modern CSS using curated Slate HSL tokens, crisp white card surfaces (`#ffffff`), Slate-50 canvas (`#f8fafc`), Slate-200 structural borders (`#e2e8f0`), high-contrast typography (Inter & Outfit), and solid semantic status colors (Emerald, Indigo, Sky, Amber, Rose) with zero gradients.
 5. **No Placeholders**: Every card, table, chart, and modal renders realistic production metrics mirroring real Olist data distributions.
 
 ---
@@ -399,8 +399,117 @@ Execute comprehensive validation against all Definition of Done (DoD) criteria, 
 - [x] Code passes all automated CI checks.
 - [x] Zero layout overflow or unhandled exceptions across all 6 views.
 - [x] 63/63 Vitest unit tests passing across all 11 test suites (`npm test`).
-- [x] 28/28 Playwright E2E tests passing across all 5 test suites (`npx playwright test`).
-- [x] Clean production build with zero chunk-size warnings in <1.9s (`npm run build`).
+- [x] 29/29 Playwright E2E tests passing across all 5 test suites (`npx playwright test`).
+- [x] Clean production build with zero chunk-size warnings in <2.0s (`npm run build`).
+
+---
+
+### Phase 9: Saved Simulation Scenarios & Workspace Access Security (📋 Planned — v2.5)
+
+#### 9.1 Goal
+Equip executive decision-makers with the capability to name, persist, compare, and restore multiple What-If counterfactual simulation runs and Knapsack budget allocations side-by-side, paired with a lightweight, elegant workspace access gate (passcode / master API key) for secure public cloud deployment.
+
+#### 9.2 Concrete Deliverables
+- **Scenario Persistence & Comparison Engine**:
+  - `src/types/scenarios.ts`: Strongly-typed scenario schema (`ScenarioSnapshot` with UUID, descriptive title, timestamp, baseline customer features, slider adjustments, projected churn rate, revenue at risk delta, and Knapsack budget allocation).
+  - [src/context/ScenarioContext.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/context/ScenarioContext.tsx): React Context managing saved scenario snapshots with `localStorage` persistence, JSON import/export, and side-by-side comparative state.
+  - [src/components/simulator/SavedScenariosDrawer.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/simulator/SavedScenariosDrawer.tsx): Slide-over drawer to browse, restore, compare, and delete saved simulation runs (e.g., *"Q4 Aggressive Win-Back"*, *"Logistics Crisis Mitigation"*, *"Conservative R$ 50k Cap"*).
+  - Side-by-Side Comparison Diff Card in [ChurnSimulatorView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/ChurnSimulatorView.tsx): Contrasts Scenario A vs Scenario B with visual variance scorecards ($\Delta P(\text{Churn})$, $\Delta \text{Revenue at Risk}$, operational lever shifts).
+  - Custom Budget Scenarios in [RetentionPlannerView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/RetentionPlannerView.tsx): 1-click loading and comparison of custom Knapsack retention plans.
+- **Lightweight Workspace Access Security**:
+  - [src/components/auth/WorkspaceGateModal.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/auth/WorkspaceGateModal.tsx): Clean, unobtrusive workspace gate prompted on first visit when `REQUIRE_AUTH=true` or on public staging/production URLs, accepting a workspace passcode or API key.
+  - [src/api/client.ts](file:///Users/gab/Documents/GitHub/Mercury-Web/src/api/client.ts): Automatic injection of validated credentials via `X-API-Key` or `Authorization: Bearer <token>` on all outbound requests, with session restoration and invalid-key feedback.
+
+#### 9.3 Definition of Done
+- [ ] Scenarios persist reliably across browser reloads via `localStorage` with export/import capability.
+- [ ] Side-by-side scenario comparison card computes variances accurately with zero NaN or layout clipping.
+- [ ] Workspace gate unlocks cleanly in both live API mode and offline mock mode.
+- [ ] Unit tests for scenario serialization/diffing logic and Playwright E2E spec verifying scenario save-and-compare flow.
+
+---
+
+### Phase 10: Real-Time Event Streaming, WebSockets & Dynamic Pipeline Telemetry (📋 Planned — v2.6)
+
+#### 10.1 Goal
+Replace manual polling with an event-driven telemetry stream connecting backend pipeline triggers, real-time churn spike alerts, and live database health metrics directly into the executive cockpit via Server-Sent Events (SSE) or WebSockets.
+
+#### 10.2 Concrete Deliverables
+- **Streaming Client Layer**:
+  - `src/api/events.ts`: `MercuryEventStream` client supporting Server-Sent Events (`/api/events/stream`) with heartbeat monitoring, exponential backoff auto-reconnect, and offline event simulation fallback.
+  - Strongly-typed event schema union:
+    - `PIPELINE_STEP_PROGRESS`: Live step execution status (`db_check` $\to$ `ingest` $\to$ `dbt` $\to$ `rfm` $\to$ `churn` $\to$ `codegen`), durations, and log outputs.
+    - `CHURN_SPIKE_DETECTED`: Threshold alert triggered when regional delivery delays or sentiment drops push >500 accounts into high risk.
+    - `CACHE_INVALIDATION`: Notifies frontend when analytical marts are recompiled by dbt.
+    - `METRIC_DRIFT_ALERT`: Model accuracy or latency degradation alert.
+- **Live UI Components**:
+  - `src/components/common/LiveAlertBanner.tsx`: High-contrast dismissible top banner rendering urgent real-time platform events with a 1-click "Triage Now" navigation CTA.
+  - [src/components/layout/PipelineHealthDrawer.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/layout/PipelineHealthDrawer.tsx): Real-time animated pipeline execution stepper displaying live step timers, active stage highlights, and streamed execution logs.
+  - [src/components/layout/Header.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/layout/Header.tsx): Live pulse indicator reflecting true WebSocket / SSE connection health with latency jitter tracking.
+
+#### 10.3 Definition of Done
+- [ ] Event stream client connects cleanly with zero memory leaks on component unmount.
+- [ ] Unit tests for event parsing, reconnection backoff algorithm, and toast dispatching.
+- [ ] Playwright E2E spec verifying incoming `CHURN_SPIKE_DETECTED` alert rendering and interactive triage navigation.
+- [ ] Fallback to 30s background polling when SSE/WebSocket endpoint is unreachable.
+
+---
+
+### Phase 11: Executive Dossier PDF Generation, Multi-Sheet Excel Engine & Print Optimization (📋 Planned — v2.7)
+
+#### 11.1 Goal
+Provide executive leadership and CRM teams with publication-grade export artifacts: automated multi-page executive PDF briefing dossiers, multi-sheet formatted Excel workbooks, and print-optimized executive summaries.
+
+#### 11.2 Concrete Deliverables
+- **Executive Dossier PDF Engine**:
+  - `src/services/dossierGenerator.ts`: Generates a high-resolution, paginated executive PDF briefing document:
+    - Page 1: Executive Cover Page & Macro KPI Scorecard (GMV, Churn Exposure, Repeat Purchase Rate, Retention ROI).
+    - Page 2: 18-Month Delivered Revenue Trends & RFM Quintile Distribution.
+    - Page 3: Knapsack Retention Budget Plan & Funded Playbook Breakdown.
+    - Page 4: Top 25 At-Risk Enterprise Accounts & Diagnostic Friction Analysis.
+- **Multi-Sheet Excel Workbook Generator**:
+  - `src/services/excelExporter.ts`: Generates formatted multi-tab `.xlsx` workbooks using `exceljs`:
+    - Tab 1: `Portfolio Summary` (KPI cards, revenue aggregates, segment totals).
+    - Tab 2: `High-Risk Queue` (Customer Unique IDs, churn probabilities, monetary exposure, state, primary friction driver).
+    - Tab 3: `Playbook Economics` (Knapsack-allocated budgets, expected save counts, gross recovery, net created value).
+    - Tab 4: `Merchant Logistics` (Seller IDs, on-time delivery rates, review scores, freight delay days).
+- **Print Stylesheet Optimization**:
+  - `src/index.css` `@media print` rules: Strips interactive sliders, sidebar rails, buttons, and drawers, rendering crisp monochrome-friendly white backgrounds, clean page breaks (`page-break-inside: avoid`), and full-width tables.
+- **Header Export Dropdown**:
+  - [src/components/layout/Header.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/layout/Header.tsx): "Export Dossier" trigger with options (`Download PDF Executive Dossier`, `Export Multi-Sheet Excel (.xlsx)`, `Print One-Pager`).
+
+#### 11.3 Definition of Done
+- [ ] Generated PDF renders cleanly with crisp typography, vectorized chart imagery, and zero overlapping text.
+- [ ] Excel export produces valid `.xlsx` files with numerical formatting (currency $R\$$, percentages, dates) and auto-adjusted column widths.
+- [ ] Print preview in browser renders cleanly on standard A4 / Letter paper size with zero clipped content.
+- [ ] Unit tests validating workbook schema and data generation logic.
+
+---
+
+### Phase 12: Production Cloud Deployment, Containerization & Global Observability (📋 Planned — v3.0)
+
+#### 12.1 Goal
+Containerize both frontend and backend architectures with production-grade Docker multi-stage builds, automated cloud deployments (Vercel / Cloudflare Pages + Neon PostgreSQL + AWS/Render), and end-to-end telemetry observability.
+
+#### 12.2 Concrete Deliverables
+- **Containerization & Local Production Stack**:
+  - `Dockerfile`: Multi-stage build (Node 20 Alpine build environment $\to$ Nginx unprivileged Alpine runtime with gzip/brotli compression, security headers, and client-side SPA routing rewrites).
+  - `docker-compose.yml`: Local multi-service production simulation:
+    - `mercury-web`: Nginx serving static bundle on port 80/443.
+    - `mercury-backend`: FastAPI running under Uvicorn workers on port 8000.
+    - `mercury-db`: Local PostgreSQL 16 container with initialized schemas for fully offline development.
+- **Automated CI/CD Deployment Pipeline**:
+  - `.github/workflows/deploy-production.yml`: GitHub Actions workflow building production assets, running all 91 automated tests, and deploying to production cloud hosting (Vercel / Cloudflare Pages) upon push to `main`.
+- **Production Error Tracking & Observability**:
+  - `src/utils/telemetry.ts`: Sentry / OpenTelemetry SDK initialization with environment-gated sample rates, capturing uncaught exceptions and tracing API response latencies.
+  - Core Web Vitals Monitoring (LCP, FID, CLS, INP) reporting directly to `/api/health` telemetry.
+- **Security Hardening**:
+  - Content Security Policy (CSP), HTTP Strict Transport Security (HSTS), X-Frame-Options (`DENY`), and X-Content-Type-Options (`nosniff`) headers configured in Nginx and hosting configs.
+
+#### 12.3 Definition of Done
+- [ ] Multi-stage Docker image builds with size < 35MB for web.
+- [ ] Production build passes with zero chunk warnings and sub-2.0s compile time.
+- [ ] Zero security vulnerabilities reported by `npm audit` and static security linters.
+- [ ] Staging environment passes all 29 Playwright E2E journeys against live production backend.
 
 ---
 
@@ -429,6 +538,23 @@ $$\text{Cost}_k = N_k \times \text{CostPerCustomer}_k$$
 $$\text{GrossSaved}_k = \text{Spend}_k \times \text{SaveRate}_k$$
 $$\text{NetValue}_k = \text{GrossSaved}_k - \text{Cost}_k$$
 
+### 5.6 Multi-Scenario Comparative Variance Formulation
+Given two saved simulation or budget allocation scenarios $A$ and $B$:
+$$\Delta \mathbf{x}_{A \to B} = \mathbf{x}_B - \mathbf{x}_A$$
+$$\Delta P(\text{Churn})_{A \to B} = P(\text{Churn} \mid \mathbf{x}_B) - P(\text{Churn} \mid \mathbf{x}_A)$$
+$$\Delta \text{Protected GMV}_{A \to B} = \sum_{k \in \mathcal{K}_B} \text{NetValue}_k - \sum_{k \in \mathcal{K}_A} \text{NetValue}_k$$
+
+### 5.7 Real-Time Anomaly & Churn Spike Detection Formulation
+An urgent platform alert is triggered when the rolling 7-day average delivery delay $\bar{D}_t$ in region $r$ deviates from the historical baseline $\mu_r$ by more than $k$ standard deviations:
+$$\text{Anomaly}(r, t) = \mathbb{I}\left( \frac{\bar{D}_t(r) - \mu_r}{\sigma_r} > k \right), \quad \text{where } k = 2.5$$
+When triggered, downstream customer churn risk is re-indexed:
+$$P(\text{Churn}_i)_{\text{elevated}} = \min\left(1.0, \; P(\text{Churn}_i) + \alpha \cdot \text{DelayImpact}\right)$$
+
+### 5.8 Dossier Financial Recovery Synthesis Formula
+The composite portfolio recovery multiple ($\text{ROI}_{\text{total}}$) exported to executive briefing dossiers is computed as:
+$$\text{ROI}_{\text{total}} = \frac{\sum_{k \in \mathcal{K}_{\text{funded}}} \text{GrossSaved}_k}{\sum_{k \in \mathcal{K}_{\text{funded}}} \text{Cost}_k}$$
+$$\text{Net Value Created} = \sum_{k \in \mathcal{K}_{\text{funded}}} \left( \text{GrossSaved}_k - \text{Cost}_k \right)$$
+
 ---
 
 ## 6. Definition of Done (DoD) Checklist
@@ -440,5 +566,46 @@ $$\text{NetValue}_k = \text{GrossSaved}_k - \text{Cost}_k$$
 | **Bundle Build** | Clean Vite production bundle in `dist/` | `npm run build` |
 | **Contract Adherence** | 100% adherence to `src/types/api.ts` (40 endpoints, 61 schemas) | Static type analysis |
 | **Offline Resilience** | All views fully interactive with realistic fallback mock data | Disconnect network test |
-| **Responsiveness** | Clean responsive grid and flex layouts across 768px to 1920px | Chrome DevTools viewport testing |
-| **Visual WOW Factor** | Dark glassmorphism, Outfit/Inter fonts, smooth micro-interactions | Design system audit |
+| **Responsiveness** | Clean responsive grid and flex layouts across 768px to 1920px | Playwright responsive audit |
+| **Visual WOW Factor** | Executive light mode, Slate-50 canvas, solid semantic colors, zero gradients | Design system audit |
+| **Workspace Security & Scenarios** | Workspace gate protection, scenario save, load, diff comparison | Unit + Playwright E2E |
+| **Event Streaming** | Resilient SSE/WebSocket connection with automatic backoff reconnection | Synthetic event injection |
+| **Dossier & Reporting** | Valid multi-page A4 PDF export and multi-sheet formatted Excel workbook | File integrity validation |
+| **Container & Cloud** | Multi-stage Docker image <35MB, automated CI/CD deployment | Docker build + GitHub Actions |
+
+---
+
+## 7. Phased Implementation Timeline & Milestone Release Schedule
+
+```
+Q3 2026 ──────────────────────────────────────────────────────────► Q4 2026
+┌───────────────────────┐
+│ v2.4 Core Baseline    │  (Phases 1–8: Complete ✅)
+│ - 6 Views & Modals    │  - 63 Vitest Tests
+│ - Light Mode & Sticky │  - 29 Playwright E2E Tests
+└───────────┬───────────┘
+            ▼
+┌───────────────────────┐
+│ v2.5 Saved Scenarios  │  (Phase 9: Next Up 📋)
+│ - What-If Snapshotting│  - Side-by-Side Diffing
+│ - Custom Budget Presets│ - Workspace Access Gate
+└───────────┬───────────┘
+            ▼
+┌───────────────────────┐
+│ v2.6 Live Streaming   │  (Phase 10: Planned 📋)
+│ - WebSockets & SSE    │  - Real-Time Churn Spike Banner
+│ - Live Pipeline Drawer│  - Dynamic Orchestrator Stepper
+└───────────┬───────────┘
+            ▼
+┌───────────────────────┐
+│ v2.7 Dossier & Export │  (Phase 11: Planned 📋)
+│ - PDF Dossier Engine  │  - Multi-Sheet Excel Workbook
+│ - @media print CSS    │  - One-Click Executive Briefing
+└───────────┬───────────┘
+            ▼
+┌───────────────────────┐
+│ v3.0 Cloud & RUM      │  (Phase 12: Planned 📋)
+│ - Docker Multi-Stage  │  - Global Observability / Sentry
+│ - Cloud Deployment    │  - Sub-200ms Global SLAs
+└───────────────────────┘
+```
