@@ -166,7 +166,7 @@ Establish the Vite + React 18 + TypeScript environment, configure strict type-ch
 
 ---
 
-### Phase 2: Strongly-Typed API Client Architecture & Offline Mock Engine
+### Phase 2: Strongly-Typed API Client Architecture & Offline Mock Engine (✅ Complete)
 
 #### 2.1 Goal
 Create a 100% type-safe fetch wrapper consuming `src/types/api.ts` with transparent failover to comprehensive mock data when the backend is offline.
@@ -175,10 +175,11 @@ Create a 100% type-safe fetch wrapper consuming `src/types/api.ts` with transpar
 - [src/api/client.ts](file:///Users/gab/Documents/GitHub/Mercury-Web/src/api/client.ts):
   - Generic typed fetcher: `apiFetch<P extends keyof paths, M extends keyof paths[P]>(path: P, method: M, options?: {...})`.
   - Injects `X-API-Key` or `Authorization: Bearer <token>` from environment (`VITE_API_KEY`, `VITE_AUTH_TOKEN`).
-  - Timeout handling (5000ms) with automatic failover to `src/api/mocks/data.ts` if backend connection fails.
+  - Timeout handling (4000ms AbortController) with automatic failover to `src/api/mocks/data.ts` if backend connection fails.
+  - Reactive connection state tracking (`subscribeConnectionState`, `getConnectionState`) notifying UI of latency and live vs mock status.
 - [src/api/mocks/data.ts](file:///Users/gab/Documents/GitHub/Mercury-Web/src/api/mocks/data.ts):
   - Realistic Olist fixtures for all 40 endpoints:
-    - `mockPortfolioOverview`: R$ 15.9M GMV, 96,096 customers, 2.99% repeat buyer rate, 18.4% high risk rate, R$ 2.45M revenue at risk.
+    - `mockPortfolioOverview`: R$ 15.98M GMV, 96,096 customers, 2.99% repeat buyer rate, 18.4% high risk rate, R$ 2.45M revenue at risk.
     - `mockSegmentsOverview`: 11 RFM segments with customer counts and revenue shares.
     - `mockRevenueTrends`: 18 monthly historical data points (Jan 2017 – Aug 2018).
     - `mockCohortRetention`: 12-month cohort decay matrix.
@@ -186,12 +187,20 @@ Create a 100% type-safe fetch wrapper consuming `src/types/api.ts` with transpar
     - `mockPlaybooks`: 6 canonical retention playbooks.
     - `mockMarketingFunnel`: 8,000 MQLs, 842 closed deals (10.5% conversion), sales velocity, channel attribution.
     - `mockPipelineHealth`: Status OK, 42ms Neon PostgreSQL latency, table counts, and model artifact status.
+  - Dynamic offline calculation engines:
+    - `simulateChurn`: Multi-factor logistic churn probability & risk tier calculator.
+    - `simulateCounterfactual`: Real-time what-if dial simulator for delivery delay, review score, and discounts.
+    - `simulateCampaignROI`: Granular retention campaign ROI and net revenue saved calculator.
+    - `optimizeRetentionBudget`: Greedy Knapsack capital allocation optimizer maximizing recovered GMV.
 - [src/api/index.ts](file:///Users/gab/Documents/GitHub/Mercury-Web/src/api/index.ts):
-  - Modular domain API wrappers: `analyticsApi`, `customersApi`, `predictionsApi`, `retentionApi`, `marketingApi`, `catalogApi`, `healthApi`.
+  - Modular domain API wrappers: `analyticsApi`, `customersApi`, `predictionsApi`, `retentionApi`, `marketingApi`, `catalogApi`, `healthApi`, `authApi`.
 
 #### 2.3 Definition of Done
-- TypeScript compiles cleanly with zero type errors across all API client calls.
-- Calling `apiFetch('/api/analytics/overview', 'get')` returns typed `PortfolioOverview` in both live and offline environments.
+- [x] TypeScript compiles cleanly with zero type errors across all 40 API client calls (`npx tsc --noEmit`).
+- [x] Linter passes with zero warnings or errors (`npm run lint` with `--max-warnings 0`).
+- [x] Production build passes cleanly in <1s (`npm run build`).
+- [x] All 40 REST endpoint routes tested and verified via automated verification test suite.
+- [x] UI automatically switches between Live REST API and Offline Mock Engine without crashes or blank screens.
 
 ---
 
