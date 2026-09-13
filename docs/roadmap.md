@@ -265,29 +265,35 @@ Deliver the executive command center displaying macro portfolio health, revenue 
 
 ---
 
-### Phase 5: View 2 — Customer Intelligence Directory & 360 Deep-Dive
+### Phase 5: View 2 — Customer Intelligence Directory & 360 Deep-Dive (✅ Complete)
 
 #### 5.1 Goal
 Provide an operational directory for filtering customers, prioritizing intervention queues, exporting lists, and inspecting single-customer 360 profiles.
 
 #### 5.2 Concrete Deliverables
 - [src/views/CustomerDirectoryView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/CustomerDirectoryView.tsx):
-  - Dual tabs: **All Customers** vs **Priority At-Risk Queue** (`/api/customers/at-risk`).
-  - Search input (Customer Unique ID, City, State) with 300ms debounce.
-  - Multi-select filters: RFM Segment (Champions, Loyal, etc.), Risk Tier (High, Medium, Low), State (SP, RJ, MG, etc.).
-  - 1-click **Export to CSV** button invoking `GET /api/customers/export`.
-  - High-density paginated data table: Customer Unique ID, Segment badge, Lifetime Spend, Lifetime Orders, Churn Probability $P(\text{Churn})$, Revenue at Risk, and Action Button.
+  - [x] Dual tabs: **All Customers** vs **Priority At-Risk Queue** (`/api/customers/at-risk`).
+  - [x] Search input (Customer Unique ID, City, State) with 300ms debounce.
+  - [x] Multi-select filters: RFM Segment (Champions, Loyal, etc.), Risk Tier (High, Medium, Low), State (SP, RJ, MG, etc.), Retention Priority.
+  - [x] 1-click **Export to CSV** button invoking `GET /api/customers/export`.
+  - [x] High-density paginated data table: Customer Unique ID, Segment badge, Lifetime Spend, Lifetime Orders, Churn Probability $P(\text{Churn})$, Revenue at Risk, and Action Button.
 - [src/components/customers/Customer360Modal.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/customers/Customer360Modal.tsx):
-  - Slide-over profile displaying:
-    - Customer Header: Unique ID, geographic location, tenure (days), lifetime spend.
-    - Churn Risk Meter: Radial progress gauge displaying $P(\text{Churn})$, Risk Tier, and Retention Priority.
-    - Top Risk Factors: Shapley feature contributions (e.g. delivery delays, review ratings, recency).
-    - Basket & Fulfillment Metrics: Avg order value, freight ratio, delivery delay days, late delivery flag.
-    - Prescriptive Playbook Recommendation: Fetches `GET /api/retention/recommendations/{id}`, displays optimal playbook name, action template, and estimated save rate.
+  - [x] Slide-over profile displaying:
+    - [x] Customer Header: Unique ID with copy action, geographic location, tenure (days), lifetime spend.
+    - [x] Churn Risk Meter: Radial progress gauge displaying $P(\text{Churn})$, Risk Tier, and Retention Priority.
+    - [x] Top Risk Factors: Shapley feature contributions (e.g. delivery delays, review ratings, recency).
+    - [x] Basket & Fulfillment Metrics: Avg order value, freight ratio, delivery delay days, late delivery flag.
+    - [x] Prescriptive Playbook Recommendation: Fetches `GET /api/retention/recommendations/{id}`, displays optimal playbook name, action template, and estimated save rate.
+    - [x] Direct Action CTA: "Simulate Churn What-If" pre-hydrated into Churn Simulator.
 
 #### 5.3 Definition of Done
-- Filtering updates table rows instantly without layout shift.
-- Clicking any row opens the Customer 360 drawer with fully populated metrics and recommendations.
+- [x] Filtering updates table rows instantly without layout shift.
+- [x] Clicking any row opens the Customer 360 drawer with fully populated metrics and recommendations.
+- [x] TypeScript compiles cleanly with 0 errors (`npx tsc --noEmit`).
+- [x] ESLint passes with 0 warnings (`npm run lint`).
+- [x] 22/22 Vitest unit tests passing (`npm test`).
+- [x] 11/11 Playwright E2E tests passing (`npm run test:e2e`).
+- [x] Production build passes cleanly in <2s (`npm run build`).
 
 ---
 

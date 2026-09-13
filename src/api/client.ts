@@ -234,8 +234,86 @@ export async function apiFetch<
 }
 
 // -------------------------------------------------------------------------
-// Route Mock Dispatcher
+// Route Mock Dispatcher & Dynamic Query Evaluator
 // -------------------------------------------------------------------------
+
+function filterAndPaginateMockCustomers(
+  items: typeof mockCustomersList,
+  params: Record<string, unknown>
+) {
+  let filtered = [...items];
+
+  // Search filter
+  const search = typeof params.search === 'string' ? params.search.trim().toLowerCase() : '';
+  if (search) {
+    filtered = filtered.filter(
+      (c) =>
+        c.customer_unique_id.toLowerCase().includes(search) ||
+        (c.city && c.city.toLowerCase().includes(search)) ||
+        (c.state && c.state.toLowerCase().includes(search))
+    );
+  }
+
+  // Segment filter
+  const segment = typeof params.segment === 'string' ? params.segment : '';
+  if (segment && segment !== 'all') {
+    filtered = filtered.filter((c) => c.segment?.toLowerCase() === segment.toLowerCase());
+  }
+
+  // Risk Tier filter
+  const riskTier = typeof params.risk_tier === 'string' ? params.risk_tier : '';
+  if (riskTier && riskTier !== 'all') {
+    const normRisk = riskTier.toLowerCase().replace(' risk', '').trim();
+    filtered = filtered.filter((c) => c.risk_tier?.toLowerCase().includes(normRisk));
+  }
+
+  // State filter
+  const state = typeof params.state === 'string' ? params.state : '';
+  if (state && state !== 'all') {
+    filtered = filtered.filter((c) => c.state?.toLowerCase() === state.toLowerCase());
+  }
+
+  // Retention priority filter
+  const priority = typeof params.retention_priority === 'string' ? params.retention_priority : '';
+  if (priority && priority !== 'all') {
+    filtered = filtered.filter((c) =>
+      c.retention_priority?.toLowerCase().includes(priority.toLowerCase())
+    );
+  }
+
+  // Sorting
+  const sortBy = typeof params.sort_by === 'string' ? params.sort_by : 'lifetime_spend';
+  const sortDir =
+    typeof params.sort_direction === 'string' ? params.sort_direction.toLowerCase() : 'desc';
+  filtered.sort((a, b) => {
+    let valA = a[sortBy as keyof typeof a] ?? 0;
+    let valB = b[sortBy as keyof typeof b] ?? 0;
+    if (typeof valA === 'string') valA = (valA as string).toLowerCase();
+    if (typeof valB === 'string') valB = (valB as string).toLowerCase();
+    if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+    if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const page = Math.max(1, Number(params.page) || 1);
+  const pageSize = Math.max(1, Number(params.page_size) || 10);
+  const totalItems = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const startIndex = (page - 1) * pageSize;
+  const paginated = filtered.slice(startIndex, startIndex + pageSize);
+
+  return {
+    items: paginated,
+    pagination: {
+      page,
+      page_size: pageSize,
+      total_items: totalItems,
+      total_pages: totalPages,
+      has_next: page < totalPages,
+      has_prev: page > 1,
+    },
+  };
+}
 
 function resolveMockFallback<
   P extends keyof paths,
@@ -278,67 +356,98 @@ function resolveMockFallback<
   } else if (p === '/api/analytics/cache/clear' && m === 'post') {
     result = { status: 'success', cleared_entries: 24, timestamp: new Date().toISOString() };
   } else if (p === '/api/customers' && m === 'get') {
-    result = {
-      items: mockCustomersList,
-      pagination: {
-        page: 1,
-        page_size: 20,
-        total_items: mockCustomersList.length,
-        total_pages: 1,
-        has_next: false,
-        has_prev: false,
-      },
-    };
+    const params = (options?.params || {}) as Record<string, unknown>;
+    result = filterAndPaginateMockCustomers(mockCustomersList, params);
   } else if (p === '/api/customers/at-risk' && m === 'get') {
-    const atRiskItems = mockCustomersList.filter((c) => c.risk_tier === 'High');
-    result = {
-      items: atRiskItems,
-      pagination: {
-        page: 1,
-        page_size: 20,
-        total_items: atRiskItems.length,
-        total_pages: 1,
-        has_next: false,
-        has_prev: false,
-      },
-    };
+    const params = (options?.params || {}) as Record<string, unknown>;
+    const atRiskItems = mockCustomersList.filter((c) => c.risk_tier === 'High' || (c.churn_probability ?? 0) >= 0.7);
+    result = filterAndPaginateMockCustomers(atRiskItems, params);
   } else if (p === '/api/customers/segments' && m === 'get') {
     result = mockSegmentsOverview;
   } else if (p === '/api/customers/export' && m === 'get') {
-    const headers = 'customer_unique_id,city,state,lifetime_orders,lifetime_spend,churn_probability,risk_tier,segment\n';
-    const rows = mockCustomersList
+    const params = (options?.params || {}) as Record<string, unknown>;
+    const exportData = filterAndPaginateMockCustomers(mockCustomersList, { ...params, page: 1, page_size: 1000 });
+    const headers = 'customer_unique_id,city,state,lifetime_orders,lifetime_spend,churn_probability,risk_tier,segment,retention_priority,revenue_at_risk\n';
+    const rows = exportData.items
       .map(
         (c) =>
-          `${c.customer_unique_id},${c.city},${c.state},${c.lifetime_orders},${c.lifetime_spend},${c.churn_probability},${c.risk_tier},${c.segment}`
+          `${c.customer_unique_id},${c.city ?? ''},${c.state ?? ''},${c.lifetime_orders},${c.lifetime_spend},${c.churn_probability ?? 0},${c.risk_tier},${c.segment},${c.retention_priority},${c.revenue_at_risk}`
       )
       .join('\n');
     result = headers + rows;
   } else if ((p === '/api/customers/{customer_unique_id}' || p === '/api/customers/{id}') && m === 'get') {
     const customerId = String(pathParams.customer_unique_id || pathParams.id || mockCustomerDetail.customer_unique_id);
-    result = {
-      ...mockCustomerDetail,
-      customer_unique_id: customerId,
-    };
+    const foundCust = mockCustomersList.find((c) => c.customer_unique_id === customerId);
+    if (foundCust) {
+      result = {
+        ...mockCustomerDetail,
+        customer_unique_id: foundCust.customer_unique_id,
+        city: foundCust.city,
+        state: foundCust.state,
+        lifetime_orders: foundCust.lifetime_orders,
+        lifetime_spend: foundCust.lifetime_spend,
+        avg_order_value: foundCust.avg_order_value,
+        lifetime_product_spend: Number((foundCust.lifetime_spend * 0.85).toFixed(2)),
+        lifetime_freight_spend: Number((foundCust.lifetime_spend * 0.15).toFixed(2)),
+        is_repeat_buyer: foundCust.is_repeat_buyer,
+        first_purchased_at: foundCust.first_purchased_at,
+        latest_purchased_at: foundCust.latest_purchased_at,
+        recency_days: foundCust.recency_days,
+        customer_lifespan_days: foundCust.customer_lifespan_days,
+        rfm: {
+          customer_unique_id: foundCust.customer_unique_id,
+          r_score: foundCust.recency_days && foundCust.recency_days < 60 ? 5 : foundCust.recency_days && foundCust.recency_days < 180 ? 3 : 1,
+          f_score: Math.min(5, foundCust.lifetime_orders),
+          m_score: foundCust.lifetime_spend > 1500 ? 5 : foundCust.lifetime_spend > 500 ? 3 : 1,
+          rfm_score: 4.2,
+          rfm_label: `${foundCust.recency_days && foundCust.recency_days < 60 ? 5 : 2}${Math.min(5, foundCust.lifetime_orders)}${foundCust.lifetime_spend > 1000 ? 5 : 3}`,
+          segment: foundCust.segment ?? 'Champions',
+          recency_days: foundCust.recency_days ?? 30,
+          frequency: foundCust.lifetime_orders,
+          monetary: foundCust.lifetime_spend,
+          computed_at: new Date().toISOString(),
+        },
+        churn: {
+          customer_unique_id: foundCust.customer_unique_id,
+          churn_probability: foundCust.churn_probability ?? 0.75,
+          is_churned: (foundCust.churn_probability ?? 0) >= 0.7 ? 1 : 0,
+          monetary_value: foundCust.lifetime_spend,
+          risk_tier: foundCust.risk_tier,
+          retention_priority: foundCust.retention_priority,
+          revenue_at_risk: foundCust.revenue_at_risk,
+          predicted_at: new Date().toISOString(),
+        },
+      };
+    } else {
+      result = {
+        ...mockCustomerDetail,
+        customer_unique_id: customerId,
+      };
+    }
   } else if ((p === '/api/customers/{customer_unique_id}/rfm' || p === '/api/customers/{id}/rfm') && m === 'get') {
     const customerId = String(pathParams.customer_unique_id || pathParams.id || mockCustomerDetail.customer_unique_id);
-    result = mockCustomerDetail.rfm || {
+    const foundCust = mockCustomersList.find((c) => c.customer_unique_id === customerId);
+    result = {
       customer_unique_id: customerId,
-      r_score: 5,
-      f_score: 5,
-      m_score: 5,
-      rfm_score: 5.0,
-      rfm_label: '555',
-      segment: 'Champions',
-      recency_days: 11,
-      frequency: 16,
-      monetary: 2845.6,
+      r_score: foundCust?.recency_days && foundCust.recency_days < 60 ? 5 : 2,
+      f_score: Math.min(5, foundCust?.lifetime_orders || 1),
+      m_score: (foundCust?.lifetime_spend || 100) > 1000 ? 5 : 3,
+      rfm_score: 4.0,
+      rfm_label: '433',
+      segment: foundCust?.segment || 'At Risk',
+      recency_days: foundCust?.recency_days || 45,
+      frequency: foundCust?.lifetime_orders || 1,
+      monetary: foundCust?.lifetime_spend || 150.0,
     };
   } else if ((p === '/api/customers/{customer_unique_id}/churn' || p === '/api/customers/{id}/churn') && m === 'get') {
+    const customerId = String(pathParams.customer_unique_id || pathParams.id || mockCustomerDetail.customer_unique_id);
+    const foundCust = mockCustomersList.find((c) => c.customer_unique_id === customerId);
     result = simulateChurn({
-      customer_lifespan_days: 11,
-      lifetime_orders: 16,
-      lifetime_spend: 2845.6,
-      avg_review_score: 4.85,
+      customer_lifespan_days: foundCust?.customer_lifespan_days ?? 120,
+      lifetime_orders: foundCust?.lifetime_orders ?? 1,
+      lifetime_spend: foundCust?.lifetime_spend ?? 250,
+      avg_review_score: 4.2,
+      avg_delivery_delay_days: foundCust?.risk_tier === 'High' ? 4.5 : -2.0,
     });
   } else if (p === '/api/predictions/churn' && m === 'post') {
     result = simulateChurn(body || {});
@@ -376,9 +485,29 @@ function resolveMockFallback<
     m === 'get'
   ) {
     const customerId = String(pathParams.customer_unique_id || pathParams.id || mockCustomerRecommendation.customer_unique_id);
+    const foundCust = mockCustomersList.find((c) => c.customer_unique_id === customerId);
+    const chosenPlaybook =
+      foundCust && foundCust.lifetime_spend > 1500
+        ? mockRetentionPlaybooks[0] // vip_concierge
+        : foundCust && foundCust.risk_tier === 'High'
+        ? mockRetentionPlaybooks[1] // logistics_friction_recovery
+        : foundCust && foundCust.risk_tier === 'Medium'
+        ? mockRetentionPlaybooks[3] // automated_reengagement
+        : mockRetentionPlaybooks[4]; // loyalty_nurture
+
     result = {
-      ...mockCustomerRecommendation,
       customer_unique_id: customerId,
+      risk_tier: foundCust?.risk_tier ?? 'High',
+      churn_probability: foundCust?.churn_probability ?? 0.785,
+      revenue_at_risk: foundCust?.revenue_at_risk ?? 1250.0,
+      primary_friction:
+        foundCust?.risk_tier === 'High'
+          ? 'Prolonged Recency Inactivity & Carrier Delivery Delay'
+          : 'Frequency Decay & Re-engagement Window Expiration',
+      recommended_playbook: chosenPlaybook,
+      projected_net_gain: Number(((foundCust?.revenue_at_risk ?? 1000) * (chosenPlaybook.estimated_save_rate_min ?? 0.25) - chosenPlaybook.default_cost_per_customer).toFixed(2)),
+      expected_gross_recovery: Number(((foundCust?.revenue_at_risk ?? 1000) * (chosenPlaybook.estimated_save_rate_max ?? 0.40)).toFixed(2)),
+      suggested_message: `Prezado cliente (${customerId.slice(0, 8)}), notamos que seu último pedido pode ter tido atritos de entrega. Preparamos uma condição exclusiva para seu retorno.`,
     };
   } else if (p === '/api/marketing/overview' && m === 'get') {
     result = mockMarketingFunnel;

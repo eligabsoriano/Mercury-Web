@@ -21,3 +21,26 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
   disconnect() {}
 };
+
+// Polyfill URL.createObjectURL and URL.revokeObjectURL for JSDOM
+if (typeof URL !== 'undefined') {
+  if (!URL.createObjectURL) {
+    URL.createObjectURL = () => 'blob:mock-url';
+  }
+  if (!URL.revokeObjectURL) {
+    URL.revokeObjectURL = () => {};
+  }
+}
+
+// Polyfill navigator.clipboard for JSDOM
+if (typeof navigator !== 'undefined' && !navigator.clipboard) {
+  Object.defineProperty(navigator, 'clipboard', {
+    value: {
+      writeText: async () => Promise.resolve(),
+    },
+    writable: true,
+  });
+}
+
+
+

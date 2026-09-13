@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ==========================================================================
    Mercury Customer Intelligence & Retention Analytics
    Liquid Glass Design System Tokens & Quantum Refractive HUD

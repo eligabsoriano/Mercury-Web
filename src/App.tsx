@@ -112,6 +112,10 @@ export const App: React.FC = () => {
         <CustomerIntelligenceView
           selectedCustomerId={selectedCustomerId}
           onSelectCustomer={(id) => setSelectedCustomerId(id)}
+          onNavigateToSimulator={(id) => {
+            setSelectedCustomerId(id);
+            setActiveView('churn-simulator');
+          }}
         />
       )}
 
