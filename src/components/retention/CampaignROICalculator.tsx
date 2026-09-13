@@ -123,11 +123,11 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
       glow="cyan"
       headerAction={
         isCalculating ? (
-          <span className="text-xs font-mono text-[#38bdf8] animate-pulse">
+          <span className="text-xs font-mono text-sky-600 animate-pulse">
             Recomputing ROI...
           </span>
         ) : (
-          <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[rgba(56,189,248,0.15)] text-[#7dd3fc] border border-[rgba(56,189,248,0.3)] font-bold">
+          <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 font-bold">
             POST /api/retention/campaigns/simulate-roi
           </span>
         )
@@ -137,19 +137,19 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
         {/* Left: Input Parameters (6 cols) */}
         <div className="lg:col-span-6 space-y-5">
           {/* Playbook Preset Dropdown */}
-          <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] space-y-2">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
             <label
               htmlFor="playbook-select"
-              className="text-xs font-mono uppercase tracking-wider text-[var(--text-secondary)] font-semibold block flex items-center space-x-1.5"
+              className="text-xs font-mono uppercase tracking-wider text-slate-600 font-semibold block flex items-center space-x-1.5"
             >
-              <Calculator size={13} className="text-[#38bdf8]" />
+              <Calculator size={13} className="text-sky-600" />
               <span>Intervention Strategy Baseline:</span>
             </label>
             <select
               id="playbook-select"
               value={selectedPlaybookId}
               onChange={(e) => handlePlaybookChange(e.target.value)}
-              className="w-full px-3 py-2 text-xs font-mono bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.08)] rounded-xl text-white focus:outline-none focus:border-[rgba(56,189,248,0.5)] transition-colors"
+              className="w-full px-3 py-2 text-xs font-mono bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-sky-500 transition-colors shadow-xs"
             >
               <option value="custom">Custom Campaign Configuration</option>
               {playbooks.map((pb) => (
@@ -161,7 +161,7 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
           </div>
 
           {/* Sliders */}
-          <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] space-y-5">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-5">
             <Slider
               label="Targeted Customer Count"
               value={targetCustomerCount}
@@ -232,14 +232,14 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
 
         {/* Right: Real-time Economic Outcome Scorecard (6 cols) */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="p-5 rounded-2xl bg-[rgba(11,16,28,0.75)] border border-[rgba(255,255,255,0.09)] space-y-4">
-            <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500">
               <span>FINANCIAL PERFORMANCE FORECAST</span>
               <span
                 className={`px-2.5 py-0.5 rounded-full font-bold flex items-center space-x-1 ${
                   isProfitable
-                    ? 'bg-[rgba(52,211,153,0.15)] text-[#34d399] border border-[rgba(52,211,153,0.3)]'
-                    : 'bg-[rgba(244,63,94,0.15)] text-[#fb7185] border border-[rgba(244,63,94,0.3)]'
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    : 'bg-rose-50 text-rose-700 border border-rose-200'
                 }`}
               >
                 {isProfitable ? <CheckCircle2 size={12} /> : <AlertTriangle size={12} />}
@@ -248,29 +248,29 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
             </div>
 
             {/* Big Metrics Grid */}
-            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-[rgba(255,255,255,0.06)]">
+            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
               <div>
-                <span className="text-xs text-[var(--text-muted)] block flex items-center space-x-1">
-                  <DollarSign size={12} className="text-[#fbbf24]" />
+                <span className="text-xs text-slate-500 block flex items-center space-x-1">
+                  <DollarSign size={12} className="text-amber-500" />
                   <span>Total Campaign Cost</span>
                 </span>
-                <span className="font-display text-2xl font-black text-white mt-1 block">
+                <span className="font-display text-2xl font-black text-slate-900 mt-1 block">
                   R$ {totalCost.toLocaleString()}
                 </span>
-                <span className="text-[10px] font-mono text-[var(--text-muted)] mt-0.5 block">
+                <span className="text-[10px] font-mono text-slate-400 mt-0.5 block">
                   R$ {costPerCustomer.toFixed(2)} × {targetCustomerCount.toLocaleString()} cust
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-[var(--text-muted)] block flex items-center space-x-1">
-                  <TrendingUp size={12} className="text-[#34d399]" />
+                <span className="text-xs text-slate-500 block flex items-center space-x-1">
+                  <TrendingUp size={12} className="text-emerald-600" />
                   <span>Gross Protected GMV</span>
                 </span>
-                <span className="font-display text-2xl font-black text-[#34d399] mt-1 block">
+                <span className="font-display text-2xl font-black text-emerald-600 mt-1 block">
                   R$ {grossSaved.toLocaleString()}
                 </span>
-                <span className="text-[10px] font-mono text-[#6ee7b7] mt-0.5 block">
+                <span className="text-[10px] font-mono text-emerald-700 mt-0.5 block font-medium">
                   {projectedSaved.toLocaleString()} accounts saved
                 </span>
               </div>
@@ -280,17 +280,17 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
             <div
               className={`p-3.5 rounded-xl border flex items-center justify-between text-xs font-mono ${
                 isProfitable
-                  ? 'bg-[rgba(52,211,153,0.1)] border-[rgba(52,211,153,0.3)]'
-                  : 'bg-[rgba(244,63,94,0.1)] border-[rgba(244,63,94,0.3)]'
+                  ? 'bg-emerald-50 border-emerald-200'
+                  : 'bg-rose-50 border-rose-200'
               }`}
             >
               <div>
-                <span className="text-[var(--text-secondary)] block text-[10px] uppercase">
+                <span className="text-slate-600 block text-[10px] uppercase">
                   Net Value Created
                 </span>
                 <span
                   className={`font-display text-2xl font-black ${
-                    isProfitable ? 'text-[#34d399]' : 'text-[#f43f5e]'
+                    isProfitable ? 'text-emerald-700' : 'text-rose-700'
                   }`}
                 >
                   {netSaved >= 0 ? `+R$ ${netSaved.toLocaleString()}` : `-R$ ${Math.abs(netSaved).toLocaleString()}`}
@@ -298,12 +298,12 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
               </div>
 
               <div className="text-right">
-                <span className="text-[var(--text-secondary)] block text-[10px] uppercase">
+                <span className="text-slate-600 block text-[10px] uppercase">
                   Net ROI
                 </span>
                 <span
                   className={`font-display text-2xl font-black ${
-                    isProfitable ? 'text-[#34d399]' : 'text-[#f43f5e]'
+                    isProfitable ? 'text-emerald-700' : 'text-rose-700'
                   }`}
                 >
                   {roi >= 0 ? `+${roi.toFixed(1)}%` : `${roi.toFixed(1)}%`}
@@ -312,39 +312,39 @@ export const CampaignROICalculator: React.FC<CampaignROICalculatorProps> = ({
             </div>
 
             {/* Break-Even & Efficiency Secondary Grid */}
-            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[rgba(255,255,255,0.06)] text-xs font-mono">
-              <div className="p-3 rounded-lg bg-[rgba(255,255,255,0.02)]">
-                <span className="text-[10px] text-[var(--text-muted)] block flex items-center space-x-1">
-                  <Scale size={11} className="text-[#38bdf8]" />
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100 text-xs font-mono">
+              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <span className="text-[10px] text-slate-500 block flex items-center space-x-1">
+                  <Scale size={11} className="text-sky-600" />
                   <span>Break-Even Save Rate</span>
                 </span>
-                <span className="text-white font-bold text-base mt-0.5 block">
+                <span className="text-slate-900 font-bold text-base mt-0.5 block">
                   {(breakEvenRate * 100).toFixed(2)}%
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)]">
+                <span className="text-[9px] text-slate-400">
                   Required to prevent net loss
                 </span>
               </div>
 
-              <div className="p-3 rounded-lg bg-[rgba(255,255,255,0.02)]">
-                <span className="text-[10px] text-[var(--text-muted)] block flex items-center space-x-1">
-                  <Percent size={11} className="text-[#c084fc]" />
+              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <span className="text-[10px] text-slate-500 block flex items-center space-x-1">
+                  <Percent size={11} className="text-violet-600" />
                   <span>Capital Efficiency Multiplier</span>
                 </span>
-                <span className="text-[#c084fc] font-bold text-base mt-0.5 block">
+                <span className="text-violet-700 font-bold text-base mt-0.5 block">
                   {efficiency.toFixed(2)}x
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)]">
+                <span className="text-[9px] text-slate-400">
                   GMV protected per BRL spent
                 </span>
               </div>
             </div>
 
             {/* Executive Recommendation Banner */}
-            <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] flex items-start space-x-2 text-xs">
-              <Sparkles size={14} className="text-[#38bdf8] shrink-0 mt-0.5" />
-              <p className="text-[var(--text-secondary)] leading-relaxed">
-                <strong className="text-white font-semibold">Executive Assessment: </strong>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start space-x-2 text-xs">
+              <Sparkles size={14} className="text-sky-600 shrink-0 mt-0.5" />
+              <p className="text-slate-600 leading-relaxed">
+                <strong className="text-slate-900 font-semibold">Executive Assessment: </strong>
                 {simulationResult?.recommendation ??
                   (isProfitable
                     ? `Highly attractive deployment: Yields ${roi.toFixed(1)}% Net ROI with ${efficiency.toFixed(2)}x capital multiplier.`

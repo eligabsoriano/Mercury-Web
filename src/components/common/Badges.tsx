@@ -40,7 +40,7 @@ export const RiskTierBadge: React.FC<RiskTierBadgeProps> = ({
       />
       <span>{tier}</span>
       {probability !== undefined && (
-        <span className="opacity-80 font-mono text-[11px] ml-0.5">
+        <span className="opacity-75 font-mono text-[11px] ml-0.5 font-medium">
           {(probability * 100).toFixed(0)}%
         </span>
       )}
@@ -57,30 +57,30 @@ export const SegmentBadge: React.FC<SegmentBadgeProps> = ({ segment, className }
   const getStyle = (seg: string) => {
     switch (seg.toLowerCase()) {
       case 'champions':
-        return 'bg-[rgba(52,211,153,0.12)] text-[#6ee7b7] border-[rgba(52,211,153,0.35)] shadow-[0_0_12px_rgba(52,211,153,0.18)]';
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
       case 'loyal customers':
       case 'potential loyalists':
-        return 'bg-[rgba(56,189,248,0.12)] text-[#7dd3fc] border-[rgba(56,189,248,0.35)] shadow-[0_0_12px_rgba(56,189,248,0.18)]';
+        return 'bg-sky-50 text-sky-700 border-sky-200';
       case 'at risk':
       case "can't lose them":
-        return 'bg-[rgba(244,63,94,0.14)] text-[#fda4af] border-[rgba(244,63,94,0.40)] shadow-[0_0_12px_rgba(244,63,94,0.22)]';
+        return 'bg-rose-50 text-rose-700 border-rose-200';
       case 'customers needing attention':
       case 'about to sleep':
-        return 'bg-[rgba(251,191,36,0.12)] text-[#fde68a] border-[rgba(251,191,36,0.35)] shadow-[0_0_12px_rgba(251,191,36,0.18)]';
+        return 'bg-amber-50 text-amber-700 border-amber-200';
       case 'recent customers':
       case 'promising':
-        return 'bg-[rgba(139,92,246,0.14)] text-[#d8b4fe] border-[rgba(139,92,246,0.38)] shadow-[0_0_12px_rgba(139,92,246,0.20)]';
+        return 'bg-indigo-50 text-indigo-700 border-indigo-200';
       case 'hibernating':
       case 'lost':
       default:
-        return 'bg-[rgba(255,255,255,0.06)] text-[#94a3b8] border-[rgba(255,255,255,0.12)]';
+        return 'bg-slate-100 text-slate-600 border-slate-200';
     }
   };
 
   return (
     <span
       className={clsx(
-        'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border backdrop-blur-md transition-all duration-200 hover:scale-105 select-none',
+        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border select-none transition-transform hover:scale-105',
         getStyle(segment),
         className
       )}
@@ -102,12 +102,12 @@ export const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority, classNam
   return (
     <span
       className={clsx(
-        'inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider border backdrop-blur-md',
+        'inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wider border',
         isP1
-          ? 'bg-[rgba(244,63,94,0.18)] text-[#fecdd3] border-[rgba(244,63,94,0.45)] shadow-[0_0_10px_rgba(244,63,94,0.25)]'
+          ? 'bg-rose-50 text-rose-700 border-rose-200'
           : isP2
-          ? 'bg-[rgba(251,191,36,0.18)] text-[#fef3c7] border-[rgba(251,191,36,0.45)] shadow-[0_0_10px_rgba(251,191,36,0.25)]'
-          : 'bg-[rgba(255,255,255,0.08)] text-[var(--text-secondary)] border-[rgba(255,255,255,0.15)]',
+          ? 'bg-amber-50 text-amber-700 border-amber-200'
+          : 'bg-slate-100 text-slate-600 border-slate-200',
         className
       )}
     >

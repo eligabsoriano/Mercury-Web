@@ -39,7 +39,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   return (
     <div
       className={clsx(
-        'liquid-glass flex flex-col',
+        'liquid-glass flex flex-col bg-white border border-slate-200 shadow-sm',
         interactive && 'liquid-glass-interactive',
         glowClasses,
         paddingClasses,
@@ -48,15 +48,15 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       {...rest}
     >
       {(title || headerAction) && (
-        <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[rgba(255,255,255,0.07)]">
+        <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
           <div>
             {title && (
-              <h3 className="font-display text-base font-bold text-[var(--text-primary)] tracking-tight">
+              <h3 className="font-display text-base font-bold text-slate-900 tracking-tight">
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="text-xs text-[var(--text-secondary)] mt-0.5 font-normal">
+              <p className="text-xs text-slate-500 mt-0.5 font-normal">
                 {subtitle}
               </p>
             )}

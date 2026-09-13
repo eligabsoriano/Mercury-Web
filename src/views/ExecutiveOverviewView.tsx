@@ -155,23 +155,23 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
       {/* Executive Hero Intro Banner */}
       <section className="space-y-2.5">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(139,92,246,0.12)] border border-[rgba(139,92,246,0.3)] text-xs font-mono text-[#c4b5fd]">
-            <Sparkles size={13} className="text-[#a78bfa]" />
-            <span className="uppercase tracking-wider font-semibold">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-mono text-indigo-700 font-semibold">
+            <Sparkles size={13} className="text-indigo-600" />
+            <span className="uppercase tracking-wider">
               Executive Intelligence Command Center
             </span>
           </div>
 
-          <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-[rgba(52,211,153,0.1)] border border-[rgba(52,211,153,0.25)] text-[11px] font-mono text-[#6ee7b7]">
+          <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-mono text-emerald-700 font-medium">
             <span className="gem-dot gem-dot-emerald" />
             <span>Olist Enterprise Marketplace (Brazil)</span>
           </div>
         </div>
 
-        <h1 className="font-display text-3xl md:text-5xl font-black tracking-tight leading-tight">
+        <h1 className="font-display text-3xl md:text-5xl font-black tracking-tight leading-tight text-slate-900">
           Portfolio Health, Revenue Exposure & Retention Dynamics
         </h1>
-        <p className="text-sm md:text-base text-[var(--text-secondary)] max-w-3xl leading-relaxed">
+        <p className="text-sm md:text-base text-slate-600 max-w-3xl leading-relaxed">
           Comprehensive synthesis of 100k+ Brazilian E-Commerce orders into macroeconomic revenue trends,
           11-quintile RFM customer cohorts, 12-month retention survival curves, and counterfactual churn economics.
         </p>
@@ -274,7 +274,7 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left (7 cols): Timeseries Revenue & Order Trend */}
         <div className="lg:col-span-7">
-          <RevenueTrendChart data={revenueTrends} isLoading={isLoadingAnalytics} />
+          <RevenueTrendChart data={revenueTrends?.trends ?? null} isLoading={isLoadingAnalytics} />
         </div>
 
         {/* Right (5 cols): Revenue at Risk Breakdown & Triage Priorities */}
@@ -319,10 +319,9 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
           <GlassCard
             title="Counterfactual What-If Churn Laboratory"
             subtitle="Drag simulated operational dials to project real-time shifts in churn probability and protected revenue"
-            glow="violet"
             className="h-full"
             headerAction={
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[rgba(139,92,246,0.16)] text-[#d8b4fe] border border-[rgba(139,92,246,0.4)] font-semibold">
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
                 POST /api/predictions/churn/simulate
               </span>
             }
@@ -374,41 +373,41 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
               />
 
               {/* Dual-Prism Simulation Outcome Visualizer */}
-              <div className="p-5 rounded-2xl bg-[rgba(11,16,28,0.75)] border border-[rgba(255,255,255,0.09)] space-y-4 backdrop-blur-xl relative overflow-hidden">
-                <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-mono">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4 relative overflow-hidden">
+                <div className="flex items-center justify-between text-xs text-slate-500 font-mono">
                   <span className="flex items-center space-x-1.5">
                     <span className="gem-dot gem-dot-crimson" />
                     <span>BASELINE STATE</span>
                   </span>
-                  <ArrowRight size={14} className="text-[#a78bfa] animate-pulse" />
+                  <ArrowRight size={14} className="text-indigo-500" />
                   <span className="flex items-center space-x-1.5">
                     <span className="gem-dot gem-dot-emerald" />
                     <span>PROJECTED COUNTERFACTUAL</span>
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-[rgba(255,255,255,0.06)]">
+                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-200">
                   <div>
-                    <span className="text-xs text-[var(--text-muted)] block uppercase font-medium">
+                    <span className="text-xs text-slate-400 block uppercase font-medium">
                       Baseline Churn Risk:
                     </span>
                     <div className="flex items-center space-x-2 mt-1">
-                      <span className="font-display text-2xl font-bold opacity-60">
+                      <span className="font-display text-2xl font-bold text-slate-400">
                         {(baselineChurnProb * 100).toFixed(0)}%
                       </span>
                       <RiskTierBadge tier="High Risk" probability={baselineChurnProb} />
                     </div>
-                    <span className="text-[11px] text-[var(--text-muted)] font-mono mt-1 block">
+                    <span className="text-[11px] text-slate-500 font-mono mt-1 block">
                       Exposure: R$ {baselineRevenueAtRisk.toFixed(2)}
                     </span>
                   </div>
 
                   <div className="text-right">
-                    <span className="text-xs text-[var(--text-muted)] block uppercase font-medium">
+                    <span className="text-xs text-slate-400 block uppercase font-medium">
                       Simulated Outcome:
                     </span>
                     <div className="flex items-center justify-end space-x-2 mt-1">
-                      <span className="font-display text-2xl font-extrabold text-[#6ee7b7]">
+                      <span className="font-display text-2xl font-extrabold text-emerald-600">
                         {(simulatedChurnProb * 100).toFixed(1)}%
                       </span>
                       <RiskTierBadge
@@ -422,23 +421,23 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
                         probability={simulatedChurnProb}
                       />
                     </div>
-                    <span className="text-[11px] font-mono text-[var(--accent-emerald)] font-bold mt-1 block">
+                    <span className="text-[11px] font-mono text-emerald-700 font-bold mt-1 block">
                       Recovered: +R$ {protectedRevenue.toFixed(2)}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] flex items-center justify-between text-xs">
-                  <span className="text-[var(--text-secondary)]">Net Churn Risk Delta:</span>
-                  <span className="font-mono font-bold text-[#34d399] text-sm">
+                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
+                  <span className="text-slate-600">Net Churn Risk Delta:</span>
+                  <span className="font-mono font-bold text-emerald-700 text-sm">
                     {(deltaChurn * 100).toFixed(1)}% ({deltaChurn < 0 ? 'Risk Reduced' : 'Risk Elevated'})
                   </span>
                 </div>
 
-                <div className="text-[11px] text-[var(--text-secondary)] italic border-t border-[rgba(255,255,255,0.06)] pt-2.5 flex items-start space-x-2">
-                  <Sparkles size={14} className="text-[#a78bfa] shrink-0 mt-0.5" />
+                <div className="text-[11px] text-slate-600 italic border-t border-slate-200 pt-2.5 flex items-start space-x-2">
+                  <Sparkles size={14} className="text-indigo-600 shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-[var(--text-primary)] font-medium not-italic">
+                    <strong className="text-slate-900 font-medium not-italic">
                       Prescriptive Model Takeaway:{' '}
                     </strong>
                     {impactSummary}
@@ -454,19 +453,18 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
           <GlassCard
             title="Supervised Churn Model Telemetry"
             subtitle="Real-time feature weights & discrimination power"
-            glow="violet"
           >
             <div className="space-y-3 mt-2 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
-                <span className="text-[var(--text-secondary)]">Algorithm:</span>
-                <span className="font-mono font-bold text-white">
+              <div className="flex justify-between py-1.5 border-b border-slate-100">
+                <span className="text-slate-600">Algorithm:</span>
+                <span className="font-mono font-bold text-slate-900">
                   {modelMeta?.model_name ?? 'HistGradientBoostingClassifier'}
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
-                <span className="text-[var(--text-secondary)]">ROC-AUC Score:</span>
-                <span className="font-mono font-bold text-[#34d399]">
+              <div className="flex justify-between py-1.5 border-b border-slate-100">
+                <span className="text-slate-600">ROC-AUC Score:</span>
+                <span className="font-mono font-bold text-emerald-700">
                   {modelMeta?.eval_metrics?.['roc_auc']
                     ? modelMeta.eval_metrics['roc_auc'].toFixed(3)
                     : '0.871'}{' '}
@@ -474,16 +472,16 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
-                <span className="text-[var(--text-secondary)]">Input Feature Vector:</span>
-                <span className="font-mono font-bold text-[#38bdf8]">
+              <div className="flex justify-between py-1.5 border-b border-slate-100">
+                <span className="text-slate-600">Input Feature Vector:</span>
+                <span className="font-mono font-bold text-sky-700">
                   {((modelMeta?.numeric_features?.length ?? 18) + (modelMeta?.categorical_features?.length ?? 8))} behavioral features
                 </span>
               </div>
 
               <div className="flex justify-between py-1.5">
-                <span className="text-[var(--text-secondary)]">Calibration Window:</span>
-                <span className="font-mono text-[var(--text-muted)]">
+                <span className="text-slate-600">Calibration Window:</span>
+                <span className="font-mono text-slate-500">
                   {modelMeta?.trained_at ? modelMeta.trained_at.split('T')[0] : '2024-09-01'} (dbt Mart)
                 </span>
               </div>
@@ -497,7 +495,7 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
               <button
                 type="button"
                 onClick={onOpenPipelineDrawer}
-                className="flex items-center space-x-1.5 text-xs text-[#34d399] font-mono hover:underline cursor-pointer"
+                className="flex items-center space-x-1.5 text-xs text-emerald-700 font-mono hover:underline cursor-pointer font-semibold"
               >
                 <span className="gem-dot gem-dot-emerald" />
                 <span>OPEN DRAWER &rarr;</span>
@@ -505,23 +503,23 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
             }
           >
             <div className="space-y-3 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
-                <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
-                  <Database size={13} className="text-[#a78bfa]" />
+              <div className="flex justify-between py-1.5 border-b border-slate-100">
+                <span className="text-slate-600 flex items-center space-x-1.5">
+                  <Database size={13} className="text-indigo-600" />
                   <span>Database Latency:</span>
                 </span>
-                <span className="font-mono text-[#34d399] font-bold">
+                <span className="font-mono text-emerald-700 font-bold">
                   {pipelineHealth?.database_latency_ms ?? 42} ms (
                   {pipelineHealth?.database_connected ? 'Neon PostgreSQL 16' : 'PostgreSQL 16'})
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
-                <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
-                  <Layers size={13} className="text-[#38bdf8]" />
+              <div className="flex justify-between py-1.5 border-b border-slate-100">
+                <span className="text-slate-600 flex items-center space-x-1.5">
+                  <Layers size={13} className="text-sky-600" />
                   <span>Raw Orders Ingested:</span>
                 </span>
-                <span className="font-mono text-white font-bold">
+                <span className="font-mono text-slate-900 font-bold">
                   {pipelineHealth?.table_counts?.raw_orders
                     ? pipelineHealth.table_counts.raw_orders.toLocaleString()
                     : '100,000+'}{' '}
@@ -529,12 +527,12 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
-                <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
-                  <ShieldCheck size={13} className="text-[#34d399]" />
+              <div className="flex justify-between py-1.5 border-b border-slate-100">
+                <span className="text-slate-600 flex items-center space-x-1.5">
+                  <ShieldCheck size={13} className="text-emerald-600" />
                   <span>dbt Analytical Mart:</span>
                 </span>
-                <span className="font-mono text-[#38bdf8] font-bold">
+                <span className="font-mono text-sky-700 font-bold">
                   {pipelineHealth?.table_counts?.mart_customer_metrics
                     ? `${pipelineHealth.table_counts.mart_customer_metrics.toLocaleString()} customer marts`
                     : 'mart_customer_metrics (Fresh)'}
@@ -542,11 +540,11 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
               </div>
 
               <div className="flex justify-between py-1.5">
-                <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
-                  <Activity size={13} className="text-[#c084fc]" />
+                <span className="text-slate-600 flex items-center space-x-1.5">
+                  <Activity size={13} className="text-indigo-600" />
                   <span>Serialized Artifact:</span>
                 </span>
-                <span className="font-mono text-[#c084fc] font-bold">
+                <span className="font-mono text-indigo-700 font-bold">
                   {pipelineHealth?.model?.model_type
                     ? `${pipelineHealth.model.model_type} (${(
                         (pipelineHealth.model.file_size_bytes ?? 1258291) /
@@ -562,21 +560,21 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
       </section>
 
       {/* Phase 4 Complete / Next Milestone Action Card */}
-      <section className="p-6 rounded-2xl liquid-glass border border-[rgba(52,211,153,0.35)] shadow-[0_0_30px_rgba(52,211,153,0.12)] flex flex-col md:flex-row items-center justify-between gap-5">
+      <section className="p-6 rounded-2xl bg-white border border-emerald-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-5">
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-2xl bg-[rgba(52,211,153,0.18)] border border-[rgba(52,211,153,0.45)] flex items-center justify-center text-[#6ee7b7] shadow-[0_0_20px_rgba(52,211,153,0.3)] shrink-0">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
             <ShieldCheck size={26} />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h4 className="font-display font-bold text-base text-white">
-                Phase 4 Executive Overview Dashboard Fully Deployed
+              <h4 className="font-display font-bold text-base text-slate-900">
+                Executive Overview Dashboard Operational
               </h4>
-              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-[rgba(52,211,153,0.2)] text-[#6ee7b7] border border-[rgba(52,211,153,0.35)] font-bold">
-                Phase 4 Complete
+              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
+                Operational
               </span>
             </div>
-            <p className="text-xs text-[var(--text-secondary)] mt-1 max-w-3xl">
+            <p className="text-xs text-slate-600 mt-1 max-w-3xl">
               Delivered GMV timeseries, 11 RFM quintile distribution scorecard, 12-month cohort survival decay heatmap,
               tri-tier revenue-at-risk triage matrix, and counterfactual simulation laboratory are fully operational.
             </p>

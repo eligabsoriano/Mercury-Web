@@ -111,10 +111,9 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
     <GlassCard
       title="ML Serving Model Transparency & Algorithmic Guardrails"
       subtitle="Auditable model parameters, out-of-time evaluation metrics, and feature importance rankings"
-      glow="violet"
       headerAction={
         <div className="flex items-center space-x-2 text-xs font-mono">
-          <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-[rgba(52,211,153,0.12)] border border-[rgba(52,211,153,0.3)] text-[#34d399]">
+          <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
             <CheckCircle2 size={12} />
             <span className="font-semibold">Production Ready</span>
           </span>
@@ -123,43 +122,43 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
     >
       <div className="space-y-6 mt-3">
         {/* Top Algorithm Specs Bar */}
-        <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
           <div>
-            <span className="text-[var(--text-muted)] text-[11px] block flex items-center space-x-1">
-              <Cpu size={12} className="text-[#a78bfa]" />
+            <span className="text-slate-500 text-[11px] block flex items-center space-x-1">
+              <Cpu size={12} className="text-purple-600" />
               <span>Algorithm</span>
             </span>
-            <span className="text-white font-bold mt-1 block">
+            <span className="text-slate-900 font-bold mt-1 block">
               {metadata?.model_name || 'HistGradientBoosting'}
             </span>
           </div>
 
           <div>
-            <span className="text-[var(--text-muted)] text-[11px] block flex items-center space-x-1">
-              <Layers size={12} className="text-[#38bdf8]" />
+            <span className="text-slate-500 text-[11px] block flex items-center space-x-1">
+              <Layers size={12} className="text-sky-600" />
               <span>Prediction Horizon</span>
             </span>
-            <span className="text-white font-bold mt-1 block">
+            <span className="text-slate-900 font-bold mt-1 block">
               {metadata?.window_days ?? 90} Days Out
             </span>
           </div>
 
           <div>
-            <span className="text-[var(--text-muted)] text-[11px] block flex items-center space-x-1">
-              <Calendar size={12} className="text-[#fbbf24]" />
+            <span className="text-slate-500 text-[11px] block flex items-center space-x-1">
+              <Calendar size={12} className="text-amber-600" />
               <span>Last Retrained</span>
             </span>
-            <span className="text-white font-bold mt-1 block">
+            <span className="text-slate-900 font-bold mt-1 block">
               {formattedTrainedDate}
             </span>
           </div>
 
           <div>
-            <span className="text-[var(--text-muted)] text-[11px] block flex items-center space-x-1">
-              <Award size={12} className="text-[#34d399]" />
+            <span className="text-slate-500 text-[11px] block flex items-center space-x-1">
+              <Award size={12} className="text-emerald-600" />
               <span>Cohort Training Size</span>
             </span>
-            <span className="text-white font-bold mt-1 block">
+            <span className="text-slate-900 font-bold mt-1 block">
               96,096 Customers
             </span>
           </div>
@@ -168,84 +167,84 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
         {/* Model Evaluation Metrics Scorecard */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-[var(--text-secondary)] font-semibold flex items-center space-x-1.5">
-              <BarChart3 size={13} className="text-[#a78bfa]" />
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-700 font-semibold flex items-center space-x-1.5">
+              <BarChart3 size={13} className="text-purple-600" />
               <span>Out-Of-Time Validation Scorecard</span>
             </span>
-            <span className="text-[11px] text-[var(--text-muted)] font-mono">
+            <span className="text-[11px] text-slate-500 font-mono">
               Holdout Test Set (20% Split)
             </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <div className="p-3 rounded-xl bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.25)] text-center">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+            <div className="p-3 rounded-xl bg-purple-50 border border-purple-200 text-center">
+              <span className="text-[10px] font-mono text-slate-500 block uppercase">
                 ROC-AUC Score
               </span>
-              <span className="font-display text-xl font-black text-[#c084fc] mt-0.5 block">
+              <span className="font-display text-xl font-black text-purple-700 mt-0.5 block">
                 {loading ? '...' : (evalMetrics.roc_auc ?? 0.874).toFixed(3)}
               </span>
-              <span className="text-[9px] font-mono text-[#34d399]">
+              <span className="text-[9px] font-mono text-emerald-600 font-semibold">
                 &gt;0.85 Excellent
               </span>
             </div>
 
-            <div className="p-3 rounded-xl bg-[rgba(56,189,248,0.06)] border border-[rgba(56,189,248,0.2)] text-center">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+            <div className="p-3 rounded-xl bg-sky-50 border border-sky-200 text-center">
+              <span className="text-[10px] font-mono text-slate-500 block uppercase">
                 PR-AUC Curve
               </span>
-              <span className="font-display text-xl font-black text-[#38bdf8] mt-0.5 block">
+              <span className="font-display text-xl font-black text-sky-700 mt-0.5 block">
                 {loading ? '...' : (evalMetrics.pr_auc ?? 0.628).toFixed(3)}
               </span>
-              <span className="text-[9px] font-mono text-[var(--text-secondary)]">
+              <span className="text-[9px] font-mono text-slate-600">
                 Imbalance tuned
               </span>
             </div>
 
-            <div className="p-3 rounded-xl bg-[rgba(52,211,153,0.06)] border border-[rgba(52,211,153,0.2)] text-center">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+            <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-center">
+              <span className="text-[10px] font-mono text-slate-500 block uppercase">
                 Precision@Top 10%
               </span>
-              <span className="font-display text-xl font-black text-[#34d399] mt-0.5 block">
+              <span className="font-display text-xl font-black text-emerald-700 mt-0.5 block">
                 {loading ? '...' : `${((evalMetrics.precision_at_top_10 ?? 0.742) * 100).toFixed(1)}%`}
               </span>
-              <span className="text-[9px] font-mono text-[#34d399]">
+              <span className="text-[9px] font-mono text-emerald-600 font-semibold">
                 High capture
               </span>
             </div>
 
-            <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] text-center">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
+              <span className="text-[10px] font-mono text-slate-500 block uppercase">
                 F1 Score
               </span>
-              <span className="font-display text-xl font-black text-white mt-0.5 block">
+              <span className="font-display text-xl font-black text-slate-900 mt-0.5 block">
                 {loading ? '...' : (evalMetrics.f1_score ?? 0.584).toFixed(3)}
               </span>
-              <span className="text-[9px] font-mono text-[var(--text-secondary)]">
+              <span className="text-[9px] font-mono text-slate-600">
                 Harmonic mean
               </span>
             </div>
 
-            <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] text-center">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
+              <span className="text-[10px] font-mono text-slate-500 block uppercase">
                 Precision
               </span>
-              <span className="font-display text-xl font-black text-white mt-0.5 block">
+              <span className="font-display text-xl font-black text-slate-900 mt-0.5 block">
                 {loading ? '...' : `${((evalMetrics.precision ?? 0.612) * 100).toFixed(1)}%`}
               </span>
-              <span className="text-[9px] font-mono text-[var(--text-secondary)]">
+              <span className="text-[9px] font-mono text-slate-600">
                 Low false alarms
               </span>
             </div>
 
-            <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] text-center">
-              <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
+              <span className="text-[10px] font-mono text-slate-500 block uppercase">
                 Recall
               </span>
-              <span className="font-display text-xl font-black text-white mt-0.5 block">
+              <span className="font-display text-xl font-black text-slate-900 mt-0.5 block">
                 {loading ? '...' : `${((evalMetrics.recall ?? 0.558) * 100).toFixed(1)}%`}
               </span>
-              <span className="text-[9px] font-mono text-[var(--text-secondary)]">
+              <span className="text-[9px] font-mono text-slate-600">
                 Risk detected
               </span>
             </div>
@@ -255,10 +254,10 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
         {/* Relative Feature Importance Ranking */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-[var(--text-secondary)] font-semibold">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-700 font-semibold">
               Shapley / Permutation Feature Importance
             </span>
-            <span className="text-[11px] text-[var(--text-muted)] font-mono">
+            <span className="text-[11px] text-slate-500 font-mono">
               Top 6 Influencing Predictors
             </span>
           </div>
@@ -271,37 +270,35 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
               return (
                 <div
                   key={feat.name}
-                  className="p-2.5 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.12)] transition-colors"
+                  className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors"
                 >
                   <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                     <div className="flex items-center space-x-2">
-                      <span className="text-white font-semibold">{feat.name}</span>
+                      <span className="text-slate-900 font-semibold">{feat.name}</span>
                       <span
-                        className={`text-[9px] px-1.5 py-0.2 rounded border ${
+                        className={`text-[9px] px-1.5 py-0.5 rounded border font-medium ${
                           isProtective
-                            ? 'bg-[rgba(52,211,153,0.1)] text-[#34d399] border-[rgba(52,211,153,0.3)]'
-                            : 'bg-[rgba(244,63,94,0.1)] text-[#fb7185] border-[rgba(244,63,94,0.3)]'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : 'bg-rose-50 text-rose-700 border-rose-200'
                         }`}
                       >
                         {isProtective ? 'Protective Factor' : 'Risk Driver'}
                       </span>
                     </div>
-                    <span className="text-[var(--text-secondary)] font-bold">{percentage}%</span>
+                    <span className="text-slate-600 font-bold">{percentage}%</span>
                   </div>
 
-                  {/* Progress Meter Bar */}
-                  <div className="w-full h-1.5 bg-[rgba(255,255,255,0.06)] rounded-full overflow-hidden">
+                  {/* Progress Meter Bar - Solid Color, No Gradient */}
+                  <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${
-                        isProtective
-                          ? 'bg-gradient-to-r from-[#059669] to-[#34d399]'
-                          : 'bg-gradient-to-r from-[#e11d48] to-[#fb7185]'
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        isProtective ? 'bg-emerald-500' : 'bg-rose-500'
                       }`}
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
 
-                  <p className="text-[11px] text-[var(--text-muted)] mt-1 leading-normal">
+                  <p className="text-[11px] text-slate-500 mt-1 leading-normal">
                     {feat.description}
                   </p>
                 </div>
@@ -311,36 +308,36 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
         </div>
 
         {/* Feature Space Tags */}
-        <div className="pt-2 border-t border-[rgba(255,255,255,0.06)]">
+        <div className="pt-2 border-t border-slate-200">
           <button
             type="button"
             onClick={() => setShowAllFeatures((prev) => !prev)}
-            className="flex items-center justify-between w-full text-xs font-mono text-[var(--text-secondary)] hover:text-white py-1 transition-colors"
+            className="flex items-center justify-between w-full text-xs font-mono text-slate-600 hover:text-slate-900 py-1 transition-colors"
           >
             <span className="flex items-center space-x-1.5">
-              <HelpCircle size={13} className="text-[#a78bfa]" />
+              <HelpCircle size={13} className="text-purple-600" />
               <span>
                 Engineered Feature Space ({numericFeatures.length} Numeric,{' '}
                 {categoricalFeatures.length} Categorical)
               </span>
             </span>
-            <span className="flex items-center space-x-1 text-[11px] text-[#a78bfa]">
+            <span className="flex items-center space-x-1 text-[11px] text-purple-600 font-semibold">
               <span>{showAllFeatures ? 'Collapse' : 'Inspect All Features'}</span>
               {showAllFeatures ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
             </span>
           </button>
 
           {showAllFeatures && (
-            <div className="mt-3 p-3.5 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] space-y-3 animate-fadeIn">
+            <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 animate-fadeIn">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-1.5">
                   Numeric Feature Inputs
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {numericFeatures.map((f) => (
                     <span
                       key={f}
-                      className="px-2 py-0.5 rounded-md bg-[rgba(139,92,246,0.1)] border border-[rgba(139,92,246,0.25)] text-[#d8b4fe] text-[10px] font-mono"
+                      className="px-2 py-0.5 rounded-md bg-purple-50 border border-purple-200 text-purple-700 text-[10px] font-mono font-medium"
                     >
                       {f}
                     </span>
@@ -349,14 +346,14 @@ export const ModelTransparencyCard: React.FC<ModelTransparencyCardProps> = ({
               </div>
 
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-1.5">
                   Categorical Encoded Dimensions
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {categoricalFeatures.map((f) => (
                     <span
                       key={f}
-                      className="px-2 py-0.5 rounded-md bg-[rgba(56,189,248,0.1)] border border-[rgba(56,189,248,0.25)] text-[#7dd3fc] text-[10px] font-mono"
+                      className="px-2 py-0.5 rounded-md bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-mono font-medium"
                     >
                       {f}
                     </span>

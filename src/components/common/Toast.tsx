@@ -2,34 +2,34 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { CheckCircle2, AlertCircle, AlertTriangle, Info, X } from 'lucide-react';
 import { ToastContext, type ToastType, type ToastItem } from './ToastContext';
 
-const TOAST_STYLES: Record<ToastType, { icon: React.ReactNode; border: string; bg: string; iconColor: string; titleColor: string }> = {
+const TOAST_STYLES: Record<ToastType, { icon: React.ReactNode; border: string; bg: string; iconBox: string; titleColor: string }> = {
   success: {
     icon: <CheckCircle2 size={16} />,
-    border: 'border-[rgba(52,211,153,0.35)]',
-    bg: 'bg-[linear-gradient(135deg,rgba(16,36,30,0.92)_0%,rgba(6,20,16,0.96)_100%)]',
-    iconColor: 'text-[#34d399]',
-    titleColor: 'text-[#a7f3d0]',
+    border: 'border-emerald-200',
+    bg: 'bg-white',
+    iconBox: 'bg-emerald-50 text-emerald-600',
+    titleColor: 'text-slate-900',
   },
   error: {
     icon: <AlertCircle size={16} />,
-    border: 'border-[rgba(244,63,94,0.35)]',
-    bg: 'bg-[linear-gradient(135deg,rgba(40,16,24,0.92)_0%,rgba(20,6,12,0.96)_100%)]',
-    iconColor: 'text-[#f43f5e]',
-    titleColor: 'text-[#fecdd3]',
+    border: 'border-rose-200',
+    bg: 'bg-white',
+    iconBox: 'bg-rose-50 text-rose-600',
+    titleColor: 'text-slate-900',
   },
   warning: {
     icon: <AlertTriangle size={16} />,
-    border: 'border-[rgba(251,191,36,0.35)]',
-    bg: 'bg-[linear-gradient(135deg,rgba(36,30,14,0.92)_0%,rgba(20,16,6,0.96)_100%)]',
-    iconColor: 'text-[#fbbf24]',
-    titleColor: 'text-[#fef08a]',
+    border: 'border-amber-200',
+    bg: 'bg-white',
+    iconBox: 'bg-amber-50 text-amber-600',
+    titleColor: 'text-slate-900',
   },
   info: {
     icon: <Info size={16} />,
-    border: 'border-[rgba(56,189,248,0.35)]',
-    bg: 'bg-[linear-gradient(135deg,rgba(14,30,44,0.92)_0%,rgba(6,16,28,0.96)_100%)]',
-    iconColor: 'text-[#38bdf8]',
-    titleColor: 'text-[#bae6fd]',
+    border: 'border-sky-200',
+    bg: 'bg-white',
+    iconBox: 'bg-sky-50 text-sky-600',
+    titleColor: 'text-slate-900',
   },
 };
 
@@ -83,10 +83,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
             <div
               key={toast.id}
               data-testid={`toast-${toast.type}`}
-              className={`pointer-events-auto rounded-xl p-3.5 border shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex items-start space-x-3 transition-all duration-300 animate-in fade-in slide-in-from-bottom-2 ${style.bg} ${style.border}`}
+              className={`pointer-events-auto rounded-xl p-3.5 border shadow-lg flex items-start space-x-3 transition-all duration-300 animate-in fade-in slide-in-from-bottom-2 ${style.bg} ${style.border}`}
               role="alert"
             >
-              <div className={`p-1 rounded-lg bg-[rgba(255,255,255,0.06)] shrink-0 ${style.iconColor}`}>
+              <div className={`p-1.5 rounded-lg shrink-0 ${style.iconBox}`}>
                 {style.icon}
               </div>
 
@@ -95,7 +95,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                   {toast.title}
                 </div>
                 {toast.message && (
-                  <p className="text-[11px] text-[var(--text-secondary)] mt-0.5 leading-snug">
+                  <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                     {toast.message}
                   </p>
                 )}
@@ -104,7 +104,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
               <button
                 type="button"
                 onClick={() => dismissToast(toast.id)}
-                className="p-1 text-[var(--text-muted)] hover:text-white rounded-lg hover:bg-[rgba(255,255,255,0.08)] transition-colors shrink-0"
+                className="p-1 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors shrink-0 cursor-pointer"
                 aria-label="Dismiss notification"
               >
                 <X size={13} />

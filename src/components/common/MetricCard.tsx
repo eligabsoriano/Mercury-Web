@@ -31,34 +31,24 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 }) => {
   const accentConfigs = {
     emerald: {
-      text: 'text-[var(--accent-emerald)]',
-      bgGlow: 'bg-[radial-gradient(circle,#34d399_0%,transparent_70%)]',
-      iconBox: 'bg-[rgba(52,211,153,0.14)] border-[rgba(52,211,153,0.35)] text-[#34d399] shadow-[0_0_15px_rgba(52,211,153,0.25)]',
-      glow: 'emerald' as const,
+      text: 'text-emerald-700',
+      iconBox: 'bg-emerald-50 border-emerald-200 text-emerald-700',
     },
     crimson: {
-      text: 'text-[var(--accent-crimson)]',
-      bgGlow: 'bg-[radial-gradient(circle,#f43f5e_0%,transparent_70%)]',
-      iconBox: 'bg-[rgba(244,63,94,0.14)] border-[rgba(244,63,94,0.35)] text-[#f43f5e] shadow-[0_0_15px_rgba(244,63,94,0.25)]',
-      glow: 'crimson' as const,
+      text: 'text-rose-700',
+      iconBox: 'bg-rose-50 border-rose-200 text-rose-700',
     },
     violet: {
-      text: 'text-[var(--accent-violet)]',
-      bgGlow: 'bg-[radial-gradient(circle,#8b5cf6_0%,transparent_70%)]',
-      iconBox: 'bg-[rgba(139,92,246,0.16)] border-[rgba(139,92,246,0.40)] text-[#c084fc] shadow-[0_0_15px_rgba(139,92,246,0.25)]',
-      glow: 'violet' as const,
+      text: 'text-indigo-700',
+      iconBox: 'bg-indigo-50 border-indigo-200 text-indigo-700',
     },
     amber: {
-      text: 'text-[var(--accent-amber)]',
-      bgGlow: 'bg-[radial-gradient(circle,#fbbf24_0%,transparent_70%)]',
-      iconBox: 'bg-[rgba(251,191,36,0.14)] border-[rgba(251,191,36,0.35)] text-[#fbbf24] shadow-[0_0_15px_rgba(251,191,36,0.25)]',
-      glow: 'none' as const,
+      text: 'text-amber-700',
+      iconBox: 'bg-amber-50 border-amber-200 text-amber-700',
     },
     cyan: {
-      text: 'text-[var(--accent-cyan)]',
-      bgGlow: 'bg-[radial-gradient(circle,#38bdf8_0%,transparent_70%)]',
-      iconBox: 'bg-[rgba(56,189,248,0.14)] border-[rgba(56,189,248,0.35)] text-[#38bdf8] shadow-[0_0_15px_rgba(56,189,248,0.25)]',
-      glow: 'cyan' as const,
+      text: 'text-sky-700',
+      iconBox: 'bg-sky-50 border-sky-200 text-sky-700',
     },
   }[accent];
 
@@ -66,25 +56,17 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     <GlassCard
       padding="md"
       interactive
-      className={clsx('relative overflow-hidden group', className)}
+      className={clsx('relative overflow-hidden group bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow', className)}
     >
-      {/* Ambient Internal Backlight Halo */}
-      <div
-        className={clsx(
-          'absolute -top-12 -right-12 w-36 h-36 rounded-full blur-2xl opacity-25 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none',
-          accentConfigs.bgGlow
-        )}
-      />
-
       <div className="flex items-start justify-between relative z-10">
         <div>
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-[var(--text-secondary)]">
+          <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500">
             {title}
           </span>
-          <div className="mt-2.5 flex items-baseline space-x-2">
-            <span className="kpi-value">{value}</span>
+          <div className="mt-2 flex items-baseline space-x-2">
+            <span className="kpi-value text-slate-900">{value}</span>
             {subtitle && (
-              <span className="text-xs text-[var(--text-secondary)] font-normal">
+              <span className="text-xs text-slate-500 font-normal">
                 {subtitle}
               </span>
             )}
@@ -94,7 +76,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {icon && (
           <div
             className={clsx(
-              'p-3 rounded-xl border flex items-center justify-center transition-transform duration-200 group-hover:scale-105',
+              'p-2.5 rounded-xl border flex items-center justify-center transition-transform duration-200 group-hover:scale-105',
               accentConfigs.iconBox
             )}
           >
@@ -104,32 +86,38 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {(delta || takeaway) && (
-        <div className="mt-4 pt-3.5 border-t border-[rgba(255,255,255,0.07)] flex items-center justify-between text-xs relative z-10">
-          {delta && (
-            <div
-              className={clsx(
-                'flex items-center space-x-1.5 font-medium px-2.5 py-0.5 rounded-full border backdrop-blur-md',
-                delta.neutral
-                  ? 'bg-[rgba(255,255,255,0.06)] text-[var(--text-secondary)] border-[rgba(255,255,255,0.1)]'
-                  : delta.isPositive
-                  ? 'bg-[rgba(52,211,153,0.12)] text-[var(--accent-emerald)] border-[rgba(52,211,153,0.3)] shadow-[0_0_10px_rgba(52,211,153,0.15)]'
-                  : 'bg-[rgba(244,63,94,0.12)] text-[var(--accent-crimson)] border-[rgba(244,63,94,0.3)] shadow-[0_0_10px_rgba(244,63,94,0.15)]'
-              )}
-            >
-              {delta.neutral ? (
-                <Minus size={12} />
-              ) : delta.isPositive ? (
-                <TrendingUp size={12} />
-              ) : (
-                <TrendingDown size={12} />
-              )}
-              <span>{delta.value}</span>
-              {delta.label && <span className="opacity-75 ml-0.5 text-[11px]">{delta.label}</span>}
-            </div>
-          )}
+        <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-col gap-1.5 text-xs relative z-10">
+          <div className="flex items-center justify-between">
+            {delta && (
+              <div
+                className={clsx(
+                  'inline-flex items-center space-x-1 font-medium px-2 py-0.5 rounded-full border text-[11px]',
+                  delta.neutral
+                    ? 'bg-slate-100 text-slate-600 border-slate-200'
+                    : delta.isPositive
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    : 'bg-rose-50 text-rose-700 border-rose-200'
+                )}
+              >
+                {delta.neutral ? (
+                  <Minus size={11} />
+                ) : delta.isPositive ? (
+                  <TrendingUp size={11} />
+                ) : (
+                  <TrendingDown size={11} />
+                )}
+                <span className="font-semibold">{delta.value}</span>
+                {delta.label && (
+                  <span className="text-slate-500 font-normal ml-0.5 text-[10px]">
+                    {delta.label}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
 
           {takeaway && (
-            <span className="text-[11px] text-[var(--text-secondary)] italic truncate ml-2">
+            <span className="text-[11px] text-slate-500 font-normal leading-snug">
               {takeaway}
             </span>
           )}

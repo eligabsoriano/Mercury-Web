@@ -48,44 +48,44 @@ const CustomCategoryTooltip: React.FC<CustomTooltipProps> = ({ active, payload }
   return (
     <div
       data-testid="category-chart-tooltip"
-      className="p-3.5 rounded-xl bg-[rgba(15,23,42,0.94)] border border-[rgba(255,255,255,0.12)] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl text-xs space-y-2 min-w-[220px]"
+      className="p-3.5 rounded-xl bg-white/95 border border-slate-200 shadow-xl backdrop-blur-md text-xs space-y-2 min-w-[220px]"
     >
-      <div className="flex items-center justify-between pb-1.5 border-b border-[rgba(255,255,255,0.08)]">
+      <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
         <div>
-          <span className="font-bold text-white font-display text-sm block">
+          <span className="font-bold text-slate-900 font-display text-sm block">
             {formatName(item.category)}
           </span>
           {item.category_pt && (
-            <span className="text-[10px] text-[var(--text-muted)] italic">
+            <span className="text-[10px] text-slate-500 italic">
               {item.category_pt}
             </span>
           )}
         </div>
-        <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-[rgba(251,191,36,0.15)] text-[#fbbf24] font-mono font-bold text-[11px]">
-          <Star size={11} className="fill-[#fbbf24]" />
+        <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-mono font-bold text-[11px]">
+          <Star size={11} className="fill-amber-500 text-amber-500" />
           <span>{(item.avg_review_score ?? 4.0).toFixed(1)}</span>
         </span>
       </div>
 
       <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 font-mono text-[11px]">
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Gross GMV</span>
-          <span className="font-bold text-[#34d399]">{formatBRL(item.total_revenue)}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Gross GMV</span>
+          <span className="font-bold text-emerald-700">{formatBRL(item.total_revenue)}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Units Sold</span>
-          <span className="font-semibold text-white">{item.total_units_sold.toLocaleString()}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Units Sold</span>
+          <span className="font-semibold text-slate-900">{item.total_units_sold.toLocaleString()}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Avg Item Price</span>
-          <span className="font-semibold text-[#38bdf8]">R$ {item.avg_price.toFixed(2)}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Avg Item Price</span>
+          <span className="font-semibold text-sky-700">R$ {item.avg_price.toFixed(2)}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Catalog Products</span>
-          <span className="font-semibold text-white">{item.total_products.toLocaleString()}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Catalog Products</span>
+          <span className="font-semibold text-slate-900">{item.total_products.toLocaleString()}</span>
         </div>
       </div>
     </div>
@@ -135,9 +135,9 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
 
   if (isLoading) {
     return (
-      <div className="liquid-glass rounded-2xl p-6 border border-[rgba(255,255,255,0.08)] animate-pulse">
-        <div className="h-6 w-48 bg-[rgba(255,255,255,0.08)] rounded mb-4" />
-        <div className="h-64 bg-[rgba(255,255,255,0.04)] rounded-xl" />
+      <div className="bg-white rounded-2xl p-6 border border-slate-200 animate-pulse">
+        <div className="h-6 w-48 bg-slate-200 rounded mb-4" />
+        <div className="h-64 bg-slate-100 rounded-xl" />
       </div>
     );
   }
@@ -145,33 +145,33 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
   return (
     <div
       data-testid="category-revenue-chart-card"
-      className={`liquid-glass rounded-2xl p-6 border border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.36)] relative overflow-hidden ${className}`}
+      className={`bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden ${className}`}
     >
       {/* Header with Title and Mode Toggles */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-[rgba(56,189,248,0.12)] border border-[rgba(56,189,248,0.3)] text-[#38bdf8]">
+            <span className="p-1.5 rounded-lg bg-sky-50 border border-sky-200 text-sky-700">
               <BarChart3 size={16} />
             </span>
-            <h3 className="font-display text-lg font-bold text-white tracking-tight">
+            <h3 className="font-display text-lg font-bold text-slate-900 tracking-tight">
               Product Category Revenue & Volume Distribution
             </h3>
           </div>
-          <p className="text-xs text-[var(--text-secondary)] mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Comparative performance of top marketplace product categories ranked by revenue, sales units, or catalog breadth
           </p>
         </div>
 
         {/* Metric selection buttons */}
-        <div className="flex items-center p-1 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-xs self-start sm:self-auto">
+        <div className="flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setMetric('revenue')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
               metric === 'revenue'
-                ? 'bg-[rgba(52,211,153,0.2)] text-[#34d399] border border-[rgba(52,211,153,0.4)] shadow-sm'
-                : 'text-[var(--text-secondary)] hover:text-white'
+                ? 'bg-emerald-600 text-white font-semibold shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Gross Revenue
@@ -181,8 +181,8 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
             onClick={() => setMetric('units')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
               metric === 'units'
-                ? 'bg-[rgba(56,189,248,0.2)] text-[#38bdf8] border border-[rgba(56,189,248,0.4)] shadow-sm'
-                : 'text-[var(--text-secondary)] hover:text-white'
+                ? 'bg-sky-600 text-white font-semibold shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Units Sold
@@ -192,8 +192,8 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
             onClick={() => setMetric('products')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
               metric === 'products'
-                ? 'bg-[rgba(192,132,252,0.2)] text-[#c084fc] border border-[rgba(192,132,252,0.4)] shadow-sm'
-                : 'text-[var(--text-secondary)] hover:text-white'
+                ? 'bg-purple-600 text-white font-semibold shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Catalog SKUs
@@ -204,17 +204,17 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
       {/* Summary Highlights */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         {topCategory && (
-          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] text-xs">
-            <Award size={15} className="text-[#34d399] shrink-0" />
+          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-xs">
+            <Award size={15} className="text-emerald-600 shrink-0" />
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] uppercase font-mono block">
+              <span className="text-slate-500 text-[10px] uppercase font-mono block">
                 Category Revenue Leader
               </span>
-              <span className="font-bold text-white">
+              <span className="font-bold text-slate-900">
                 {topCategory.displayName}:{' '}
-                <span className="text-[#34d399] font-mono">{formatBRL(topCategory.total_revenue)}</span>
+                <span className="text-emerald-700 font-mono">{formatBRL(topCategory.total_revenue)}</span>
               </span>
-              <span className="text-[11px] text-[var(--text-secondary)] ml-1.5">
+              <span className="text-[11px] text-slate-600 ml-1.5">
                 ({topCategory.total_units_sold.toLocaleString()} units sold)
               </span>
             </div>
@@ -222,17 +222,17 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
         )}
 
         {topRated && (
-          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-[rgba(251,191,36,0.08)] border border-[rgba(251,191,36,0.25)] text-xs">
-            <Star size={15} className="text-[#fbbf24] fill-[#fbbf24] shrink-0" />
+          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-xs">
+            <Star size={15} className="text-amber-500 fill-amber-500 shrink-0" />
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] uppercase font-mono block">
+              <span className="text-slate-500 text-[10px] uppercase font-mono block">
                 Highest Customer Rating
               </span>
-              <span className="font-bold text-white">
+              <span className="font-bold text-slate-900">
                 {topRated.displayName}:{' '}
-                <span className="text-[#fbbf24] font-mono">★ {(topRated.avg_review_score ?? 4.0).toFixed(2)}</span>
+                <span className="text-amber-700 font-mono">★ {(topRated.avg_review_score ?? 4.0).toFixed(2)}</span>
               </span>
-              <span className="text-[11px] text-[var(--text-secondary)] ml-1.5">
+              <span className="text-[11px] text-slate-600 ml-1.5">
                 ({topRated.total_products.toLocaleString()} SKUs)
               </span>
             </div>
@@ -249,14 +249,14 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
             margin={{ top: 10, right: 24, left: 16, bottom: 5 }}
           >
             <CartesianGrid
-              stroke="rgba(255,255,255,0.06)"
+              stroke="#f1f5f9"
               strokeDasharray="3 3"
               horizontal={true}
               vertical={false}
             />
             <XAxis
               type="number"
-              tick={{ fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' }}
+              tick={{ fill: '#64748b', fontSize: 11, fontFamily: 'Inter' }}
               tickFormatter={(v) => {
                 if (metric === 'revenue') return formatBRL(v);
                 return v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v.toString();
@@ -266,7 +266,7 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
               type="category"
               dataKey="displayName"
               width={140}
-              tick={{ fill: '#e2e8f0', fontSize: 11, fontFamily: 'Inter' }}
+              tick={{ fill: '#334155', fontSize: 11, fontFamily: 'Inter' }}
             />
             <Tooltip content={<CustomCategoryTooltip />} />
 
@@ -294,11 +294,11 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
                   fill={
                     metric === 'revenue'
                       ? idx === 0
-                        ? '#34d399'
-                        : '#38bdf8'
+                        ? '#059669'
+                        : '#0284c7'
                       : metric === 'units'
-                      ? '#818cf8'
-                      : '#c084fc'
+                      ? '#4f46e5'
+                      : '#9333ea'
                   }
                 />
               ))}

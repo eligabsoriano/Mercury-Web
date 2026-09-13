@@ -57,7 +57,7 @@ test.describe('Mercury Executive Overview Dashboard E2E', () => {
     await gridCardsTab.click();
 
     // Click a segment card to reveal strategic playbook recommendation
-    const championsCard = page.locator('text=Champions').first();
+    const championsCard = page.locator('[data-testid="segment-card-champions"]').first();
     await championsCard.click();
     await expect(page.getByText('VIP Concierge & Dedicated Account Outreach').first()).toBeVisible();
   });

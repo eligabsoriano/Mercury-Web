@@ -104,16 +104,16 @@ export const RetentionPlannerView: React.FC = () => {
       {/* Header Section */}
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(52,211,153,0.12)] border border-[rgba(52,211,153,0.3)] text-xs font-mono text-[#a7f3d0]">
-            <Briefcase size={13} className="text-[#34d399]" />
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-mono text-emerald-800">
+            <Briefcase size={13} className="text-emerald-600" />
             <span className="uppercase tracking-wider font-semibold">
               Algorithmic Capital Allocation
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-white">
+          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-slate-900">
             Retention Economics &amp; Playbook Planner
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1 max-w-2xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-2xl">
             Deploy Knapsack budget optimization to maximize recovered gross merchandise value across
             6 canonical retention playbooks, and model custom campaign economics in real-time.
           </p>
@@ -124,7 +124,7 @@ export const RetentionPlannerView: React.FC = () => {
           <button
             type="button"
             onClick={() => knapsackSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[rgba(52,211,153,0.1)] border border-[rgba(52,211,153,0.25)] text-xs font-mono text-[#34d399] hover:bg-[rgba(52,211,153,0.2)] transition-colors"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-mono text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors shadow-xs"
           >
             <Briefcase size={12} />
             <span>Knapsack Optimizer</span>
@@ -133,7 +133,7 @@ export const RetentionPlannerView: React.FC = () => {
           <button
             type="button"
             onClick={() => playbooksSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[rgba(139,92,246,0.1)] border border-[rgba(139,92,246,0.25)] text-xs font-mono text-[#c084fc] hover:bg-[rgba(139,92,246,0.2)] transition-colors"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-violet-50 border border-violet-200 text-xs font-mono text-violet-700 hover:bg-violet-100 hover:border-violet-300 transition-colors shadow-xs"
           >
             <Layers size={12} />
             <span>Playbooks Catalog</span>
@@ -142,7 +142,7 @@ export const RetentionPlannerView: React.FC = () => {
           <button
             type="button"
             onClick={() => calculatorSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[rgba(56,189,248,0.1)] border border-[rgba(56,189,248,0.25)] text-xs font-mono text-[#38bdf8] hover:bg-[rgba(56,189,248,0.2)] transition-colors"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200 text-xs font-mono text-sky-700 hover:bg-sky-100 hover:border-sky-300 transition-colors shadow-xs"
           >
             <Calculator size={12} />
             <span>Campaign ROI Lab</span>
@@ -164,11 +164,11 @@ export const RetentionPlannerView: React.FC = () => {
       <div ref={playbooksSectionRef} className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="font-display font-bold text-xl text-white flex items-center space-x-2">
-              <Layers size={18} className="text-[#a78bfa]" />
+            <h2 className="font-display font-bold text-xl text-slate-900 flex items-center space-x-2">
+              <Layers size={18} className="text-violet-600" />
               <span>Canonical Retention Playbook Catalog</span>
             </h2>
-            <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               6 battle-tested retention workflows calibrated against customer lifetime value and
               churn severity
             </p>
@@ -176,14 +176,14 @@ export const RetentionPlannerView: React.FC = () => {
 
           {/* Channel Filters */}
           <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 text-xs font-mono">
-            <Filter size={12} className="text-[var(--text-muted)] mr-1" />
+            <Filter size={12} className="text-slate-400 mr-1" />
             <button
               type="button"
               onClick={() => setSelectedChannelFilter('all')}
               className={`px-2.5 py-1 rounded-lg transition-colors whitespace-nowrap ${
                 selectedChannelFilter === 'all'
-                  ? 'bg-[rgba(139,92,246,0.25)] text-white border border-[rgba(139,92,246,0.4)] font-bold'
-                  : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-secondary)] border border-[rgba(255,255,255,0.06)] hover:text-white'
+                  ? 'bg-violet-600 text-white font-semibold shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               All Channels ({playbooks.length})
@@ -193,8 +193,8 @@ export const RetentionPlannerView: React.FC = () => {
               onClick={() => setSelectedChannelFilter('vip')}
               className={`px-2.5 py-1 rounded-lg transition-colors whitespace-nowrap ${
                 selectedChannelFilter === 'vip'
-                  ? 'bg-[rgba(139,92,246,0.25)] text-white border border-[rgba(139,92,246,0.4)] font-bold'
-                  : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-secondary)] border border-[rgba(255,255,255,0.06)] hover:text-white'
+                  ? 'bg-violet-600 text-white font-semibold shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               VIP Concierge
@@ -204,8 +204,8 @@ export const RetentionPlannerView: React.FC = () => {
               onClick={() => setSelectedChannelFilter('logistics')}
               className={`px-2.5 py-1 rounded-lg transition-colors whitespace-nowrap ${
                 selectedChannelFilter === 'logistics'
-                  ? 'bg-[rgba(139,92,246,0.25)] text-white border border-[rgba(139,92,246,0.4)] font-bold'
-                  : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-secondary)] border border-[rgba(255,255,255,0.06)] hover:text-white'
+                  ? 'bg-violet-600 text-white font-semibold shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Logistics Recovery
@@ -215,8 +215,8 @@ export const RetentionPlannerView: React.FC = () => {
               onClick={() => setSelectedChannelFilter('support')}
               className={`px-2.5 py-1 rounded-lg transition-colors whitespace-nowrap ${
                 selectedChannelFilter === 'support'
-                  ? 'bg-[rgba(139,92,246,0.25)] text-white border border-[rgba(139,92,246,0.4)] font-bold'
-                  : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-secondary)] border border-[rgba(255,255,255,0.06)] hover:text-white'
+                  ? 'bg-violet-600 text-white font-semibold shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Quality &amp; Sentiment

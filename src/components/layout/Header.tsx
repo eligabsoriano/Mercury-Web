@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Search,
-  Activity,
   Menu,
   RotateCw,
-  ExternalLink,
   ChevronRight,
   Database,
   X,
@@ -147,13 +145,13 @@ export const Header: React.FC<HeaderProps> = ({
   const isHealthy = pipelineHealth?.status === 'ok' || connState.status === 'connected';
 
   return (
-    <header className="sticky top-0 z-20 liquid-glass rounded-none border-x-0 border-t-0 border-b border-[rgba(255,255,255,0.08)] px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4 shadow-xs">
       {/* Left: Mobile Toggle & Breadcrumbs */}
       <div className="flex items-center space-x-3 min-w-0">
         <button
           type="button"
           onClick={onToggleMobileMenu}
-          className="lg:hidden p-2 rounded-lg text-[var(--text-secondary)] hover:text-white hover:bg-[rgba(255,255,255,0.06)]"
+          className="lg:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100"
           aria-label="Toggle Navigation Drawer"
         >
           <Menu size={20} />
@@ -165,12 +163,12 @@ export const Header: React.FC<HeaderProps> = ({
             const isLast = idx === currentNavItem.breadcrumbs.length - 1;
             return (
               <React.Fragment key={crumb}>
-                {idx > 0 && <ChevronRight size={12} className="text-[var(--text-muted)]" />}
+                {idx > 0 && <ChevronRight size={12} className="text-slate-400" />}
                 <span
                   className={
                     isLast
-                      ? 'font-semibold text-white truncate max-w-[200px]'
-                      : 'text-[var(--text-secondary)] hover:text-white transition-colors cursor-pointer truncate max-w-[150px]'
+                      ? 'font-semibold text-slate-900 truncate max-w-[200px]'
+                      : 'text-slate-500 hover:text-slate-900 transition-colors cursor-pointer truncate max-w-[150px]'
                   }
                   onClick={() => !isLast && onSelectView(NAV_ITEMS[0].id)}
                 >
@@ -182,7 +180,7 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* View Title on Mobile/Tablet */}
-        <span className="md:hidden font-display font-bold text-sm text-white truncate">
+        <span className="md:hidden font-display font-bold text-sm text-slate-900 truncate">
           {currentNavItem.label}
         </span>
       </div>
@@ -192,7 +190,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="relative flex items-center">
           <Search
             size={15}
-            className="absolute left-3.5 text-[var(--text-muted)] pointer-events-none"
+            className="absolute left-3.5 text-slate-400 pointer-events-none"
           />
           <input
             ref={searchInputRef}
@@ -203,11 +201,11 @@ export const Header: React.FC<HeaderProps> = ({
               if (searchResults.length > 0) setIsSearchOpen(true);
             }}
             placeholder="Quick customer search by ID or state... (⌘K)"
-            className="w-full pl-9 pr-14 py-1.5 text-xs bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.06)] focus:bg-[rgba(14,20,36,0.9)] text-white placeholder:text-[var(--text-muted)] border border-[rgba(255,255,255,0.08)] focus:border-[rgba(139,92,246,0.5)] rounded-xl outline-none transition-all shadow-inner focus:shadow-[0_0_20px_rgba(139,92,246,0.2)]"
+            className="w-full pl-9 pr-14 py-1.5 text-xs bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-slate-900 placeholder:text-slate-400 border border-slate-200 focus:border-indigo-500 rounded-xl outline-none transition-all shadow-2xs focus:ring-2 focus:ring-indigo-100"
           />
           <div className="absolute right-2.5 flex items-center space-x-1.5 pointer-events-none">
             {isSearching ? (
-              <RotateCw size={13} className="text-[#a78bfa] animate-spin" />
+              <RotateCw size={13} className="text-indigo-600 animate-spin" />
             ) : searchQuery ? (
               <button
                 type="button"
@@ -217,12 +215,12 @@ export const Header: React.FC<HeaderProps> = ({
                   setSearchResults([]);
                   setIsSearchOpen(false);
                 }}
-                className="pointer-events-auto p-0.5 rounded text-[var(--text-muted)] hover:text-white"
+                className="pointer-events-auto p-0.5 rounded text-slate-400 hover:text-slate-700"
               >
                 <X size={13} />
               </button>
             ) : (
-              <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-[var(--text-muted)] bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.1)] rounded">
+              <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-500 bg-slate-100 border border-slate-200 rounded">
                 ⌘K
               </kbd>
             )}
@@ -231,8 +229,8 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Live Search Results Popover */}
         {isSearchOpen && searchResults.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 rounded-2xl glass-search-popover p-2 z-50 shadow-2xl drawer-slide-in">
-            <div className="px-2.5 py-1.5 text-[10px] font-mono uppercase text-[var(--text-muted)] font-semibold flex justify-between items-center border-b border-[rgba(255,255,255,0.06)]">
+          <div className="absolute top-full left-0 right-0 mt-2 rounded-2xl bg-white border border-slate-200 p-2 z-50 shadow-xl drawer-slide-in">
+            <div className="px-2.5 py-1.5 text-[10px] font-mono uppercase text-slate-400 font-semibold flex justify-between items-center border-b border-slate-100">
               <span>Customer Matches</span>
               <span>{searchResults.length} Results</span>
             </div>
@@ -243,24 +241,24 @@ export const Header: React.FC<HeaderProps> = ({
                   key={cust.customer_unique_id}
                   type="button"
                   onClick={() => handleSelectCustomer(cust.customer_unique_id)}
-                  className="w-full text-left p-2.5 rounded-xl hover:bg-[rgba(139,92,246,0.15)] hover:border-[rgba(139,92,246,0.3)] border border-transparent transition-all flex items-center justify-between group"
+                  className="w-full text-left p-2.5 rounded-xl hover:bg-indigo-50/70 hover:border-indigo-100 border border-transparent transition-all flex items-center justify-between group cursor-pointer"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-lg bg-[rgba(255,255,255,0.05)] group-hover:bg-[rgba(139,92,246,0.25)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[#c084fc] transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-indigo-100 flex items-center justify-center text-slate-500 group-hover:text-indigo-600 transition-colors">
                       <UserCheck size={16} />
                     </div>
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="font-mono text-xs font-semibold text-white">
+                        <span className="font-mono text-xs font-semibold text-slate-900">
                           {cust.customer_unique_id.slice(0, 12)}...
                         </span>
-                        <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                        <span className="text-[10px] font-mono text-slate-500">
                           ({cust.state ?? 'BR'})
                         </span>
                       </div>
                       <div className="flex items-center space-x-2 mt-1">
                         <SegmentBadge segment={cust.segment ?? 'At Risk'} />
-                        <span className="text-[10px] font-mono text-[var(--text-secondary)]">
+                        <span className="text-[10px] font-mono text-slate-600">
                           R$ {cust.lifetime_spend.toFixed(2)}
                         </span>
                       </div>
@@ -272,7 +270,7 @@ export const Header: React.FC<HeaderProps> = ({
                       tier={cust.risk_tier ?? 'Low Risk'}
                       probability={cust.churn_probability ?? 0.05}
                     />
-                    <span className="text-[9px] font-mono text-[var(--text-muted)] group-hover:text-[#d8b4fe]">
+                    <span className="text-[9px] font-mono text-slate-400 group-hover:text-indigo-600">
                       View 360 &rarr;
                     </span>
                   </div>
@@ -286,13 +284,13 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Right: Environment Pill & Pipeline Health Observability Trigger */}
       <div className="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
         {/* Environment Indicator Pill */}
-        <div className="hidden lg:flex items-center space-x-2 bg-[rgba(255,255,255,0.04)] px-3 py-1 rounded-full border border-[rgba(255,255,255,0.08)] text-[11px]">
+        <div className="hidden lg:flex items-center space-x-2 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 text-[11px]">
           <span
             className={`w-2 h-2 rounded-full ${
-              connState.status === 'connected' ? 'bg-[#34d399]' : 'bg-[#a855f7]'
+              connState.status === 'connected' ? 'bg-emerald-500' : 'bg-indigo-500'
             }`}
           />
-          <span className="text-[var(--text-secondary)] font-medium">
+          <span className="text-slate-600 font-medium">
             {connState.status === 'connected' ? 'Neon DB' : 'Offline Mock'}
           </span>
         </div>
@@ -301,30 +299,30 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           type="button"
           onClick={onOpenPipelineDrawer}
-          className="group flex items-center space-x-2 bg-[rgba(18,25,43,0.7)] hover:bg-[rgba(25,35,59,0.9)] active:scale-95 px-3 py-1.5 rounded-xl border border-[rgba(255,255,255,0.1)] hover:border-[rgba(52,211,153,0.4)] transition-all shadow-sm cursor-pointer"
+          className="group flex items-center space-x-2 bg-white hover:bg-slate-50 active:scale-95 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-emerald-300 transition-all shadow-2xs cursor-pointer"
           title="Open Pipeline Health & Observability Drawer"
           aria-label="Open Pipeline Health & Observability Drawer"
         >
           <span className="relative flex h-2.5 w-2.5">
             <span
               className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                isHealthy ? 'bg-[#34d399]' : 'bg-[#f43f5e]'
+                isHealthy ? 'bg-emerald-400' : 'bg-rose-400'
               }`}
             />
             <span
               className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                isHealthy ? 'bg-[#34d399]' : 'bg-[#f43f5e]'
+                isHealthy ? 'bg-emerald-500' : 'bg-rose-500'
               }`}
             />
           </span>
 
-          <Database size={13} className="text-[#34d399] group-hover:text-white transition-colors" />
+          <Database size={13} className="text-emerald-600 group-hover:text-emerald-700 transition-colors" />
 
-          <span className="font-mono text-xs font-bold text-white group-hover:text-[#34d399] transition-colors">
+          <span className="font-mono text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
             {latency} ms
           </span>
 
-          <span className="hidden xl:inline text-[10px] uppercase font-mono text-[#a7f3d0] bg-[rgba(52,211,153,0.15)] px-1.5 py-0.5 rounded border border-[rgba(52,211,153,0.3)]">
+          <span className="hidden xl:inline text-[10px] uppercase font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-semibold">
             Telemetry
           </span>
         </button>
@@ -333,27 +331,14 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           type="button"
           onClick={handleRefreshClick}
-          className={`p-2 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.08)] text-[var(--text-secondary)] hover:text-white transition-all ${
+          className={`p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-900 shadow-2xs transition-all cursor-pointer ${
             isRefreshing ? 'rotate-180 transition-transform duration-500' : ''
           }`}
           title="Refresh Telemetry and Analytics"
           aria-label="Refresh Telemetry and Analytics"
         >
-          <RotateCw size={14} className={isRefreshing ? 'text-[#c084fc]' : ''} />
+          <RotateCw size={14} className={isRefreshing ? 'text-indigo-600' : ''} />
         </button>
-
-        {/* Roadmap External Link */}
-        <a
-          href="/docs/roadmap.md"
-          target="_blank"
-          rel="noreferrer"
-          className="hidden sm:flex items-center space-x-1.5 text-xs text-[var(--text-secondary)] hover:text-white bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.08)] px-2.5 py-1.5 rounded-xl border border-[rgba(255,255,255,0.08)] transition-colors"
-          title="View Engineering Roadmap"
-        >
-          <Activity size={13} className="text-[#a78bfa]" />
-          <span>Roadmap</span>
-          <ExternalLink size={11} />
-        </a>
       </div>
     </header>
   );

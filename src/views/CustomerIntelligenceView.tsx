@@ -216,17 +216,17 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
       {/* Header Section */}
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(56,189,248,0.12)] border border-[rgba(56,189,248,0.3)] text-xs font-mono text-[#7dd3fc]">
-            <Users size={13} className="text-[#38bdf8]" />
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs font-mono text-sky-700">
+            <Users size={13} className="text-sky-600" />
             <span className="uppercase tracking-wider font-semibold">
               Olist Customer 360 Registry
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-white">
+          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-slate-900">
             Customer Intelligence & Risk Directory
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1 max-w-2xl">
-            Granular customer profiling aggregated by <code className="font-mono text-white text-xs">customer_unique_id</code> with RFM quintile assignment,
+          <p className="text-sm text-slate-600 mt-1 max-w-2xl">
+            Granular customer profiling aggregated by <code className="font-mono text-slate-900 bg-slate-100 px-1 py-0.5 rounded text-xs">customer_unique_id</code> with RFM quintile assignment,
             HistGradientBoosting churn risk inference, and prescriptive retention routing.
           </p>
         </div>
@@ -253,7 +253,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
       </section>
 
       {/* Mode Tabs (All Customers vs Priority At-Risk Queue) */}
-      <div className="flex items-center justify-between border-b border-[rgba(255,255,255,0.08)]">
+      <div className="flex items-center justify-between border-b border-slate-200">
         <div className="flex items-center space-x-2">
           <button
             type="button"
@@ -263,13 +263,13 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
             }}
             className={`flex items-center space-x-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 ${
               activeTab === 'all'
-                ? 'text-white border-[#38bdf8] bg-[rgba(56,189,248,0.06)]'
-                : 'text-[var(--text-secondary)] border-transparent hover:text-white hover:bg-[rgba(255,255,255,0.02)]'
+                ? 'text-slate-900 border-sky-600 bg-sky-50/50'
+                : 'text-slate-500 border-transparent hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
             <Users size={14} />
             <span>All Customers</span>
-            <span className="ml-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-[rgba(255,255,255,0.08)] text-[var(--text-secondary)]">
+            <span className="ml-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-100 border border-slate-200 text-slate-600">
               96,096
             </span>
           </button>
@@ -282,76 +282,76 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
             }}
             className={`flex items-center space-x-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 ${
               activeTab === 'at-risk'
-                ? 'text-white border-[#f43f5e] bg-[rgba(244,63,94,0.08)]'
-                : 'text-[var(--text-secondary)] border-transparent hover:text-white hover:bg-[rgba(255,255,255,0.02)]'
+                ? 'text-rose-700 border-rose-600 bg-rose-50/50'
+                : 'text-slate-500 border-transparent hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
-            <ShieldAlert size={14} className="text-[#f43f5e]" />
+            <ShieldAlert size={14} className="text-rose-600" />
             <span>Priority At-Risk Queue</span>
-            <span className="ml-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-[rgba(244,63,94,0.2)] text-[#fda4af] font-bold border border-[rgba(244,63,94,0.35)]">
+            <span className="ml-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-rose-50 text-rose-700 font-bold border border-rose-200">
               17,680
             </span>
           </button>
         </div>
 
-        <div className="hidden sm:flex items-center space-x-3 text-xs text-[var(--text-muted)] font-mono">
+        <div className="hidden sm:flex items-center space-x-3 text-xs text-slate-500 font-mono">
           <span>Active View: {activeTab === 'all' ? 'Universal Registry' : 'Intervention Queue'}</span>
         </div>
       </div>
 
       {/* Summary Stat Pills */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] flex items-center space-x-3">
-          <div className="p-2 rounded-lg bg-[rgba(56,189,248,0.12)] text-[#38bdf8]">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center space-x-3">
+          <div className="p-2 rounded-lg bg-sky-50 border border-sky-200 text-sky-700">
             <ListFilter size={16} />
           </div>
           <div>
-            <div className="text-[10px] uppercase font-mono text-[var(--text-muted)]">
+            <div className="text-[10px] uppercase font-mono text-slate-500">
               Matching Records
             </div>
-            <div className="text-base font-bold font-mono text-white">
+            <div className="text-base font-bold font-mono text-slate-900">
               {totalCount.toLocaleString()}
             </div>
           </div>
         </div>
 
-        <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] flex items-center space-x-3">
-          <div className="p-2 rounded-lg bg-[rgba(244,63,94,0.12)] text-[#f43f5e]">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center space-x-3">
+          <div className="p-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700">
             <DollarSign size={16} />
           </div>
           <div>
-            <div className="text-[10px] uppercase font-mono text-[var(--text-muted)]">
+            <div className="text-[10px] uppercase font-mono text-slate-500">
               Page Revenue at Risk
             </div>
-            <div className="text-base font-bold font-mono text-white">
+            <div className="text-base font-bold font-mono text-slate-900">
               R$ {pageAggregates.totalRisk.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
           </div>
         </div>
 
-        <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] flex items-center space-x-3">
-          <div className="p-2 rounded-lg bg-[rgba(251,191,36,0.12)] text-[#fbbf24]">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center space-x-3">
+          <div className="p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-700">
             <TrendingDown size={16} />
           </div>
           <div>
-            <div className="text-[10px] uppercase font-mono text-[var(--text-muted)]">
+            <div className="text-[10px] uppercase font-mono text-slate-500">
               Avg Churn Probability
             </div>
-            <div className="text-base font-bold font-mono text-white">
+            <div className="text-base font-bold font-mono text-slate-900">
               {(pageAggregates.avgProb * 100).toFixed(1)}%
             </div>
           </div>
         </div>
 
-        <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] flex items-center space-x-3">
-          <div className="p-2 rounded-lg bg-[rgba(52,211,153,0.12)] text-[#34d399]">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center space-x-3">
+          <div className="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
             <UserCheck size={16} />
           </div>
           <div>
-            <div className="text-[10px] uppercase font-mono text-[var(--text-muted)]">
+            <div className="text-[10px] uppercase font-mono text-slate-500">
               Repeat Buyers (Page)
             </div>
-            <div className="text-base font-bold font-mono text-white">
+            <div className="text-base font-bold font-mono text-slate-900">
               {pageAggregates.repeatBuyers} / {customers.length}
             </div>
           </div>
@@ -359,17 +359,17 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
       </div>
 
       {/* Multi-faceted Search & Filter Suite */}
-      <GlassCard className="p-4" glow={activeTab === 'at-risk' ? 'crimson' : 'cyan'}>
+      <GlassCard className="p-4">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
           {/* Search Bar */}
           <div className="relative flex-1 max-w-lg">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by customer_unique_id, city, or state..."
-              className="w-full pl-9 pr-4 py-2 text-xs bg-[rgba(255,255,255,0.04)] text-white placeholder:text-[var(--text-muted)] border border-[rgba(255,255,255,0.08)] rounded-xl outline-none focus:border-[rgba(56,189,248,0.5)] transition-all font-mono"
+              className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 text-slate-900 placeholder:text-slate-400 border border-slate-200 rounded-xl outline-none focus:border-sky-500 transition-all font-mono"
             />
           </div>
 
@@ -382,7 +382,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                 setRiskFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-[rgba(14,20,36,0.9)] text-xs text-white border border-[rgba(255,255,255,0.1)] rounded-xl px-3 py-1.5 outline-none hover:border-[rgba(255,255,255,0.2)] transition-colors"
+              className="bg-white text-xs text-slate-700 border border-slate-200 rounded-xl px-3 py-1.5 outline-none hover:border-slate-300 transition-colors"
             >
               <option value="all">All Risk Tiers</option>
               <option value="High Risk">High Risk (P &ge; 70%)</option>
@@ -397,7 +397,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                 setSegmentFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-[rgba(14,20,36,0.9)] text-xs text-white border border-[rgba(255,255,255,0.1)] rounded-xl px-3 py-1.5 outline-none hover:border-[rgba(255,255,255,0.2)] transition-colors"
+              className="bg-white text-xs text-slate-700 border border-slate-200 rounded-xl px-3 py-1.5 outline-none hover:border-slate-300 transition-colors"
             >
               <option value="all">All RFM Segments</option>
               <option value="Champions">Champions</option>
@@ -420,7 +420,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                 setStateFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-[rgba(14,20,36,0.9)] text-xs text-white border border-[rgba(255,255,255,0.1)] rounded-xl px-3 py-1.5 outline-none hover:border-[rgba(255,255,255,0.2)] transition-colors font-mono"
+              className="bg-white text-xs text-slate-700 border border-slate-200 rounded-xl px-3 py-1.5 outline-none hover:border-slate-300 transition-colors font-mono"
             >
               <option value="all">All States</option>
               <option value="SP">SP (São Paulo)</option>
@@ -443,7 +443,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                 setPriorityFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-[rgba(14,20,36,0.9)] text-xs text-white border border-[rgba(255,255,255,0.1)] rounded-xl px-3 py-1.5 outline-none hover:border-[rgba(255,255,255,0.2)] transition-colors"
+              className="bg-white text-xs text-slate-700 border border-slate-200 rounded-xl px-3 py-1.5 outline-none hover:border-slate-300 transition-colors"
             >
               <option value="all">All Priorities</option>
               <option value="Priority 1">Priority 1 (VIP)</option>
@@ -457,7 +457,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="p-1.5 rounded-xl border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.06)] text-[var(--text-secondary)] hover:text-white transition-all text-xs flex items-center space-x-1"
+                className="p-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-all text-xs flex items-center space-x-1"
                 title="Reset all filters"
               >
                 <RotateCcw size={13} />
@@ -476,14 +476,13 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
             ? 'High-exposure churn accounts requiring urgent intervention routing'
             : 'Multi-dimensional RFM quintiles and real-time HistGradientBoosting risk scoring'
         }
-        glow={activeTab === 'at-risk' ? 'crimson' : 'cyan'}
       >
         <div className="overflow-x-auto mt-3">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-[var(--text-muted)] font-mono uppercase text-[10px]">
+              <tr className="border-b border-slate-200 text-slate-500 font-mono uppercase text-[10px]">
                 <th
-                  className="pb-3 font-semibold cursor-pointer hover:text-white transition-colors"
+                  className="pb-3 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
                   onClick={() => handleSort('customer_unique_id')}
                 >
                   <div className="flex items-center space-x-1">
@@ -493,7 +492,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                 </th>
                 <th className="pb-3 font-semibold">RFM Segment</th>
                 <th
-                  className="pb-3 font-semibold cursor-pointer hover:text-white transition-colors"
+                  className="pb-3 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
                   onClick={() => handleSort('lifetime_orders')}
                 >
                   <div className="flex items-center space-x-1">
@@ -502,7 +501,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                   </div>
                 </th>
                 <th
-                  className="pb-3 font-semibold cursor-pointer hover:text-white transition-colors"
+                  className="pb-3 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
                   onClick={() => handleSort('lifetime_spend')}
                 >
                   <div className="flex items-center space-x-1">
@@ -511,7 +510,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                   </div>
                 </th>
                 <th
-                  className="pb-3 font-semibold cursor-pointer hover:text-white transition-colors"
+                  className="pb-3 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
                   onClick={() => handleSort('recency_days')}
                 >
                   <div className="flex items-center space-x-1">
@@ -520,7 +519,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                   </div>
                 </th>
                 <th
-                  className="pb-3 font-semibold cursor-pointer hover:text-white transition-colors"
+                  className="pb-3 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
                   onClick={() => handleSort('churn_probability')}
                 >
                   <div className="flex items-center space-x-1">
@@ -529,7 +528,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                   </div>
                 </th>
                 <th
-                  className="pb-3 font-semibold cursor-pointer hover:text-white transition-colors"
+                  className="pb-3 font-semibold cursor-pointer hover:text-slate-900 transition-colors"
                   onClick={() => handleSort('revenue_at_risk')}
                 >
                   <div className="flex items-center space-x-1">
@@ -542,25 +541,25 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-[rgba(255,255,255,0.04)] font-mono">
+            <tbody className="divide-y divide-slate-100 font-mono">
               {isLoading ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-[var(--text-muted)] font-sans">
+                  <td colSpan={9} className="py-12 text-center text-slate-500 font-sans">
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="w-2 h-2 rounded-full bg-[#38bdf8] animate-ping" />
+                      <div className="w-2 h-2 rounded-full bg-sky-500 animate-ping" />
                       <span>Querying customer registry...</span>
                     </div>
                   </td>
                 </tr>
               ) : customers.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-[var(--text-muted)] font-sans">
-                    <AlertTriangle size={24} className="mx-auto mb-2 opacity-40 text-[#fbbf24]" />
+                  <td colSpan={9} className="py-12 text-center text-slate-500 font-sans">
+                    <AlertTriangle size={24} className="mx-auto mb-2 opacity-40 text-amber-500" />
                     <p>No customer records match the specified filters.</p>
                     <button
                       type="button"
                       onClick={handleResetFilters}
-                      className="mt-2 text-xs text-[var(--neon-cyan)] hover:underline"
+                      className="mt-2 text-xs text-sky-600 hover:underline font-medium"
                     >
                       Clear active filters
                     </button>
@@ -571,23 +570,23 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                   <tr
                     key={c.customer_unique_id}
                     onClick={() => handleOpenModal(c.customer_unique_id)}
-                    className={`hover:bg-[rgba(255,255,255,0.03)] cursor-pointer transition-colors group ${
+                    className={`hover:bg-slate-50 cursor-pointer transition-colors group ${
                       modalCustomerId === c.customer_unique_id
-                        ? 'bg-[rgba(139,92,246,0.12)]'
+                        ? 'bg-indigo-50/70'
                         : ''
                     }`}
                   >
                     {/* Customer ID & City / State */}
-                    <td className="py-3 font-medium text-white">
+                    <td className="py-3 font-medium text-slate-900">
                       <div className="flex items-center space-x-2">
                         <span className="font-bold truncate max-w-[130px]" title={c.customer_unique_id}>
                           {c.customer_unique_id}
                         </span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(255,255,255,0.06)] text-[var(--text-secondary)] font-mono uppercase">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-mono uppercase">
                           {c.state ?? 'BR'}
                         </span>
                       </div>
-                      <div className="text-[10px] text-[var(--text-muted)] capitalize truncate max-w-[150px]">
+                      <div className="text-[10px] text-slate-500 capitalize truncate max-w-[150px]">
                         {c.city ?? 'Brasil'}
                       </div>
                     </td>
@@ -598,17 +597,17 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                     </td>
 
                     {/* Orders */}
-                    <td className="py-3 text-white font-bold">
+                    <td className="py-3 text-slate-900 font-bold">
                       {c.lifetime_orders}
                     </td>
 
                     {/* Lifetime Spend */}
-                    <td className="py-3 text-[#34d399] font-bold">
+                    <td className="py-3 text-emerald-700 font-bold">
                       R$ {c.lifetime_spend.toFixed(2)}
                     </td>
 
                     {/* Recency */}
-                    <td className="py-3 text-[var(--text-secondary)]">
+                    <td className="py-3 text-slate-600">
                       {c.recency_days !== null && c.recency_days !== undefined
                         ? `${c.recency_days}d`
                         : 'Active'}
@@ -623,7 +622,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                     </td>
 
                     {/* Revenue at Risk */}
-                    <td className="py-3 font-bold text-[#f43f5e]">
+                    <td className="py-3 font-bold text-rose-600">
                       R$ {(c.revenue_at_risk ?? (c.lifetime_spend * (c.churn_probability ?? 0.1))).toFixed(2)}
                     </td>
 
@@ -637,7 +636,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                       <button
                         type="button"
                         onClick={() => handleOpenModal(c.customer_unique_id)}
-                        className="p-1.5 rounded-lg bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(139,92,246,0.25)] text-[var(--text-secondary)] hover:text-white transition-all inline-flex items-center space-x-1"
+                        className="p-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 shadow-sm transition-all inline-flex items-center space-x-1"
                         title="View Customer 360 Profile"
                       >
                         <span className="text-[10px] font-sans font-semibold">360</span>
@@ -652,18 +651,18 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
         </div>
 
         {/* Pagination Bar */}
-        <div className="pt-4 mt-2 border-t border-[rgba(255,255,255,0.06)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--text-secondary)]">
+        <div className="pt-4 mt-2 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
           <div className="flex items-center space-x-2">
             <span>
               Showing{' '}
-              <strong className="text-white font-mono">
+              <strong className="text-slate-900 font-mono">
                 {totalCount === 0 ? 0 : (currentPage - 1) * pageSize + 1}–
                 {Math.min(currentPage * pageSize, totalCount)}
               </strong>{' '}
-              of <strong className="text-white font-mono">{totalCount.toLocaleString()}</strong> accounts
+              of <strong className="text-slate-900 font-mono">{totalCount.toLocaleString()}</strong> accounts
             </span>
 
-            <span className="text-[var(--text-muted)]">|</span>
+            <span className="text-slate-300">|</span>
 
             <div className="flex items-center space-x-1 text-[11px]">
               <span>Rows per page:</span>
@@ -673,7 +672,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
                   setPageSize(Number(e.target.value));
                   setCurrentPage(1);
                 }}
-                className="bg-[rgba(14,20,36,0.9)] text-white border border-[rgba(255,255,255,0.1)] rounded-lg px-2 py-0.5 outline-none font-mono text-[11px]"
+                className="bg-white text-slate-900 border border-slate-200 rounded-lg px-2 py-0.5 outline-none font-mono text-[11px]"
               >
                 <option value={10}>10</option>
                 <option value={25}>25</option>
@@ -687,13 +686,13 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
               type="button"
               disabled={currentPage <= 1 || isLoading}
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 rounded-lg border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.08)] disabled:opacity-40 disabled:cursor-not-allowed transition-all text-white flex items-center"
+              className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm transition-all text-slate-700 flex items-center"
               title="Previous Page"
             >
               <ChevronLeft size={14} />
             </button>
 
-            <span className="px-3 py-1 rounded-lg bg-[rgba(255,255,255,0.05)] text-white text-xs border border-[rgba(255,255,255,0.08)]">
+            <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs border border-slate-200">
               Page {currentPage} of {totalPages}
             </span>
 
@@ -701,7 +700,7 @@ export const CustomerIntelligenceView: React.FC<CustomerIntelligenceViewProps> =
               type="button"
               disabled={currentPage >= totalPages || isLoading}
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              className="p-1.5 rounded-lg border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.08)] disabled:opacity-40 disabled:cursor-not-allowed transition-all text-white flex items-center"
+              className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm transition-all text-slate-700 flex items-center"
               title="Next Page"
             >
               <ChevronRight size={14} />

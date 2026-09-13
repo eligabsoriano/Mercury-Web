@@ -16,55 +16,56 @@ function formatCohortMonth(cohort: string): string {
   return `${monthNames[monthIdx] || parts[1]} ${parts[0]}`;
 }
 
-// Get dynamic background and text color based on retention rate percentage
+// Get dynamic background and text color based on retention rate percentage for light mode
 function getCellStyles(rate: number | undefined, isM0: boolean): { bg: string; text: string; border?: string } {
   if (rate === undefined) {
-    return { bg: 'rgba(255,255,255,0.015)', text: '#334155' };
+    return { bg: '#f8fafc', text: '#cbd5e1' };
   }
   if (isM0) {
     return {
-      bg: 'rgba(52,211,153,0.3)',
-      text: '#6ee7b7',
-      border: 'rgba(52,211,153,0.45)',
+      bg: '#ecfdf5',
+      text: '#047857',
+      border: '#a7f3d0',
     };
   }
   if (rate >= 6.0) {
     return {
-      bg: 'rgba(52,211,153,0.4)',
-      text: '#ecfdf5',
-      border: 'rgba(52,211,153,0.6)',
+      bg: '#d1fae5',
+      text: '#065f46',
+      border: '#6ee7b7',
     };
   }
   if (rate >= 4.0) {
     return {
-      bg: 'rgba(20,184,166,0.32)',
-      text: '#ccfbf1',
-      border: 'rgba(20,184,166,0.45)',
+      bg: '#ccfbf1',
+      text: '#0f766e',
+      border: '#5eead4',
     };
   }
   if (rate >= 2.5) {
     return {
-      bg: 'rgba(56,189,248,0.24)',
-      text: '#e0f2fe',
-      border: 'rgba(56,189,248,0.35)',
+      bg: '#e0f2fe',
+      text: '#0369a1',
+      border: '#7dd3fc',
     };
   }
   if (rate >= 1.0) {
     return {
-      bg: 'rgba(139,92,246,0.18)',
-      text: '#ede9fe',
-      border: 'rgba(139,92,246,0.25)',
+      bg: '#eef2ff',
+      text: '#4338ca',
+      border: '#c7d2fe',
     };
   }
   if (rate > 0) {
     return {
-      bg: 'rgba(100,116,139,0.14)',
-      text: '#94a3b8',
+      bg: '#f1f5f9',
+      text: '#475569',
+      border: '#e2e8f0',
     };
   }
   return {
-    bg: 'rgba(255,255,255,0.02)',
-    text: '#475569',
+    bg: '#f8fafc',
+    text: '#94a3b8',
   };
 }
 
@@ -110,71 +111,71 @@ export const CohortRetentionHeatmap: React.FC<CohortRetentionHeatmapProps> = ({
   }, [cohorts, monthKeys]);
 
   return (
-    <div className="liquid-glass rounded-2xl p-5 md:p-6 border border-[rgba(255,255,255,0.09)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative">
+    <div className="bg-white rounded-2xl p-5 md:p-6 border border-slate-200 shadow-sm relative">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[rgba(255,255,255,0.07)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
           <div className="flex items-center space-x-2">
-            <h3 className="font-display font-bold text-lg text-white tracking-tight">
+            <h3 className="font-display font-bold text-lg text-slate-900 tracking-tight">
               12-Month Cohort Retention Decay Matrix
             </h3>
-            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[rgba(139,92,246,0.14)] text-[#c4b5fd] border border-[rgba(139,92,246,0.3)] font-semibold">
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
               Survival Analysis
             </span>
           </div>
-          <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Percentage of customers from each monthly acquisition cohort returning to place subsequent orders
           </p>
         </div>
 
         {/* Legend Scale */}
-        <div className="flex items-center space-x-2 text-[11px] font-mono text-[var(--text-muted)]">
+        <div className="flex items-center space-x-2 text-[11px] font-mono text-slate-500">
           <span className="text-[10px] uppercase font-sans">Survival Rate:</span>
           <div className="flex items-center space-x-1">
-            <span className="w-3 h-3 rounded bg-[rgba(100,116,139,0.2)] border border-[rgba(100,116,139,0.3)]" title="< 1%" />
-            <span className="w-3 h-3 rounded bg-[rgba(139,92,246,0.3)] border border-[rgba(139,92,246,0.4)]" title="1.0 - 2.5%" />
-            <span className="w-3 h-3 rounded bg-[rgba(56,189,248,0.35)] border border-[rgba(56,189,248,0.45)]" title="2.5 - 4.0%" />
-            <span className="w-3 h-3 rounded bg-[rgba(20,184,166,0.45)] border border-[rgba(20,184,166,0.55)]" title="4.0 - 6.0%" />
-            <span className="w-3 h-3 rounded bg-[rgba(52,211,153,0.6)] border border-[rgba(52,211,153,0.7)]" title="≥ 6.0%" />
+            <span className="w-3 h-3 rounded bg-slate-100 border border-slate-200" title="< 1%" />
+            <span className="w-3 h-3 rounded bg-indigo-100 border border-indigo-200" title="1.0 - 2.5%" />
+            <span className="w-3 h-3 rounded bg-sky-100 border border-sky-200" title="2.5 - 4.0%" />
+            <span className="w-3 h-3 rounded bg-teal-100 border border-teal-200" title="4.0 - 6.0%" />
+            <span className="w-3 h-3 rounded bg-emerald-100 border border-emerald-200" title="≥ 6.0%" />
           </div>
-          <span className="text-[10px] text-[#6ee7b7] font-bold">High (6%+)</span>
+          <span className="text-[10px] text-emerald-700 font-bold">High (6%+)</span>
         </div>
       </div>
 
       {/* Heatmap Matrix Table */}
       {isLoading ? (
-        <div className="h-64 flex items-center justify-center text-xs text-[var(--text-secondary)] font-mono animate-pulse">
+        <div className="h-64 flex items-center justify-center text-xs text-slate-400 font-mono animate-pulse">
           Calculating monthly cohort survival vectors...
         </div>
       ) : (
         <div className="overflow-x-auto mt-4 pb-2">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)]">
-                <th className="py-2.5 px-3 text-left font-sans font-semibold text-[var(--text-secondary)] uppercase text-[10px] tracking-wider min-w-[100px]">
+              <tr className="border-b border-slate-200">
+                <th className="py-2.5 px-3 text-left font-sans font-semibold text-slate-600 uppercase text-[10px] tracking-wider min-w-[100px]">
                   Cohort
                 </th>
-                <th className="py-2.5 px-3 text-right font-sans font-semibold text-[var(--text-secondary)] uppercase text-[10px] tracking-wider min-w-[70px]">
+                <th className="py-2.5 px-3 text-right font-sans font-semibold text-slate-600 uppercase text-[10px] tracking-wider min-w-[70px]">
                   Size
                 </th>
                 {monthKeys.map((k, idx) => (
                   <th
                     key={k}
-                    className="py-2.5 px-2 text-center font-mono font-medium text-[var(--text-muted)] text-[10px] min-w-[46px]"
+                    className="py-2.5 px-2 text-center font-mono font-medium text-slate-400 text-[10px] min-w-[46px]"
                   >
                     {idx === 0 ? 'M0' : `+${idx}m`}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[rgba(255,255,255,0.03)] font-mono text-[11px]">
+            <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
               {cohorts.map((cohort) => {
                 return (
-                  <tr key={cohort.cohort_month} className="hover:bg-[rgba(255,255,255,0.02)] transition-colors">
-                    <td className="py-2 px-3 text-left font-sans font-medium text-white whitespace-nowrap">
+                  <tr key={cohort.cohort_month} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-2 px-3 text-left font-sans font-medium text-slate-900 whitespace-nowrap">
                       {formatCohortMonth(cohort.cohort_month)}
                     </td>
-                    <td className="py-2 px-3 text-right text-[var(--text-secondary)] font-mono">
+                    <td className="py-2 px-3 text-right text-slate-500 font-mono">
                       {cohort.cohort_size.toLocaleString()}
                     </td>
                     {monthKeys.map((k, idx) => {
@@ -205,7 +206,7 @@ export const CohortRetentionHeatmap: React.FC<CohortRetentionHeatmapProps> = ({
                               borderColor: style.border || 'transparent',
                             }}
                             className={`py-1 px-1 rounded-md text-[10px] font-bold border transition-all cursor-default ${
-                              hasValue ? 'hover:scale-110 hover:shadow-lg' : 'opacity-20'
+                              hasValue ? 'hover:scale-110 hover:shadow-sm' : 'opacity-30'
                             }`}
                           >
                             {hasValue ? `${rate.toFixed(idx === 0 ? 0 : 1)}%` : '—'}
@@ -218,18 +219,18 @@ export const CohortRetentionHeatmap: React.FC<CohortRetentionHeatmapProps> = ({
               })}
 
               {/* Lifecycle Period Averages Row */}
-              <tr className="bg-[rgba(15,23,42,0.65)] font-bold border-t border-[rgba(255,255,255,0.1)]">
-                <td className="py-2.5 px-3 text-left font-sans text-xs text-[#a78bfa]">
+              <tr className="bg-slate-50 font-bold border-t border-slate-200">
+                <td className="py-2.5 px-3 text-left font-sans text-xs text-indigo-700">
                   Average Decay
                 </td>
-                <td className="py-2.5 px-3 text-right text-[var(--text-muted)] text-[10px]">
+                <td className="py-2.5 px-3 text-right text-slate-400 text-[10px]">
                   Portfolio
                 </td>
                 {monthKeys.map((k, idx) => {
                   const avg = periodAverages[k] ?? 0;
                   return (
-                    <td key={k} className="p-1 text-center font-mono text-[10px] text-white">
-                      <div className="py-1 px-1 rounded bg-[rgba(255,255,255,0.06)]">
+                    <td key={k} className="p-1 text-center font-mono text-[10px] text-slate-800">
+                      <div className="py-1 px-1 rounded bg-white border border-slate-200 shadow-2xs">
                         {idx === 0 ? '100%' : `${avg.toFixed(1)}%`}
                       </div>
                     </td>
@@ -243,16 +244,16 @@ export const CohortRetentionHeatmap: React.FC<CohortRetentionHeatmapProps> = ({
 
       {/* Hovered Cell Detail Flyout / Tooltip */}
       {hoveredCell && (
-        <div className="mt-3 p-3 rounded-xl bg-[rgba(15,23,42,0.95)] border border-[rgba(139,92,246,0.4)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] flex flex-wrap items-center justify-between gap-3 text-xs animate-in fade-in duration-150">
+        <div className="mt-3 p-3 rounded-xl bg-white border border-slate-200 shadow-lg flex flex-wrap items-center justify-between gap-3 text-xs animate-in fade-in duration-150">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-lg bg-[rgba(139,92,246,0.2)] flex items-center justify-center text-[#c084fc]">
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600">
               <Calendar size={15} />
             </div>
             <div>
-              <span className="font-display font-bold text-white">
+              <span className="font-display font-bold text-slate-900">
                 Cohort: {formatCohortMonth(hoveredCell.cohort.cohort_month)}
               </span>
-              <span className="text-[11px] text-[var(--text-muted)] ml-2">
+              <span className="text-[11px] text-slate-500 ml-2">
                 ({hoveredCell.cohort.cohort_size.toLocaleString()} accounts acquired)
               </span>
             </div>
@@ -260,26 +261,26 @@ export const CohortRetentionHeatmap: React.FC<CohortRetentionHeatmapProps> = ({
 
           <div className="flex items-center space-x-4 font-mono text-xs">
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] block font-sans">
+              <span className="text-slate-400 text-[10px] block font-sans">
                 Lifecycle Period:
               </span>
-              <span className="font-bold text-white">
+              <span className="font-bold text-slate-900">
                 Month {hoveredCell.monthIndex} (+{hoveredCell.monthIndex * 30} days)
               </span>
             </div>
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] block font-sans">
+              <span className="text-slate-400 text-[10px] block font-sans">
                 Survival Rate:
               </span>
-              <span className="font-bold text-[#6ee7b7]">
+              <span className="font-bold text-emerald-700">
                 {hoveredCell.rate.toFixed(1)}%
               </span>
             </div>
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] block font-sans">
+              <span className="text-slate-400 text-[10px] block font-sans">
                 Retained Buyers:
               </span>
-              <span className="font-bold text-[#38bdf8]">
+              <span className="font-bold text-sky-700">
                 ~{Math.round((hoveredCell.cohort.cohort_size * hoveredCell.rate) / 100).toLocaleString()} buyers
               </span>
             </div>
@@ -288,20 +289,20 @@ export const CohortRetentionHeatmap: React.FC<CohortRetentionHeatmapProps> = ({
       )}
 
       {/* Executive Cohort Retention Takeaway Callout */}
-      <div className="mt-4 p-4 rounded-xl bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.25)] flex items-start space-x-3 text-xs">
-        <Sparkles size={16} className="text-[#a78bfa] shrink-0 mt-0.5" />
+      <div className="mt-4 p-4 rounded-xl bg-indigo-50/50 border border-indigo-200 flex items-start space-x-3 text-xs">
+        <Sparkles size={16} className="text-indigo-600 shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <div className="font-display font-bold text-white flex items-center space-x-2">
+          <div className="font-display font-bold text-slate-900 flex items-center space-x-2">
             <span>Executive Cohort Takeaway: Single-Purchase Marketplace Drop-Off</span>
-            <span className="text-[10px] font-mono text-[#34d399] px-2 py-0.5 rounded-full bg-[rgba(52,211,153,0.15)] border border-[rgba(52,211,153,0.3)]">
+            <span className="text-[10px] font-mono text-emerald-700 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 font-semibold">
               High Leverage Area
             </span>
           </div>
-          <p className="text-[var(--text-secondary)] leading-relaxed">
+          <p className="text-slate-600 leading-relaxed">
             Marketplace customers exhibit typical steep single-order churn, dropping from 100% to an average of
-            <strong> 4.9%</strong> in Month 1 and stabilizing between <strong>2.0% – 3.5%</strong> across trailing quarters.
-            Because aggregate repeat buyer rate is <strong>2.99%</strong>, lifting Month 1 re-engagement by +200 bps
-            unlocks an estimated <strong className="text-white">+R$ 1.84M in annual recurring GMV</strong> without additional customer acquisition cost (CAC).
+            <strong className="text-slate-900"> 4.9%</strong> in Month 1 and stabilizing between <strong className="text-slate-900">2.0% – 3.5%</strong> across trailing quarters.
+            Because aggregate repeat buyer rate is <strong className="text-slate-900">2.99%</strong>, lifting Month 1 re-engagement by +200 bps
+            unlocks an estimated <strong className="text-emerald-700 font-bold">+R$ 1.84M in annual recurring GMV</strong> without additional customer acquisition cost (CAC).
           </p>
         </div>
       </div>

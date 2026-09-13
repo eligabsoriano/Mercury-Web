@@ -166,16 +166,16 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
       {/* Header Section */}
       <section className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(139,92,246,0.12)] border border-[rgba(139,92,246,0.3)] text-xs font-mono text-[#d8b4fe]">
-            <ShoppingBag size={13} className="text-[#c084fc]" />
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-xs font-mono text-purple-700">
+            <ShoppingBag size={13} className="text-purple-600" />
             <span className="uppercase tracking-wider font-semibold">
               Catalog & Merchant Telemetry
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-white">
+          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-slate-900">
             Catalog Intelligence & Seller Logistics
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1 max-w-3xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-3xl">
             Monitor {products?.pagination?.total_items ? products.pagination.total_items.toLocaleString() : '32,951'} catalog items
             across marketplace categories, merchant fulfillment reliability scores, and logistics delivery risk correlations.
           </p>
@@ -183,17 +183,17 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
 
         <div className="flex items-center space-x-3 self-start md:self-auto">
           <div className="text-right hidden sm:block">
-            <span className="text-[10px] uppercase font-mono text-[var(--text-muted)] block">Last Synced</span>
-            <span className="text-xs font-mono text-[var(--text-secondary)]">{lastRefreshed}</span>
+            <span className="text-[10px] uppercase font-mono text-slate-400 block">Last Synced</span>
+            <span className="text-xs font-mono text-slate-600">{lastRefreshed}</span>
           </div>
 
           <button
             type="button"
             onClick={() => fetchData(true)}
             disabled={isRefreshing}
-            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.1)] text-white text-xs font-medium transition-all duration-200 active:scale-95 disabled:opacity-50"
+            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium shadow-sm transition-all duration-200 active:scale-95 disabled:opacity-50"
           >
-            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-[#38bdf8]' : ''} />
+            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-sky-600' : ''} />
             <span>{isRefreshing ? 'Syncing...' : 'Refresh'}</span>
           </button>
         </div>
@@ -262,23 +262,22 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
       <GlassCard
         title="Marketplace Product Categories Scorecard"
         subtitle="Ranked performance, revenue contribution share, and customer review scores across categories"
-        glow="cyan"
       >
         {/* Sort Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-[rgba(255,255,255,0.06)]">
-          <span className="text-xs text-[var(--text-secondary)] font-mono">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-200">
+          <span className="text-xs text-slate-600 font-mono">
             Displaying {sortedCategories.length} product categories
           </span>
 
-          <div className="flex items-center space-x-1.5 p-1 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-xs self-start sm:self-auto">
-            <span className="text-[var(--text-muted)] text-[11px] px-2">Sort:</span>
+          <div className="flex items-center space-x-1.5 p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs self-start sm:self-auto">
+            <span className="text-slate-500 text-[11px] px-2 font-medium">Sort:</span>
             <button
               type="button"
               onClick={() => setCategorySort('revenue')}
               className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
                 categorySort === 'revenue'
-                  ? 'bg-[rgba(52,211,153,0.2)] text-[#34d399] border border-[rgba(52,211,153,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-emerald-600 text-white font-semibold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Revenue
@@ -288,8 +287,8 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
               onClick={() => setCategorySort('units')}
               className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
                 categorySort === 'units'
-                  ? 'bg-[rgba(56,189,248,0.2)] text-[#38bdf8] border border-[rgba(56,189,248,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-sky-600 text-white font-semibold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Units Sold
@@ -299,8 +298,8 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
               onClick={() => setCategorySort('rating')}
               className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
                 categorySort === 'rating'
-                  ? 'bg-[rgba(251,191,36,0.2)] text-[#fbbf24] border border-[rgba(251,191,36,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-amber-600 text-white font-semibold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Rating (★)
@@ -310,8 +309,8 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
               onClick={() => setCategorySort('products')}
               className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
                 categorySort === 'products'
-                  ? 'bg-[rgba(192,132,252,0.2)] text-[#c084fc] border border-[rgba(192,132,252,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-purple-600 text-white font-semibold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               SKUs
@@ -327,59 +326,59 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
             return (
               <div
                 key={cat.category}
-                className="p-4 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] hover:border-[rgba(56,189,248,0.4)] hover:bg-[rgba(255,255,255,0.04)] transition-all duration-300 space-y-3 group"
+                className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-slate-100/60 transition-all duration-300 space-y-3 group"
               >
                 <div className="flex justify-between items-start">
                   <div>
                     <div className="flex items-center space-x-1.5">
-                      <span className="text-[10px] font-mono font-bold text-[var(--text-muted)]">
+                      <span className="text-[10px] font-mono font-bold text-slate-400">
                         #{index + 1}
                       </span>
-                      <span className="font-bold text-white text-xs truncate max-w-[140px] block">
+                      <span className="font-bold text-slate-900 text-xs truncate max-w-[140px] block">
                         {formatCategoryName(cat.category)}
                       </span>
                     </div>
                     {cat.category_pt && (
-                      <span className="text-[10px] text-[var(--text-muted)] italic block mt-0.5">
+                      <span className="text-[10px] text-slate-500 italic block mt-0.5">
                         {cat.category_pt}
                       </span>
                     )}
                   </div>
 
-                  <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-[rgba(251,191,36,0.12)] text-[11px] font-mono font-bold text-[#fbbf24]">
-                    <Star size={11} className="fill-[#fbbf24]" />
+                  <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-[11px] font-mono font-bold text-amber-700">
+                    <Star size={11} className="fill-amber-500 text-amber-500" />
                     <span>{(cat.avg_review_score ?? 4.0).toFixed(1)}</span>
                   </span>
                 </div>
 
                 <div className="space-y-1.5 font-mono text-xs">
                   <div className="flex justify-between items-center">
-                    <span className="text-[var(--text-muted)] text-[11px]">Gross GMV:</span>
-                    <span className="font-bold text-[#34d399]">{formatBRL(cat.total_revenue)}</span>
+                    <span className="text-slate-500 text-[11px]">Gross GMV:</span>
+                    <span className="font-bold text-emerald-700">{formatBRL(cat.total_revenue)}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[var(--text-muted)] text-[11px]">Units Sold:</span>
-                    <span className="text-white font-medium">{cat.total_units_sold.toLocaleString()}</span>
+                    <span className="text-slate-500 text-[11px]">Units Sold:</span>
+                    <span className="text-slate-900 font-medium">{cat.total_units_sold.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[var(--text-muted)] text-[11px]">Avg Unit Price:</span>
-                    <span className="text-[#38bdf8] font-medium">R$ {cat.avg_price.toFixed(2)}</span>
+                    <span className="text-slate-500 text-[11px]">Avg Unit Price:</span>
+                    <span className="text-sky-700 font-medium">R$ {cat.avg_price.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[var(--text-muted)] text-[11px]">Distinct SKUs:</span>
-                    <span className="text-[var(--text-secondary)]">{cat.total_products.toLocaleString()}</span>
+                    <span className="text-slate-500 text-[11px]">Distinct SKUs:</span>
+                    <span className="text-slate-600">{cat.total_products.toLocaleString()}</span>
                   </div>
                 </div>
 
-                {/* Relative Revenue Share Bar */}
-                <div className="pt-2 border-t border-[rgba(255,255,255,0.04)]">
-                  <div className="flex justify-between text-[10px] text-[var(--text-muted)] mb-1 font-mono">
+                {/* Relative Revenue Share Bar - Solid Fill, No Gradient */}
+                <div className="pt-2 border-t border-slate-200">
+                  <div className="flex justify-between text-[10px] text-slate-500 mb-1 font-mono">
                     <span>Revenue Share:</span>
                     <span>{sharePercent.toFixed(0)}% of leader</span>
                   </div>
-                  <div className="w-full bg-[rgba(255,255,255,0.06)] rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-[#38bdf8] to-[#34d399] h-full rounded-full transition-all duration-500"
+                      className="bg-sky-500 h-full rounded-full transition-all duration-500"
                       style={{ width: `${Math.min(100, sharePercent)}%` }}
                     />
                   </div>
@@ -406,13 +405,12 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
       <GlassCard
         title="Marketplace Merchants & Delivery Health Directory"
         subtitle="Active merchant fulfillment scores, on-time delivery percentages, and freight transit delay risks"
-        glow="emerald"
       >
         {/* Table Filter Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-[rgba(255,255,255,0.06)]">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-200">
           {/* Search */}
           <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Search Seller ID, city, state..."
@@ -421,45 +419,45 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
                 setSellerSearch(e.target.value);
                 setCurrentPage(1);
               }}
-              className="pl-8 pr-3 py-1.5 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.09)] text-xs text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#34d399] transition-all w-56 sm:w-64"
+              className="pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 transition-all w-56 sm:w-64"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             {/* State filter */}
-            <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-xs">
-              <Filter size={12} className="text-[var(--text-muted)]" />
+            <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <Filter size={12} className="text-slate-400" />
               <select
                 value={sellerStateFilter}
                 onChange={(e) => {
                   setSellerStateFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="bg-transparent text-[var(--text-secondary)] focus:text-white outline-none cursor-pointer text-xs"
+                className="bg-transparent text-slate-700 focus:text-slate-900 outline-none cursor-pointer text-xs"
               >
-                <option value="all" className="bg-[#0f172a] text-white">All States</option>
-                <option value="SP" className="bg-[#0f172a] text-white">SP (São Paulo)</option>
-                <option value="RJ" className="bg-[#0f172a] text-white">RJ (Rio de Janeiro)</option>
-                <option value="MG" className="bg-[#0f172a] text-white">MG (Minas Gerais)</option>
-                <option value="PR" className="bg-[#0f172a] text-white">PR (Paraná)</option>
-                <option value="RS" className="bg-[#0f172a] text-white">RS (Rio Grande do Sul)</option>
-                <option value="BA" className="bg-[#0f172a] text-white">BA (Bahia)</option>
-                <option value="SC" className="bg-[#0f172a] text-white">SC (Santa Catarina)</option>
+                <option value="all" className="bg-white text-slate-900">All States</option>
+                <option value="SP" className="bg-white text-slate-900">SP (São Paulo)</option>
+                <option value="RJ" className="bg-white text-slate-900">RJ (Rio de Janeiro)</option>
+                <option value="MG" className="bg-white text-slate-900">MG (Minas Gerais)</option>
+                <option value="PR" className="bg-white text-slate-900">PR (Paraná)</option>
+                <option value="RS" className="bg-white text-slate-900">RS (Rio Grande do Sul)</option>
+                <option value="BA" className="bg-white text-slate-900">BA (Bahia)</option>
+                <option value="SC" className="bg-white text-slate-900">SC (Santa Catarina)</option>
               </select>
             </div>
 
             {/* Sort */}
-            <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-xs">
-              <ArrowUpDown size={12} className="text-[var(--text-muted)]" />
+            <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <ArrowUpDown size={12} className="text-slate-400" />
               <select
                 value={sellerSort}
                 onChange={(e) => setSellerSort(e.target.value as SellerSort)}
-                className="bg-transparent text-[var(--text-secondary)] focus:text-white outline-none cursor-pointer text-xs"
+                className="bg-transparent text-slate-700 focus:text-slate-900 outline-none cursor-pointer text-xs"
               >
-                <option value="revenue" className="bg-[#0f172a] text-white">Sort: Revenue</option>
-                <option value="rating" className="bg-[#0f172a] text-white">Sort: Rating</option>
-                <option value="delay" className="bg-[#0f172a] text-white">Sort: Delivery Health</option>
-                <option value="orders" className="bg-[#0f172a] text-white">Sort: Orders Fulfilled</option>
+                <option value="revenue" className="bg-white text-slate-900">Sort: Revenue</option>
+                <option value="rating" className="bg-white text-slate-900">Sort: Rating</option>
+                <option value="delay" className="bg-white text-slate-900">Sort: Delivery Health</option>
+                <option value="orders" className="bg-white text-slate-900">Sort: Orders Fulfilled</option>
               </select>
             </div>
           </div>
@@ -469,7 +467,7 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
         <div className="overflow-x-auto mt-2">
           <table className="w-full text-left text-xs font-mono">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-[var(--text-muted)] uppercase text-[10px]">
+              <tr className="border-b border-slate-200 text-slate-500 uppercase text-[10px]">
                 <th className="pb-3 pl-2">Seller ID</th>
                 <th className="pb-3">Location</th>
                 <th className="pb-3">Delivered Orders</th>
@@ -481,10 +479,10 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
                 <th className="pb-3 pr-2">Delivery Health</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[rgba(255,255,255,0.04)]">
+            <tbody className="divide-y divide-slate-100">
               {displayedSellers.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center text-xs text-[var(--text-muted)]">
+                  <td colSpan={9} className="py-8 text-center text-xs text-slate-500">
                     No merchants match the specified criteria.
                   </td>
                 </tr>
@@ -497,35 +495,35 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
                   return (
                     <tr
                       key={s.seller_id}
-                      className="hover:bg-[rgba(255,255,255,0.03)] transition-colors"
+                      className="hover:bg-slate-50/70 transition-colors"
                     >
-                      <td className="py-3 pl-2 font-bold text-white tracking-wider">
+                      <td className="py-3 pl-2 font-bold text-slate-900 tracking-wider">
                         {s.seller_id.slice(0, 14)}...
                       </td>
 
-                      <td className="py-3 text-[var(--text-secondary)] capitalize">
-                        {s.city ?? 'São Paulo'}, <span className="text-white font-bold">{s.state ?? 'BR'}</span>
+                      <td className="py-3 text-slate-600 capitalize">
+                        {s.city ?? 'São Paulo'}, <span className="text-slate-900 font-bold">{s.state ?? 'BR'}</span>
                       </td>
 
-                      <td className="py-3 text-white font-semibold">
+                      <td className="py-3 text-slate-900 font-semibold">
                         {s.total_orders_fulfilled.toLocaleString()}
                       </td>
 
-                      <td className="py-3 text-[var(--text-secondary)]">
+                      <td className="py-3 text-slate-600">
                         {s.total_items_sold.toLocaleString()}
                       </td>
 
-                      <td className="py-3 text-[#38bdf8]">
+                      <td className="py-3 text-sky-700 font-medium">
                         R$ {s.avg_item_value.toFixed(2)}
                       </td>
 
-                      <td className="py-3 text-[#34d399] font-bold">
+                      <td className="py-3 text-emerald-700 font-bold">
                         {formatBRL(s.total_revenue)}
                       </td>
 
                       <td className="py-3">
-                        <span className="inline-flex items-center space-x-1 text-[#fbbf24] font-bold">
-                          <Star size={11} className="fill-[#fbbf24]" />
+                        <span className="inline-flex items-center space-x-1 text-amber-700 font-bold">
+                          <Star size={11} className="fill-amber-500 text-amber-500" />
                           <span>{(s.avg_review_score ?? 4.0).toFixed(1)}</span>
                         </span>
                       </td>
@@ -533,7 +531,7 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
                       <td className="py-3">
                         <span
                           className={`font-semibold ${
-                            isSevereLate ? 'text-[#f43f5e]' : 'text-[#34d399]'
+                            isSevereLate ? 'text-rose-600' : 'text-emerald-700'
                           }`}
                         >
                           {(s.late_delivery_rate * 100).toFixed(1)}%
@@ -542,17 +540,17 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
 
                       <td className="py-3 pr-2">
                         {isEarly ? (
-                          <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-[rgba(52,211,153,0.15)] text-[#34d399] border border-[rgba(52,211,153,0.3)]">
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
                             <ShieldCheck size={11} />
                             <span>{Math.abs(delay).toFixed(1)}d Early</span>
                           </span>
                         ) : isSevereLate ? (
-                          <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-[rgba(244,63,94,0.15)] text-[#f43f5e] border border-[rgba(244,63,94,0.3)]">
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-50 text-rose-700 border border-rose-200">
                             <AlertTriangle size={11} />
                             <span>+{delay.toFixed(1)}d Late</span>
                           </span>
                         ) : (
-                          <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-[rgba(251,191,36,0.15)] text-[#fbbf24] border border-[rgba(251,191,36,0.3)]">
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-700 border border-amber-200">
                             <Truck size={11} />
                             <span>+{delay.toFixed(1)}d Normal</span>
                           </span>
@@ -567,10 +565,10 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
         </div>
 
         {/* Sellers Pagination Footer */}
-        <div className="mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
-          <div className="text-[var(--text-secondary)] font-mono">
-            Showing <span className="text-white font-semibold">{displayedSellers.length}</span> of{' '}
-            <span className="text-white font-semibold">
+        <div className="mt-4 pt-3 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
+          <div className="text-slate-600 font-mono">
+            Showing <span className="text-slate-900 font-semibold">{displayedSellers.length}</span> of{' '}
+            <span className="text-slate-900 font-semibold">
               {sellers?.pagination?.total_items ? sellers.pagination.total_items.toLocaleString() : filteredSellers.length}
             </span> marketplace sellers
           </div>
@@ -580,13 +578,13 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage <= 1}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-white hover:bg-[rgba(255,255,255,0.08)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm transition-all"
             >
               <ChevronLeft size={14} />
               <span>Previous</span>
             </button>
 
-            <span className="px-2 font-mono text-[var(--text-secondary)]">
+            <span className="px-2 font-mono text-slate-600">
               Page {currentPage} of {totalSellerPages}
             </span>
 
@@ -594,7 +592,7 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalSellerPages, p + 1))}
               disabled={currentPage >= totalSellerPages}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-white hover:bg-[rgba(255,255,255,0.08)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm transition-all"
             >
               <span>Next</span>
               <ChevronRight size={14} />

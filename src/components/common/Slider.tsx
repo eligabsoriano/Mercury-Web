@@ -34,25 +34,25 @@ export const Slider: React.FC<SliderProps> = ({
   const displayValue = formatValue ? formatValue(value) : `${value}${unit ? ` ${unit}` : ''}`;
 
   return (
-    <div className={clsx('flex flex-col space-y-2.5', className)}>
+    <div className={clsx('flex flex-col space-y-2', className)}>
       <div className="flex items-center justify-between">
-        <label className="text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider">
+        <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
           {label}
         </label>
-        <div className="flex items-center space-x-2.5">
+        <div className="flex items-center space-x-2">
           {deltaBadge && (
             <span
               className={clsx(
-                'text-[11px] font-mono px-2 py-0.5 rounded-full border backdrop-blur-md font-semibold',
+                'text-[11px] font-mono px-2 py-0.5 rounded-full border font-semibold',
                 deltaBadge.isPositive
-                  ? 'bg-[rgba(52,211,153,0.12)] text-[var(--accent-emerald)] border-[rgba(52,211,153,0.35)] shadow-[0_0_8px_rgba(52,211,153,0.2)]'
-                  : 'bg-[rgba(244,63,94,0.12)] text-[var(--accent-crimson)] border-[rgba(244,63,94,0.35)] shadow-[0_0_8px_rgba(244,63,94,0.2)]'
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : 'bg-rose-50 text-rose-700 border-rose-200'
               )}
             >
               {deltaBadge.text}
             </span>
           )}
-          <span className="font-mono text-sm font-extrabold text-[#ede9fe] bg-[rgba(139,92,246,0.18)] px-3 py-0.5 rounded-lg border border-[rgba(139,92,246,0.45)] shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+          <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-lg border border-indigo-200 shadow-2xs">
             {displayValue}
           </span>
         </div>
@@ -68,13 +68,13 @@ export const Slider: React.FC<SliderProps> = ({
         className="plasma-slider cursor-grab active:cursor-grabbing"
       />
 
-      <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)] font-mono">
+      <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
         <span>
           {min}
           {unit}
         </span>
         {helperText && (
-          <span className="font-sans text-[11px] text-[var(--text-secondary)] italic">
+          <span className="font-sans text-[11px] text-slate-500 italic">
             {helperText}
           </span>
         )}

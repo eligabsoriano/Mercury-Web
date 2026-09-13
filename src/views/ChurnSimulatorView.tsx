@@ -175,16 +175,16 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
       {/* Header Section */}
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(139,92,246,0.12)] border border-[rgba(139,92,246,0.3)] text-xs font-mono text-[#d8b4fe]">
-            <Sliders size={13} className="text-[#c084fc]" />
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-xs font-mono text-purple-700">
+            <Sliders size={13} className="text-purple-600" />
             <span className="uppercase tracking-wider font-semibold">
               Counterfactual Inference Engine
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-white">
+          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-slate-900">
             ML Churn Scoring &amp; What-If Simulation Lab
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1 max-w-2xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-2xl">
             Simulate the marginal impact of carrier transit adjustments, customer satisfaction
             recovery, order frequency shifts, and targeted promotional vouchers against
             HistGradientBoosting decision boundaries.
@@ -206,7 +206,7 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
           <Button
             variant="outline"
             size="sm"
-            icon={<AlertTriangle size={13} className="text-[#fbbf24]" />}
+            icon={<AlertTriangle size={13} className="text-amber-500" />}
             onClick={handleLogisticsCrisisPreset}
             title="Simulate +7 days carrier delay & negative reviews"
           >
@@ -216,7 +216,7 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
           <Button
             variant="outline"
             size="sm"
-            icon={<Flame size={13} className="text-[#f43f5e]" />}
+            icon={<Flame size={13} className="text-rose-600" />}
             onClick={handleWinBackPreset}
             title="Aggressive discount and win-back intervention"
           >
@@ -249,11 +249,10 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
           <GlassCard
             title="Operational Intervention Dials"
             subtitle="Adjust counterfactual parameters to recompute ML inference with 300ms debounce"
-            glow="violet"
             headerAction={
               isSimulating ? (
-                <span className="text-xs font-mono text-[#c084fc] flex items-center space-x-1.5 animate-pulse">
-                  <span className="w-2 h-2 rounded-full bg-[#c084fc]" />
+                <span className="text-xs font-mono text-purple-600 flex items-center space-x-1.5 animate-pulse">
+                  <span className="w-2 h-2 rounded-full bg-purple-600" />
                   <span>Computing...</span>
                 </span>
               ) : null
@@ -331,12 +330,12 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
               />
 
               {/* Dial 5: Proactive Support Outreach Toggle */}
-              <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] flex items-center justify-between">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-semibold text-white block">
+                  <span className="text-xs font-semibold text-slate-900 block">
                     VIP Concierge Support Outreach
                   </span>
-                  <span className="text-[11px] text-[var(--text-muted)] mt-0.5 block">
+                  <span className="text-[11px] text-slate-500 mt-0.5 block">
                     Direct phone / WhatsApp intervention from senior account manager
                   </span>
                 </div>
@@ -344,12 +343,12 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
                   type="button"
                   onClick={() => setSupportOutreach((prev) => !prev)}
                   className={`w-12 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                    supportOutreach ? 'bg-[#8b5cf6]' : 'bg-[rgba(255,255,255,0.15)]'
+                    supportOutreach ? 'bg-indigo-600' : 'bg-slate-300'
                   }`}
                   aria-label="Toggle VIP Concierge Support Outreach"
                 >
                   <span
-                    className={`w-5 h-5 rounded-full bg-white transition-transform ${
+                    className={`w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
                       supportOutreach ? 'translate-x-6' : 'translate-x-0'
                     }`}
                   />
@@ -364,47 +363,46 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
           <GlassCard
             title="Comparative Counterfactual Outcome"
             subtitle="Probabilistic delta before and after simulated operational levers"
-            glow={deltaChurn <= 0 ? 'emerald' : 'crimson'}
           >
             <div className="space-y-5 mt-3">
               {/* Before-and-After Comparison Canvas */}
-              <div className="p-5 rounded-2xl bg-[rgba(11,16,28,0.75)] border border-[rgba(255,255,255,0.09)] space-y-4">
-                <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-600">
                   <span className="tracking-wider">BASELINE (STATUS QUO)</span>
-                  <ArrowRight size={14} className="text-[#a78bfa] animate-pulse" />
+                  <ArrowRight size={14} className="text-purple-600 animate-pulse" />
                   <span
                     className={`font-bold tracking-wider ${
-                      deltaChurn <= 0 ? 'text-[#34d399]' : 'text-[#f43f5e]'
+                      deltaChurn <= 0 ? 'text-emerald-700' : 'text-rose-600'
                     }`}
                   >
                     PROJECTED SIMULATION
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-[rgba(255,255,255,0.06)]">
+                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-200">
                   {/* Baseline Column */}
                   <div>
-                    <span className="text-xs text-[var(--text-muted)] block">Baseline Risk:</span>
+                    <span className="text-xs text-slate-500 block">Baseline Risk:</span>
                     <div className="flex items-center space-x-2 mt-1">
-                      <span className="font-display text-3xl font-bold opacity-60">
+                      <span className="font-display text-3xl font-bold text-slate-600">
                         {(baselineChurn * 100).toFixed(0)}%
                       </span>
                       <RiskTierBadge tier={baselineRiskTier} probability={baselineChurn} />
                     </div>
-                    <span className="text-xs font-mono text-[var(--text-muted)] mt-1 block">
+                    <span className="text-xs font-mono text-slate-500 mt-1 block">
                       R$ {baselineExposure.toFixed(2)} exposure
                     </span>
                   </div>
 
                   {/* Projected Column */}
                   <div className="text-right">
-                    <span className="text-xs text-[var(--text-muted)] block">
+                    <span className="text-xs text-slate-500 block">
                       Projected Outcome:
                     </span>
                     <div className="flex items-center justify-end space-x-2 mt-1">
                       <span
                         className={`font-display text-3xl font-black ${
-                          deltaChurn <= 0 ? 'text-[#34d399]' : 'text-[#f43f5e]'
+                          deltaChurn <= 0 ? 'text-emerald-700' : 'text-rose-600'
                         }`}
                       >
                         {(simulatedChurn * 100).toFixed(1)}%
@@ -413,7 +411,7 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
                     </div>
                     <span
                       className={`text-xs font-mono font-bold mt-1 block ${
-                        deltaRevenue <= 0 ? 'text-[#34d399]' : 'text-[#f43f5e]'
+                        deltaRevenue <= 0 ? 'text-emerald-700' : 'text-rose-600'
                       }`}
                     >
                       {deltaRevenue <= 0
@@ -427,8 +425,8 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
                 <div
                   className={`p-3 rounded-xl border flex items-center justify-between text-xs ${
                     deltaChurn <= 0
-                      ? 'bg-[rgba(52,211,153,0.1)] border-[rgba(52,211,153,0.3)] text-[#34d399]'
-                      : 'bg-[rgba(244,63,94,0.1)] border-[rgba(244,63,94,0.3)] text-[#f43f5e]'
+                      ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                      : 'bg-rose-50 border-rose-200 text-rose-800'
                   }`}
                 >
                   <span className="font-semibold">
@@ -442,20 +440,20 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
 
                 {/* Transition Indicators */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono pt-1">
-                  <div className="p-2.5 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)]">
-                    <span className="text-[10px] text-[var(--text-muted)] block">
+                  <div className="p-2.5 rounded-lg bg-white border border-slate-200">
+                    <span className="text-[10px] text-slate-500 block">
                       Risk Tier Transition
                     </span>
                     <div className="flex items-center space-x-2 mt-1">
-                      <span className="text-white font-semibold">{baselineRiskTier}</span>
-                      <ArrowRight size={11} className="text-[#a78bfa]" />
+                      <span className="text-slate-900 font-semibold">{baselineRiskTier}</span>
+                      <ArrowRight size={11} className="text-purple-600" />
                       <span
                         className={
                           simulatedRiskTier === 'Low'
-                            ? 'text-[#34d399] font-bold'
+                            ? 'text-emerald-700 font-bold'
                             : simulatedRiskTier === 'Medium'
-                            ? 'text-[#fbbf24] font-bold'
-                            : 'text-[#f43f5e] font-bold'
+                            ? 'text-amber-700 font-bold'
+                            : 'text-rose-700 font-bold'
                         }
                       >
                         {simulatedRiskTier}
@@ -463,16 +461,16 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)]">
-                    <span className="text-[10px] text-[var(--text-muted)] block">
+                  <div className="p-2.5 rounded-lg bg-white border border-slate-200">
+                    <span className="text-[10px] text-slate-500 block">
                       Retention Priority Transition
                     </span>
                     <div className="flex items-center space-x-1.5 mt-1 text-[11px] truncate">
-                      <span className="text-[var(--text-secondary)] truncate">
+                      <span className="text-slate-600 truncate">
                         {baselinePriority.split(' ')[0]} {baselinePriority.split(' ')[1]}
                       </span>
-                      <ArrowRight size={11} className="text-[#a78bfa] shrink-0" />
-                      <span className="text-[#38bdf8] font-bold truncate">
+                      <ArrowRight size={11} className="text-purple-600 shrink-0" />
+                      <span className="text-sky-700 font-bold truncate">
                         {simulatedPriority.split(' ')[0]} {simulatedPriority.split(' ')[1]}
                       </span>
                     </div>
@@ -480,10 +478,10 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
                 </div>
 
                 {/* Prescriptive Natural Language Impact Summary */}
-                <div className="text-xs text-[var(--text-secondary)] border-t border-[rgba(255,255,255,0.06)] pt-3 flex items-start space-x-2.5">
-                  <Sparkles size={15} className="text-[#a78bfa] shrink-0 mt-0.5" />
+                <div className="text-xs text-slate-600 border-t border-slate-200 pt-3 flex items-start space-x-2.5">
+                  <Sparkles size={15} className="text-purple-600 shrink-0 mt-0.5" />
                   <p className="leading-relaxed">
-                    <strong className="text-white">Executive Assessment: </strong>
+                    <strong className="text-slate-900">Executive Assessment: </strong>
                     {simulationResult?.impact_summary ??
                       `Adjusting operational dials projects a ${Math.abs(deltaChurn * 100).toFixed(
                         1
@@ -493,14 +491,14 @@ export const ChurnSimulatorView: React.FC<ChurnSimulatorViewProps> = ({
               </div>
 
               {/* Fast Recommendation Banner */}
-              <div className="p-3.5 rounded-xl bg-[rgba(139,92,246,0.06)] border border-[rgba(139,92,246,0.2)] flex items-center justify-between text-xs font-mono">
-                <div className="flex items-center space-x-2 text-[var(--text-secondary)]">
-                  <CheckCircle size={14} className="text-[#34d399]" />
+              <div className="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200 flex items-center justify-between text-xs font-mono">
+                <div className="flex items-center space-x-2 text-slate-700">
+                  <CheckCircle size={14} className="text-emerald-600" />
                   <span>
-                    Optimal save threshold: <strong className="text-white">35% discount ceiling</strong>
+                    Optimal save threshold: <strong className="text-slate-900 font-semibold">35% discount ceiling</strong>
                   </span>
                 </div>
-                <span className="text-[10px] text-[#a78bfa] flex items-center space-x-1">
+                <span className="text-[10px] text-purple-700 font-medium flex items-center space-x-1">
                   <HelpCircle size={11} />
                   <span>ROI Constrained</span>
                 </span>

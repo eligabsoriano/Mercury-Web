@@ -55,17 +55,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   );
 
   return (
-    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex relative overflow-hidden font-body">
-      {/* Living Bioluminescent Aurora Mesh Substrate */}
-      <div className="aurora-canvas" aria-hidden="true">
-        <div className="aurora-orb aurora-orb-1" />
-        <div className="aurora-orb aurora-orb-2" />
-        <div className="aurora-orb aurora-orb-3" />
-        <div className="aurora-orb aurora-orb-4" />
-      </div>
-
-      {/* Desktop Persistent Navigation Sidebar */}
-      <div className="hidden lg:flex shrink-0">
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex relative overflow-x-hidden font-body">
+      {/* Desktop Persistent Sticky Navigation Sidebar */}
+      <div className="hidden lg:flex shrink-0 sticky top-0 h-screen z-30">
         <Sidebar
           activeView={activeView}
           onSelectView={onSelectView}
@@ -79,7 +71,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 flex lg:hidden" role="dialog" aria-modal="true">
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm backdrop-fade-in"
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm backdrop-fade-in"
             onClick={() => setIsMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -114,12 +106,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         </main>
 
         {/* Global Executive Footer */}
-        <footer className="border-t border-[rgba(255,255,255,0.06)] px-6 py-4 text-xs text-[var(--text-secondary)] flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto w-full relative z-10">
+        <footer className="border-t border-slate-200 px-6 py-4 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto w-full relative z-10 bg-white/60">
           <span>
             Mercury Platform &bull; Executive Customer Intelligence & Churn Analytics
           </span>
-          <span className="mt-2 sm:mt-0 font-mono text-[11px] text-[var(--text-muted)]">
-            TypeScript &bull; React 18 &bull; Vite 5 &bull; Liquid Glass Architecture
+          <span className="mt-2 sm:mt-0 font-mono text-[11px] text-slate-400">
+            TypeScript &bull; React 18 &bull; Vite 5 &bull; Executive Cockpit
           </span>
         </footer>
       </div>

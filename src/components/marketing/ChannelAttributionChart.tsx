@@ -62,43 +62,43 @@ const CustomAttributionTooltip: React.FC<CustomTooltipProps> = ({ active, payloa
   return (
     <div
       data-testid="channel-tooltip"
-      className="p-3.5 rounded-xl bg-[rgba(15,23,42,0.94)] border border-[rgba(255,255,255,0.12)] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl text-xs space-y-2 min-w-[220px]"
+      className="p-3.5 rounded-xl bg-white/95 border border-slate-200 shadow-xl backdrop-blur-xl text-xs space-y-2 min-w-[220px]"
     >
-      <div className="flex items-center space-x-2 pb-1.5 border-b border-[rgba(255,255,255,0.08)]">
+      <div className="flex items-center space-x-2 pb-1.5 border-b border-slate-100">
         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-        <span className="font-bold text-white font-display text-sm">
+        <span className="font-bold text-slate-900 font-display text-sm">
           {formatOriginName(item.origin)}
         </span>
       </div>
 
       <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 font-mono text-[11px]">
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Leads Count</span>
-          <span className="font-semibold text-white">
+          <span className="text-slate-500 block text-[10px] uppercase">Leads Count</span>
+          <span className="font-semibold text-slate-800">
             {item.leads_count.toLocaleString()} ({item.share_of_leads_percent.toFixed(1)}%)
           </span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Closed Deals</span>
-          <span className="font-semibold text-[#34d399]">{item.closed_deals_count}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Closed Deals</span>
+          <span className="font-semibold text-emerald-600">{item.closed_deals_count}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Conversion Rate</span>
-          <span className="font-bold text-[#38bdf8]">
+          <span className="text-slate-500 block text-[10px] uppercase">Conversion Rate</span>
+          <span className="font-bold text-sky-600">
             {(item.conversion_rate > 1 ? item.conversion_rate : item.conversion_rate * 100).toFixed(1)}%
           </span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Sales Velocity</span>
-          <span className="font-semibold text-[#fbbf24]">{item.avg_days_to_close.toFixed(1)} days</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Sales Velocity</span>
+          <span className="font-semibold text-amber-600">{item.avg_days_to_close.toFixed(1)} days</span>
         </div>
 
-        <div className="col-span-2 pt-1 border-t border-[rgba(255,255,255,0.06)]">
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Realized GMV</span>
-          <span className="font-bold text-[#34d399] text-xs">
+        <div className="col-span-2 pt-1 border-t border-slate-100">
+          <span className="text-slate-500 block text-[10px] uppercase">Realized GMV</span>
+          <span className="font-bold text-emerald-600 text-xs">
             {formatBRL(item.total_actual_marketplace_revenue)}
           </span>
         </div>
@@ -161,9 +161,9 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
 
   if (isLoading) {
     return (
-      <div className="liquid-glass rounded-2xl p-6 border border-[rgba(255,255,255,0.08)] animate-pulse">
-        <div className="h-6 w-48 bg-[rgba(255,255,255,0.08)] rounded mb-4" />
-        <div className="h-64 bg-[rgba(255,255,255,0.04)] rounded-xl" />
+      <div className="bg-white rounded-2xl p-6 border border-slate-200 animate-pulse">
+        <div className="h-6 w-48 bg-slate-100 rounded mb-4" />
+        <div className="h-64 bg-slate-50 rounded-xl" />
       </div>
     );
   }
@@ -171,27 +171,27 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
   return (
     <div
       data-testid="channel-attribution-card"
-      className={`liquid-glass rounded-2xl p-6 border border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.36)] relative overflow-hidden ${className}`}
+      className={`bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs relative overflow-hidden ${className}`}
     >
       {/* Header with Title and Mode Toggles */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-[rgba(56,189,248,0.12)] border border-[rgba(56,189,248,0.3)] text-[#38bdf8]">
+            <span className="p-1.5 rounded-lg bg-sky-50 border border-sky-200 text-sky-600">
               <Layers size={16} />
             </span>
-            <h3 className="font-display text-lg font-bold text-white tracking-tight">
-              Origin Channel Attribution & Conversion
+            <h3 className="font-display text-lg font-bold text-slate-900 tracking-tight">
+              Origin Channel Attribution &amp; Conversion
             </h3>
           </div>
-          <p className="text-xs text-[var(--text-secondary)] mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Comparative performance of inbound acquisition channels across leads volume, won deals, and realized GMV
           </p>
         </div>
 
         {/* View mode buttons */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center p-1 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-xs">
+          <div className="flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs">
             <button
               type="button"
               onClick={() => {
@@ -200,11 +200,11 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
               }}
               className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
                 metricMode === 'volume'
-                  ? 'bg-[rgba(56,189,248,0.2)] text-[#38bdf8] border border-[rgba(56,189,248,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-sky-50 text-sky-700 border border-sky-200 shadow-xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Leads & Deals
+              Leads &amp; Deals
             </button>
             <button
               type="button"
@@ -214,8 +214,8 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
               }}
               className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
                 metricMode === 'conversion'
-                  ? 'bg-[rgba(139,92,246,0.2)] text-[#c084fc] border border-[rgba(139,92,246,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-violet-50 text-violet-700 border border-violet-200 shadow-xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Conversion Rate (%)
@@ -228,8 +228,8 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
               }}
               className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
                 metricMode === 'revenue'
-                  ? 'bg-[rgba(52,211,153,0.2)] text-[#34d399] border border-[rgba(52,211,153,0.4)] shadow-sm'
-                  : 'text-[var(--text-secondary)] hover:text-white'
+                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Realized GMV
@@ -237,17 +237,17 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
           </div>
 
           {/* Sort dropdown */}
-          <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-xs">
-            <ArrowUpDown size={12} className="text-[var(--text-muted)]" />
+          <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs">
+            <ArrowUpDown size={12} className="text-slate-500" />
             <select
               value={sortKey}
               onChange={(e) => setSortKey(e.target.value as SortKey)}
-              className="bg-transparent text-[var(--text-secondary)] focus:text-white outline-none cursor-pointer text-xs"
+              className="bg-transparent text-slate-700 focus:text-slate-900 outline-none cursor-pointer text-xs"
             >
-              <option value="leads" className="bg-[#0f172a] text-white">Sort: Lead Volume</option>
-              <option value="deals" className="bg-[#0f172a] text-white">Sort: Closed Deals</option>
-              <option value="conversion" className="bg-[#0f172a] text-white">Sort: Conversion %</option>
-              <option value="revenue" className="bg-[#0f172a] text-white">Sort: Realized GMV</option>
+              <option value="leads" className="bg-white text-slate-900">Sort: Lead Volume</option>
+              <option value="deals" className="bg-white text-slate-900">Sort: Closed Deals</option>
+              <option value="conversion" className="bg-white text-slate-900">Sort: Conversion %</option>
+              <option value="revenue" className="bg-white text-slate-900">Sort: Realized GMV</option>
             </select>
           </div>
         </div>
@@ -256,17 +256,17 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
       {/* Insight Highlight Chips */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         {topConversion && (
-          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.25)] text-xs">
-            <Award size={15} className="text-[#c084fc] shrink-0" />
+          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-violet-50 border border-violet-100 text-xs">
+            <Award size={15} className="text-violet-600 shrink-0" />
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] uppercase font-mono block">
+              <span className="text-slate-500 text-[10px] uppercase font-mono block">
                 Highest Conversion Efficiency
               </span>
-              <span className="font-bold text-white">
+              <span className="font-bold text-slate-900">
                 {topConversion.displayName}:{' '}
-                <span className="text-[#c084fc] font-mono">{topConversion.normalizedConversion.toFixed(1)}%</span>
+                <span className="text-violet-700 font-mono">{topConversion.normalizedConversion.toFixed(1)}%</span>
               </span>
-              <span className="text-[11px] text-[var(--text-secondary)] ml-1.5">
+              <span className="text-[11px] text-slate-500 ml-1.5">
                 ({topConversion.closed_deals_count} won from {topConversion.leads_count.toLocaleString()} leads)
               </span>
             </div>
@@ -274,17 +274,17 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
         )}
 
         {topRevenue && (
-          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] text-xs">
-            <Zap size={15} className="text-[#34d399] shrink-0" />
+          <div className="flex items-center space-x-2.5 px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-100 text-xs">
+            <Zap size={15} className="text-emerald-600 shrink-0" />
             <div>
-              <span className="text-[var(--text-muted)] text-[10px] uppercase font-mono block">
+              <span className="text-slate-500 text-[10px] uppercase font-mono block">
                 Top Revenue Producing Channel
               </span>
-              <span className="font-bold text-white">
+              <span className="font-bold text-slate-900">
                 {topRevenue.displayName}:{' '}
-                <span className="text-[#34d399] font-mono">{formatBRL(topRevenue.total_actual_marketplace_revenue)}</span>
+                <span className="text-emerald-700 font-mono">{formatBRL(topRevenue.total_actual_marketplace_revenue)}</span>
               </span>
-              <span className="text-[11px] text-[var(--text-secondary)] ml-1.5">
+              <span className="text-[11px] text-slate-500 ml-1.5">
                 ({topRevenue.share_of_leads_percent.toFixed(1)}% of total leads)
               </span>
             </div>
@@ -301,14 +301,14 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
             margin={{ top: 10, right: 24, left: 16, bottom: 5 }}
           >
             <CartesianGrid
-              stroke="rgba(255,255,255,0.06)"
+              stroke="#f1f5f9"
               strokeDasharray="3 3"
               horizontal={true}
               vertical={false}
             />
             <XAxis
               type="number"
-              tick={{ fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' }}
+              tick={{ fill: '#64748b', fontSize: 11, fontFamily: 'Inter' }}
               tickFormatter={(v) => {
                 if (metricMode === 'revenue') return formatBRL(v);
                 if (metricMode === 'conversion') return `${v}%`;
@@ -319,7 +319,7 @@ export const ChannelAttributionChart: React.FC<ChannelAttributionChartProps> = (
               type="category"
               dataKey="displayName"
               width={110}
-              tick={{ fill: '#e2e8f0', fontSize: 11, fontFamily: 'Inter' }}
+              tick={{ fill: '#475569', fontSize: 11, fontFamily: 'Inter' }}
             />
             <Tooltip content={<CustomAttributionTooltip />} />
 

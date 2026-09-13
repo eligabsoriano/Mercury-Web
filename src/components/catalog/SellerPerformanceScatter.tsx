@@ -45,55 +45,55 @@ const CustomScatterTooltip: React.FC<CustomScatterTooltipProps> = ({ active, pay
   return (
     <div
       data-testid="seller-scatter-tooltip"
-      className="p-3.5 rounded-xl bg-[rgba(15,23,42,0.95)] border border-[rgba(255,255,255,0.12)] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl text-xs space-y-2 min-w-[230px]"
+      className="p-3.5 rounded-xl bg-white/95 border border-slate-200 shadow-xl backdrop-blur-md text-xs space-y-2 min-w-[230px]"
     >
-      <div className="flex items-center justify-between pb-1.5 border-b border-[rgba(255,255,255,0.08)]">
+      <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
         <div>
-          <span className="font-bold text-white font-mono text-xs block">
+          <span className="font-bold text-slate-900 font-mono text-xs block">
             {seller.seller_id.slice(0, 12)}...
           </span>
-          <span className="text-[10px] text-[var(--text-secondary)] capitalize">
+          <span className="text-[10px] text-slate-500 capitalize">
             {seller.city ?? 'São Paulo'}, {seller.state ?? 'BR'}
           </span>
         </div>
-        <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-[rgba(251,191,36,0.15)] text-[#fbbf24] font-mono font-bold text-[11px]">
-          <Star size={11} className="fill-[#fbbf24]" />
+        <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-mono font-bold text-[11px]">
+          <Star size={11} className="fill-amber-500 text-amber-500" />
           <span>{(seller.avg_review_score ?? 4.0).toFixed(2)}</span>
         </span>
       </div>
 
       <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 font-mono text-[11px]">
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Gross GMV</span>
-          <span className="font-bold text-[#34d399]">{formatBRL(seller.total_revenue)}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Gross GMV</span>
+          <span className="font-bold text-emerald-700">{formatBRL(seller.total_revenue)}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Delivered Orders</span>
-          <span className="font-semibold text-white">{seller.total_orders_fulfilled}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Delivered Orders</span>
+          <span className="font-semibold text-slate-900">{seller.total_orders_fulfilled}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Avg Line Item</span>
-          <span className="font-semibold text-[#38bdf8]">R$ {seller.avg_item_value.toFixed(1)}</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Avg Line Item</span>
+          <span className="font-semibold text-sky-700">R$ {seller.avg_item_value.toFixed(1)}</span>
         </div>
 
         <div>
-          <span className="text-[var(--text-muted)] block text-[10px] uppercase">Transit Lead Time</span>
+          <span className="text-slate-500 block text-[10px] uppercase">Transit Lead Time</span>
           <span
             className={`font-semibold ${
-              isDelayPositive ? 'text-[#f43f5e]' : 'text-[#34d399]'
+              isDelayPositive ? 'text-rose-600' : 'text-emerald-700'
             }`}
           >
             {isDelayPositive ? `+${seller.avg_delivery_delay_days}d late` : `${seller.avg_delivery_delay_days}d early`}
           </span>
         </div>
 
-        <div className="col-span-2 pt-1 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between">
-          <span className="text-[var(--text-muted)] text-[10px] uppercase">Late Delivery Rate</span>
+        <div className="col-span-2 pt-1 border-t border-slate-100 flex items-center justify-between">
+          <span className="text-slate-500 text-[10px] uppercase">Late Delivery Rate</span>
           <span
             className={`font-bold ${
-              isLateHigh ? 'text-[#f43f5e]' : 'text-[#34d399]'
+              isLateHigh ? 'text-rose-600' : 'text-emerald-700'
             }`}
           >
             {(seller.late_delivery_rate * 100).toFixed(1)}%
@@ -139,9 +139,9 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
 
   if (isLoading) {
     return (
-      <div className="liquid-glass rounded-2xl p-6 border border-[rgba(255,255,255,0.08)] animate-pulse">
-        <div className="h-6 w-48 bg-[rgba(255,255,255,0.08)] rounded mb-4" />
-        <div className="h-64 bg-[rgba(255,255,255,0.04)] rounded-xl" />
+      <div className="bg-white rounded-2xl p-6 border border-slate-200 animate-pulse">
+        <div className="h-6 w-48 bg-slate-200 rounded mb-4" />
+        <div className="h-64 bg-slate-100 rounded-xl" />
       </div>
     );
   }
@@ -149,36 +149,36 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
   return (
     <div
       data-testid="seller-performance-scatter-card"
-      className={`liquid-glass rounded-2xl p-6 border border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.36)] relative overflow-hidden ${className}`}
+      className={`bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden ${className}`}
     >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-[rgba(52,211,153,0.12)] border border-[rgba(52,211,153,0.3)] text-[#34d399]">
+            <span className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
               <Store size={16} />
             </span>
-            <h3 className="font-display text-lg font-bold text-white tracking-tight">
+            <h3 className="font-display text-lg font-bold text-slate-900 tracking-tight">
               Seller Revenue vs Satisfaction Matrix
             </h3>
           </div>
-          <p className="text-xs text-[var(--text-secondary)] mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Correlation between merchant gross GMV, customer review rating (★), and logistics delivery reliability
           </p>
         </div>
 
         {/* Legend */}
         <div className="flex items-center space-x-3 text-[11px] font-mono self-start sm:self-auto">
-          <span className="flex items-center space-x-1 text-[#34d399]">
-            <span className="w-2 h-2 rounded-full bg-[#34d399]" />
+          <span className="flex items-center space-x-1 text-emerald-700">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>&lt;5% Late</span>
           </span>
-          <span className="flex items-center space-x-1 text-[#fbbf24]">
-            <span className="w-2 h-2 rounded-full bg-[#fbbf24]" />
+          <span className="flex items-center space-x-1 text-amber-700">
+            <span className="w-2 h-2 rounded-full bg-amber-500" />
             <span>5–10% Late</span>
           </span>
-          <span className="flex items-center space-x-1 text-[#f43f5e]">
-            <span className="w-2 h-2 rounded-full bg-[#f43f5e]" />
+          <span className="flex items-center space-x-1 text-rose-700">
+            <span className="w-2 h-2 rounded-full bg-rose-500" />
             <span>&gt;10% Late</span>
           </span>
         </div>
@@ -186,40 +186,40 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
 
       {/* Summary quadrant stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-        <div className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
           <div>
-            <span className="text-[10px] uppercase font-mono text-[var(--text-muted)] block">
+            <span className="text-[10px] uppercase font-mono text-slate-500 block">
               Active Sellers Mapped
             </span>
-            <span className="text-base font-bold text-white font-display">
+            <span className="text-base font-bold text-slate-900 font-display">
               {scatterData.length} Merchants
             </span>
           </div>
-          <span className="p-2 rounded-lg bg-[rgba(255,255,255,0.05)] text-[var(--text-secondary)]">
+          <span className="p-2 rounded-lg bg-white border border-slate-200 text-slate-500">
             <Store size={16} />
           </span>
         </div>
 
-        <div className="p-3 rounded-xl bg-[rgba(251,191,36,0.05)] border border-[rgba(251,191,36,0.2)] flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between">
           <div>
-            <span className="text-[10px] uppercase font-mono text-[#fde68a] block">
+            <span className="text-[10px] uppercase font-mono text-amber-700 block">
               Mean Review Rating
             </span>
-            <span className="text-base font-bold text-[#fbbf24] font-mono">
+            <span className="text-base font-bold text-amber-800 font-mono">
               ★ {avgSatisfaction.toFixed(2)} / 5.0
             </span>
           </div>
-          <span className="p-2 rounded-lg bg-[rgba(251,191,36,0.15)] text-[#fbbf24]">
-            <Star size={16} className="fill-[#fbbf24]" />
+          <span className="p-2 rounded-lg bg-amber-100 text-amber-700">
+            <Star size={16} className="fill-amber-500" />
           </span>
         </div>
 
-        <div className="p-3 rounded-xl bg-[rgba(52,211,153,0.05)] border border-[rgba(52,211,153,0.2)] flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
           <div>
-            <span className="text-[10px] uppercase font-mono text-[#a7f3d0] block">
+            <span className="text-[10px] uppercase font-mono text-emerald-700 block">
               Logistics Health
             </span>
-            <span className="text-base font-bold text-[#34d399]">
+            <span className="text-base font-bold text-emerald-800">
               {(
                 (scatterData.filter((s) => s.late_delivery_rate <= 0.08).length /
                   scatterData.length) *
@@ -228,7 +228,7 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
               % On-Time Target
             </span>
           </div>
-          <span className="p-2 rounded-lg bg-[rgba(52,211,153,0.15)] text-[#34d399]">
+          <span className="p-2 rounded-lg bg-emerald-100 text-emerald-700">
             <ShieldCheck size={16} />
           </span>
         </div>
@@ -239,7 +239,7 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 16, right: 24, bottom: 10, left: 10 }}>
             <CartesianGrid
-              stroke="rgba(255,255,255,0.06)"
+              stroke="#f1f5f9"
               strokeDasharray="3 3"
             />
             <XAxis
@@ -247,7 +247,7 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
               dataKey="x"
               name="Revenue"
               unit=""
-              tick={{ fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' }}
+              tick={{ fill: '#64748b', fontSize: 11, fontFamily: 'Inter' }}
               tickFormatter={(v) => formatBRL(v)}
             />
             <YAxis
@@ -255,7 +255,7 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
               dataKey="y"
               name="Rating"
               domain={[3.5, 5.0]}
-              tick={{ fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' }}
+              tick={{ fill: '#64748b', fontSize: 11, fontFamily: 'Inter' }}
               tickFormatter={(v) => `★ ${v.toFixed(1)}`}
             />
             <ZAxis
@@ -267,9 +267,9 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
             <Tooltip content={<CustomScatterTooltip />} />
             <Scatter name="Sellers" data={scatterData}>
               {scatterData.map((entry) => {
-                let fill = '#34d399';
-                if (entry.late_delivery_rate > 0.1) fill = '#f43f5e';
-                else if (entry.late_delivery_rate > 0.05) fill = '#fbbf24';
+                let fill = '#059669';
+                if (entry.late_delivery_rate > 0.1) fill = '#e11d48';
+                else if (entry.late_delivery_rate > 0.05) fill = '#d97706';
 
                 return (
                   <Cell
@@ -286,7 +286,7 @@ export const SellerPerformanceScatter: React.FC<SellerPerformanceScatterProps> =
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-2 text-center text-[11px] text-[var(--text-muted)] font-mono">
+      <div className="mt-2 text-center text-[11px] text-slate-500 font-mono">
         Bubble diameter represents total delivered orders fulfilled by each merchant
       </div>
     </div>

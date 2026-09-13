@@ -97,16 +97,16 @@ export const MarketingFunnelView: React.FC<MarketingFunnelViewProps> = ({
       {/* Header Section */}
       <section className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(251,191,36,0.12)] border border-[rgba(251,191,36,0.3)] text-xs font-mono text-[#fef08a]">
-            <Target size={13} className="text-[#fbbf24]" />
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-xs font-mono text-amber-800">
+            <Target size={13} className="text-amber-600" />
             <span className="uppercase tracking-wider font-semibold">
               B2B Marketplace Growth & Seller Telemetry
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-white">
-            Marketing Funnel & Sales Velocity
+          <h1 className="font-display text-3xl md:text-4xl font-black tracking-tight mt-2 text-slate-900">
+            Marketing Funnel &amp; Sales Velocity
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1 max-w-3xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-3xl">
             Analyze the seller acquisition lifecycle from Marketing Qualified Leads (MQLs) to won deals,
             cross-channel attribution efficiency, and time-to-close pipeline velocity.
           </p>
@@ -114,17 +114,17 @@ export const MarketingFunnelView: React.FC<MarketingFunnelViewProps> = ({
 
         <div className="flex items-center space-x-3 self-start md:self-auto">
           <div className="text-right hidden sm:block">
-            <span className="text-[10px] uppercase font-mono text-[var(--text-muted)] block">Last Synced</span>
-            <span className="text-xs font-mono text-[var(--text-secondary)]">{lastRefreshed}</span>
+            <span className="text-[10px] uppercase font-mono text-slate-400 block">Last Synced</span>
+            <span className="text-xs font-mono text-slate-600">{lastRefreshed}</span>
           </div>
 
           <button
             type="button"
             onClick={() => fetchData(true)}
             disabled={isRefreshing}
-            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.1)] text-white text-xs font-medium transition-all duration-200 active:scale-95 disabled:opacity-50"
+            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium transition-all duration-200 active:scale-95 disabled:opacity-50 shadow-xs"
           >
-            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-[#38bdf8]' : ''} />
+            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-sky-600' : ''} />
             <span>{isRefreshing ? 'Syncing...' : 'Refresh'}</span>
           </button>
         </div>
@@ -214,7 +214,7 @@ export const MarketingFunnelView: React.FC<MarketingFunnelViewProps> = ({
         <div className="overflow-x-auto mt-3">
           <table className="w-full text-left text-xs font-mono">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-[var(--text-muted)] uppercase text-[10px]">
+              <tr className="border-b border-slate-200 text-slate-500 uppercase text-[10px]">
                 <th className="pb-3">Business Segment</th>
                 <th className="pb-3">Closed Deals</th>
                 <th className="pb-3">Active Sellers</th>
@@ -223,7 +223,7 @@ export const MarketingFunnelView: React.FC<MarketingFunnelViewProps> = ({
                 <th className="pb-3">Realized GMV</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[rgba(255,255,255,0.04)]">
+            <tbody className="divide-y divide-slate-100">
               {segments?.segments?.map((seg) => {
                 const segActivation =
                   seg.closed_deals_count > 0
@@ -233,32 +233,32 @@ export const MarketingFunnelView: React.FC<MarketingFunnelViewProps> = ({
                 return (
                   <tr
                     key={seg.business_segment}
-                    className="hover:bg-[rgba(255,255,255,0.03)] transition-colors"
+                    className="hover:bg-slate-50/70 transition-colors"
                   >
-                    <td className="py-3 font-bold text-white uppercase flex items-center space-x-2">
-                      <span className="w-2 h-2 rounded-full bg-[#38bdf8]" />
+                    <td className="py-3 font-bold text-slate-900 uppercase flex items-center space-x-2">
+                      <span className="w-2 h-2 rounded-full bg-sky-500" />
                       <span>{seg.business_segment.replace(/_/g, ' ')}</span>
                     </td>
-                    <td className="py-3 text-[var(--text-secondary)] font-semibold">
+                    <td className="py-3 text-slate-600 font-semibold">
                       {seg.closed_deals_count}
                     </td>
-                    <td className="py-3 text-[#34d399] font-semibold">
+                    <td className="py-3 text-emerald-600 font-semibold">
                       {seg.active_sellers_count}
                     </td>
-                    <td className="py-3 text-[#38bdf8] font-bold">
+                    <td className="py-3 text-sky-600 font-bold">
                       {segActivation.toFixed(1)}%
                     </td>
-                    <td className="py-3 text-white">
+                    <td className="py-3 text-slate-700">
                       {formatBRL(seg.avg_declared_monthly_revenue)}
                     </td>
-                    <td className="py-3 text-[#34d399] font-bold">
+                    <td className="py-3 text-emerald-600 font-bold">
                       {formatBRL(seg.total_actual_marketplace_revenue)}
                     </td>
                   </tr>
                 );
               }) ?? (
                 <tr>
-                  <td colSpan={6} className="py-6 text-center text-xs text-[var(--text-muted)]">
+                  <td colSpan={6} className="py-6 text-center text-xs text-slate-400">
                     Loading segment performance breakdown...
                   </td>
                 </tr>

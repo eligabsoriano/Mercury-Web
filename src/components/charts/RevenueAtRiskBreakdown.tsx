@@ -24,30 +24,26 @@ function formatBRL(amount: number): string {
   }).format(amount);
 }
 
-const PRIORITY_THEMES: Record<string, { badge: string; border: string; bg: string; dot: string }> = {
+const PRIORITY_THEMES: Record<string, { border: string; bg: string; dot: string }> = {
   'Priority 1 (VIP Retention)': {
-    badge: 'text-[#fda4af] bg-[rgba(244,63,94,0.15)] border-[rgba(244,63,94,0.35)]',
-    border: 'border-[rgba(244,63,94,0.35)]',
-    bg: 'bg-[rgba(244,63,94,0.06)]',
-    dot: 'bg-[#f43f5e] shadow-[0_0_8px_#f43f5e]',
+    border: 'border-rose-200',
+    bg: 'bg-rose-50/50',
+    dot: 'bg-rose-500',
   },
   'Priority 2 (Logistics Recovery)': {
-    badge: 'text-[#fde68a] bg-[rgba(251,191,36,0.15)] border-[rgba(251,191,36,0.35)]',
-    border: 'border-[rgba(251,191,36,0.3)]',
-    bg: 'bg-[rgba(251,191,36,0.05)]',
-    dot: 'bg-[#fbbf24] shadow-[0_0_8px_#fbbf24]',
+    border: 'border-amber-200',
+    bg: 'bg-amber-50/50',
+    dot: 'bg-amber-500',
   },
   'Priority 3 (Win-Back)': {
-    badge: 'text-[#93c5fd] bg-[rgba(59,130,246,0.15)] border-[rgba(59,130,246,0.35)]',
-    border: 'border-[rgba(59,130,246,0.25)]',
-    bg: 'bg-[rgba(59,130,246,0.04)]',
-    dot: 'bg-[#60a5fa] shadow-[0_0_8px_#60a5fa]',
+    border: 'border-sky-200',
+    bg: 'bg-sky-50/50',
+    dot: 'bg-sky-500',
   },
   'Priority 4 (Baseline Operational)': {
-    badge: 'text-[#cbd5e1] bg-[rgba(100,116,139,0.15)] border-[rgba(100,116,139,0.3)]',
-    border: 'border-[rgba(100,116,139,0.2)]',
-    bg: 'bg-[rgba(100,116,139,0.03)]',
-    dot: 'bg-[#94a3b8]',
+    border: 'border-slate-200',
+    bg: 'bg-slate-50/70',
+    dot: 'bg-slate-400',
   },
 };
 
@@ -73,67 +69,64 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
   }, [riskTiers]);
 
   return (
-    <div className="liquid-glass rounded-2xl p-5 md:p-6 border border-[rgba(244,63,94,0.3)] shadow-[0_8px_32px_rgba(244,63,94,0.12)] relative overflow-hidden">
-      {/* Background ambient crimson aura */}
-      <div className="absolute top-0 right-0 w-80 h-40 bg-[radial-gradient(ellipse_at_top_right,rgba(244,63,94,0.15),transparent_70%)] pointer-events-none" />
-
+    <div className="bg-white rounded-2xl p-5 md:p-6 border border-slate-200 shadow-sm relative overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[rgba(255,255,255,0.07)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
           <div className="flex items-center space-x-2">
-            <h3 className="font-display font-bold text-lg text-white tracking-tight flex items-center space-x-2">
-              <ShieldAlert size={20} className="text-[#f43f5e]" />
+            <h3 className="font-display font-bold text-lg text-slate-900 tracking-tight flex items-center space-x-2">
+              <ShieldAlert size={20} className="text-rose-600" />
               <span>Portfolio Revenue at Risk & Triage Priority</span>
             </h3>
-            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[rgba(244,63,94,0.15)] text-[#fda4af] border border-[rgba(244,63,94,0.35)] font-bold">
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-bold">
               {portfolioRiskPct.toFixed(1)}% of GMV
             </span>
           </div>
-          <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Statistical financial exposure based on machine learning churn probabilities (P(Churn) × Spend)
           </p>
         </div>
 
         {/* Total Financial Exposure Pill */}
-        <div className="text-right">
-          <span className="text-[10px] font-mono text-[var(--text-muted)] block uppercase">
+        <div className="text-left sm:text-right">
+          <span className="text-[10px] font-mono text-slate-400 block uppercase">
             Total Revenue Exposure:
           </span>
-          <span className="font-display font-extrabold text-xl md:text-2xl text-[#f43f5e] tracking-tight">
+          <span className="font-display font-extrabold text-xl md:text-2xl text-rose-600 tracking-tight">
             {formatBRL(totalRevenueAtRisk)}
           </span>
         </div>
       </div>
 
       {isLoading ? (
-        <div className="h-48 flex items-center justify-center text-xs text-[var(--text-secondary)] font-mono animate-pulse">
+        <div className="h-48 flex items-center justify-center text-xs text-slate-400 font-mono animate-pulse">
           Synthesizing portfolio churn risk distribution...
         </div>
       ) : (
         <div className="space-y-6 mt-4">
           {/* Tri-Tier Risk Band Visual Stack */}
           <div>
-            <div className="flex justify-between items-center text-[11px] font-mono text-[var(--text-secondary)] mb-1.5">
+            <div className="flex justify-between items-center text-[11px] font-mono text-slate-500 mb-1.5">
               <span>RISK TIER BREAKDOWN (HIGH · MEDIUM · LOW)</span>
-              <span>
+              <span className="font-medium text-slate-700">
                 {highTier ? `${highTier.customer_count.toLocaleString()} High Risk Accounts` : '17,680 High Risk'}
               </span>
             </div>
 
             {/* Segmented multi-color bar */}
-            <div className="h-4 w-full rounded-full bg-[rgba(15,23,42,0.8)] border border-[rgba(255,255,255,0.08)] flex overflow-hidden p-0.5 gap-0.5">
+            <div className="h-3.5 w-full rounded-full bg-slate-100 border border-slate-200 flex overflow-hidden p-0.5 gap-0.5">
               {riskTiers.map((tier) => {
                 const color =
                   tier.risk_tier === 'High'
-                    ? '#f43f5e'
+                    ? '#e11d48'
                     : tier.risk_tier === 'Medium'
-                    ? '#fbbf24'
-                    : '#34d399';
+                    ? '#d97706'
+                    : '#059669';
                 return (
                   <div
                     key={tier.risk_tier}
                     style={{ width: `${Math.max(2, tier.percentage)}%`, backgroundColor: color }}
-                    className="h-full rounded-sm opacity-85 hover:opacity-100 transition-all cursor-pointer"
+                    className="h-full rounded-xs opacity-90 hover:opacity-100 transition-all cursor-pointer"
                     title={`${tier.risk_tier} Risk: ${tier.percentage}% (${formatBRL(tier.total_revenue_at_risk)})`}
                   />
                 );
@@ -146,19 +139,19 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
                 const isHigh = tier.risk_tier === 'High';
                 const isMed = tier.risk_tier === 'Medium';
                 const borderColor = isHigh
-                  ? 'border-[rgba(244,63,94,0.3)]'
+                  ? 'border-rose-200 bg-rose-50/30'
                   : isMed
-                  ? 'border-[rgba(251,191,36,0.25)]'
-                  : 'border-[rgba(52,211,153,0.2)]';
-                const textColor = isHigh ? 'text-[#f43f5e]' : isMed ? 'text-[#fbbf24]' : 'text-[#34d399]';
+                  ? 'border-amber-200 bg-amber-50/30'
+                  : 'border-emerald-200 bg-emerald-50/30';
+                const textColor = isHigh ? 'text-rose-700' : isMed ? 'text-amber-700' : 'text-emerald-700';
 
                 return (
                   <div
                     key={tier.risk_tier}
-                    className={`p-3 rounded-xl bg-[rgba(15,23,42,0.6)] border ${borderColor} space-y-1.5`}
+                    className={`p-3 rounded-xl border ${borderColor} space-y-1.5`}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-display font-bold text-xs text-white">
+                      <span className="font-display font-bold text-xs text-slate-900">
                         {tier.risk_tier} Risk Tier
                       </span>
                       <span className={`text-[10px] font-mono font-bold ${textColor}`}>
@@ -166,8 +159,8 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
                       </span>
                     </div>
 
-                    <div className="flex justify-between items-baseline pt-1 border-t border-[rgba(255,255,255,0.05)] text-xs font-mono">
-                      <span className="text-[var(--text-muted)] text-[10px] font-sans">
+                    <div className="flex justify-between items-baseline pt-1 border-t border-slate-100 text-xs font-mono">
+                      <span className="text-slate-500 text-[10px] font-sans">
                         {tier.customer_count.toLocaleString()} accts ({tier.percentage}%)
                       </span>
                       <span className={`font-bold ${textColor}`}>
@@ -180,19 +173,19 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
             </div>
           </div>
 
-          {/* Retention Priority Triage Cards (Actionable 4 Groups) */}
+          {/* Retention Priority Triage Cards (Fix Image 1: No Horizontal Collisions or Overflow) */}
           <div>
-            <div className="flex justify-between items-center text-[11px] font-mono text-[var(--text-secondary)] mb-2">
+            <div className="flex justify-between items-center text-[11px] font-mono text-slate-500 mb-2">
               <span className="flex items-center space-x-1.5">
-                <Target size={13} className="text-[#38bdf8]" />
+                <Target size={13} className="text-indigo-600" />
                 <span>ACTIONABLE RETENTION PRIORITY MATRIX</span>
               </span>
-              <span className="text-[10px] text-[var(--text-muted)]">
+              <span className="text-[10px] text-slate-400">
                 Knapsack Allocation Target Groups
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {priorities.map((pri) => {
                 const theme =
                   PRIORITY_THEMES[pri.retention_priority] ?? PRIORITY_THEMES['Priority 4 (Baseline Operational)'];
@@ -200,36 +193,36 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
                 return (
                   <div
                     key={pri.retention_priority}
-                    className={`p-3.5 rounded-xl border ${theme.border} ${theme.bg} backdrop-blur-md flex flex-col justify-between space-y-3 group hover:border-[rgba(255,255,255,0.2)] transition-all`}
+                    className={`p-3 rounded-xl border ${theme.border} ${theme.bg} flex flex-col justify-between space-y-2.5 transition-shadow hover:shadow-xs overflow-hidden`}
                   >
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className={`w-2 h-2 rounded-full ${theme.dot}`} />
-                        <span className="font-display font-bold text-xs text-white line-clamp-1">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${theme.dot}`} />
+                        <span className="font-display font-bold text-xs text-slate-900">
                           {pri.retention_priority.split('(')[0].trim()}
                         </span>
                       </div>
-                      <span className="text-[10px] text-[var(--text-muted)] block mt-0.5 font-mono">
+                      <span className="text-[11px] text-slate-500 block mt-0.5 font-medium truncate">
                         {pri.retention_priority.includes('(')
                           ? pri.retention_priority.slice(pri.retention_priority.indexOf('('))
                           : ''}
                       </span>
                     </div>
 
-                    <div className="pt-2 border-t border-[rgba(255,255,255,0.06)] text-xs font-mono">
-                      <div className="flex justify-between items-center">
-                        <span className="text-[10px] text-[var(--text-muted)] font-sans">
+                    <div className="pt-2 border-t border-slate-200/60 text-xs space-y-1 font-sans">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-slate-500">
                           Accounts:
                         </span>
-                        <span className="font-semibold text-white">
+                        <span className="font-semibold text-slate-800 font-mono">
                           {pri.customer_count.toLocaleString()} ({pri.percentage}%)
                         </span>
                       </div>
-                      <div className="flex justify-between items-center mt-1">
-                        <span className="text-[10px] text-[var(--text-muted)] font-sans">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-slate-500">
                           Exposure:
                         </span>
-                        <span className="font-bold text-[#fecdd3]">
+                        <span className="font-bold text-rose-600 font-mono text-xs">
                           {formatBRL(pri.total_revenue_at_risk)}
                         </span>
                       </div>
@@ -241,32 +234,34 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
           </div>
 
           {/* Fast-Action Risk Triage Synthesizer Banner */}
-          <div className="p-4 rounded-xl bg-[rgba(18,25,43,0.85)] border border-[rgba(244,63,94,0.35)] shadow-[0_0_20px_rgba(244,63,94,0.15)] flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-start space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-[rgba(244,63,94,0.18)] border border-[rgba(244,63,94,0.4)] flex items-center justify-center text-[#f43f5e] shrink-0">
-                <Zap size={20} />
+          <div className="p-4 rounded-xl bg-rose-50/60 border border-rose-200 flex flex-col items-start gap-3.5">
+            <div className="flex items-start space-x-3 w-full">
+              <div className="w-9 h-9 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0 mt-0.5">
+                <Zap size={18} />
               </div>
-              <div className="space-y-1">
-                <h4 className="font-display font-bold text-sm text-white flex items-center space-x-2">
-                  <span>Fast-Action Executive Risk Triage</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[rgba(244,63,94,0.2)] text-[#fda4af] font-bold">
+              <div className="space-y-1 flex-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h4 className="font-display font-bold text-sm text-slate-900">
+                    Fast-Action Executive Risk Triage
+                  </h4>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 font-bold">
                     Action Required
                   </span>
-                </h4>
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed max-w-2xl">
-                  <strong>17,680 customers ({formatBRL(totalRevenueAtRisk)})</strong> are in the High Risk churn band.
-                  VIP Priority 1 exposure represents <strong>{formatBRL(p1Exposure)}</strong> across top Champions and Loyal accounts.
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  <strong className="text-slate-900">17,680 customers ({formatBRL(totalRevenueAtRisk)})</strong> are in the High Risk churn band.
+                  VIP Priority 1 exposure represents <strong className="text-slate-900">{formatBRL(p1Exposure)}</strong> across top Champions and Loyal accounts.
                   Immediate algorithmic campaign intervention or budget reallocation is recommended.
                 </p>
               </div>
             </div>
 
             {/* Triage Action Buttons */}
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-end md:self-center">
+            <div className="flex flex-wrap items-center gap-2 w-full pt-2.5 border-t border-rose-200/60">
               <button
                 type="button"
                 onClick={() => onNavigateToCustomers?.('Priority 1 (VIP Retention)')}
-                className="px-3 py-2 rounded-xl bg-[rgba(244,63,94,0.18)] text-[#fda4af] border border-[rgba(244,63,94,0.4)] text-xs font-semibold hover:bg-[rgba(244,63,94,0.28)] transition-all cursor-pointer flex items-center space-x-1.5"
+                className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-rose-700 border border-rose-200 text-xs font-semibold shadow-2xs transition-all cursor-pointer flex items-center space-x-1.5"
               >
                 <Users size={13} />
                 <span>View Queue</span>
@@ -275,7 +270,7 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToRetention}
-                className="px-3 py-2 rounded-xl bg-[rgba(52,211,153,0.18)] text-[#6ee7b7] border border-[rgba(52,211,153,0.4)] text-xs font-semibold hover:bg-[rgba(52,211,153,0.28)] transition-all cursor-pointer flex items-center space-x-1.5"
+                className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer flex items-center space-x-1.5"
               >
                 <span>Optimize Budget</span>
                 <ArrowRight size={13} />
@@ -284,7 +279,7 @@ export const RevenueAtRiskBreakdown: React.FC<RevenueAtRiskBreakdownProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToSimulator}
-                className="px-3 py-2 rounded-xl bg-[rgba(139,92,246,0.22)] text-[#c4b5fd] border border-[rgba(139,92,246,0.45)] text-xs font-semibold hover:bg-[rgba(139,92,246,0.32)] transition-all cursor-pointer flex items-center space-x-1.5"
+                className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer flex items-center space-x-1.5"
               >
                 <span>Simulator</span>
                 <ArrowRight size={13} />
