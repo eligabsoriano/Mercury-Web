@@ -319,54 +319,60 @@ export const CatalogIntelligenceView: React.FC<CatalogIntelligenceViewProps> = (
         </div>
 
         {/* Category Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
           {sortedCategories.map((cat, index) => {
             const sharePercent = maxCategoryRevenue > 0 ? (cat.total_revenue / maxCategoryRevenue) * 100 : 80;
 
             return (
               <div
                 key={cat.category}
-                className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-slate-100/60 transition-all duration-300 space-y-3 group"
+                className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-slate-100/60 transition-all duration-300 space-y-3 group min-w-0 overflow-hidden"
               >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="flex items-center space-x-1.5">
-                      <span className="text-[10px] font-mono font-bold text-slate-400">
+                <div className="flex items-start justify-between gap-2.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center space-x-1.5 min-w-0">
+                      <span className="text-[10px] font-mono font-bold text-slate-400 shrink-0">
                         #{index + 1}
                       </span>
-                      <span className="font-bold text-slate-900 text-xs truncate max-w-[140px] block">
+                      <span
+                        className="font-bold text-slate-900 text-xs truncate block"
+                        title={formatCategoryName(cat.category)}
+                      >
                         {formatCategoryName(cat.category)}
                       </span>
                     </div>
                     {cat.category_pt && (
-                      <span className="text-[10px] text-slate-500 italic block mt-0.5">
+                      <span
+                        className="text-[10px] text-slate-500 italic block mt-0.5 truncate"
+                        title={cat.category_pt}
+                      >
                         {cat.category_pt}
                       </span>
                     )}
                   </div>
 
-                  <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-[11px] font-mono font-bold text-amber-700">
+                  <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-[11px] font-mono font-bold text-amber-700 shrink-0">
                     <Star size={11} className="fill-amber-500 text-amber-500" />
                     <span>{(cat.avg_review_score ?? 4.0).toFixed(1)}</span>
                   </span>
                 </div>
 
                 <div className="space-y-1.5 font-mono text-xs">
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 text-[11px]">Gross GMV:</span>
-                    <span className="font-bold text-emerald-700">{formatBRL(cat.total_revenue)}</span>
+                  <div className="flex justify-between items-center min-w-0">
+                    <span className="text-slate-500 text-[11px] shrink-0">Gross GMV:</span>
+                    <span className="font-bold text-emerald-700 truncate pl-2">{formatBRL(cat.total_revenue)}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 text-[11px]">Units Sold:</span>
-                    <span className="text-slate-900 font-medium">{cat.total_units_sold.toLocaleString()}</span>
+                  <div className="flex justify-between items-center min-w-0">
+                    <span className="text-slate-500 text-[11px] shrink-0">Units Sold:</span>
+                    <span className="text-slate-900 font-medium truncate pl-2">{cat.total_units_sold.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 text-[11px]">Avg Unit Price:</span>
-                    <span className="text-sky-700 font-medium">R$ {cat.avg_price.toFixed(2)}</span>
+                  <div className="flex justify-between items-center min-w-0">
+                    <span className="text-slate-500 text-[11px] shrink-0">Avg Unit Price:</span>
+                    <span className="text-sky-700 font-medium truncate pl-2">R$ {cat.avg_price.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 text-[11px]">Distinct SKUs:</span>
-                    <span className="text-slate-600">{cat.total_products.toLocaleString()}</span>
+                  <div className="flex justify-between items-center min-w-0">
+                    <span className="text-slate-500 text-[11px] shrink-0">Distinct SKUs:</span>
+                    <span className="text-slate-600 truncate pl-2">{cat.total_products.toLocaleString()}</span>
                   </div>
                 </div>
 

@@ -55,9 +55,19 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   );
 
   return (
-    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex relative overflow-x-hidden font-body">
-      {/* Desktop Persistent Sticky Navigation Sidebar */}
-      <div className="hidden lg:flex shrink-0 sticky top-0 h-screen z-30">
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex relative font-body">
+      {/* Desktop Persistent Navigation Sidebar */}
+      <div
+        className={`hidden lg:block shrink-0 transition-[width] duration-300 ease-out ${
+          isSidebarCollapsed ? 'w-20' : 'w-72'
+        }`}
+        aria-hidden="true"
+      />
+      <div
+        className={`hidden lg:flex flex-col fixed top-0 bottom-0 left-0 z-30 h-screen max-h-screen transition-[width] duration-300 ease-out ${
+          isSidebarCollapsed ? 'w-20' : 'w-72'
+        }`}
+      >
         <Sidebar
           activeView={activeView}
           onSelectView={onSelectView}

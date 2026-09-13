@@ -48,21 +48,21 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       {...rest}
     >
       {(title || headerAction) && (
-        <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
-          <div>
+        <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100 gap-3">
+          <div className="min-w-0 flex-1">
             {title && (
-              <h3 className="font-display text-base font-bold text-slate-900 tracking-tight">
+              <h3 className="font-display text-base font-bold text-slate-900 tracking-tight truncate">
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="text-xs text-slate-500 mt-0.5 font-normal">
+              <p className="text-xs text-slate-500 mt-0.5 font-normal truncate">
                 {subtitle}
               </p>
             )}
           </div>
           {headerAction && (
-            <div className="flex items-center space-x-2">{headerAction}</div>
+            <div className="flex items-center space-x-2 shrink-0">{headerAction}</div>
           )}
         </div>
       )}

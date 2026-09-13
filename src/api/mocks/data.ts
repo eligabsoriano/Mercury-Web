@@ -949,7 +949,7 @@ export const mockMarketingLeads: MarketingLeadsListResponse = {
 // -------------------------------------------------------------------------
 
 export const mockCategories: CategoryListResponse = {
-  total_categories: 8,
+  total_categories: 10,
   categories: [
     { category: 'bed_bath_table', category_pt: 'cama_mesa_banho', total_products: 3029, total_units_sold: 11115, total_revenue: 1036800.0, avg_price: 93.28, avg_review_score: 3.92 },
     { category: 'health_beauty', category_pt: 'beleza_saude', total_products: 2444, total_units_sold: 9670, total_revenue: 1258600.0, avg_price: 130.15, avg_review_score: 4.18 },
@@ -959,6 +959,8 @@ export const mockCategories: CategoryListResponse = {
     { category: 'housewares', category_pt: 'utilidades_domesticas', total_products: 2335, total_units_sold: 6964, total_revenue: 632200.0, avg_price: 90.78, avg_review_score: 4.08 },
     { category: 'watches_gifts', category_pt: 'relogios_presentes', total_products: 1329, total_units_sold: 5991, total_revenue: 1205000.0, avg_price: 201.14, avg_review_score: 4.02 },
     { category: 'telephony', category_pt: 'telefonia', total_products: 1134, total_units_sold: 4545, total_revenue: 323600.0, avg_price: 71.2, avg_review_score: 3.94 },
+    { category: 'kitchen_dining_laundry_garden_furniture', category_pt: 'moveis_cozinha_area_de_servico_jantar_e_jardim', total_products: 94, total_units_sold: 274, total_revenue: 57100.0, avg_price: 206.50, avg_review_score: 3.88 },
+    { category: 'portateis_cozinha_e_preparadores_de_alimentos', category_pt: 'portateis_cozinha_e_preparadores_de_alimentos', total_products: 10, total_units_sold: 14, total_revenue: 4200.0, avg_price: 183.51, avg_review_score: 3.52 },
   ],
 };
 

@@ -26,4 +26,30 @@ test('capture light mode and sticky sidebar visual screenshots', async ({ page }
   await collapseToggle.click();
   await page.waitForTimeout(400);
   await page.screenshot({ path: path.join(artifactDir, 'collapsed_sidebar_fixed.png') });
+
+  // 5. Expand sidebar and test Catalog & Sellers category cards
+  await collapseToggle.click();
+  await page.waitForTimeout(300);
+  const catalogBtn = page.getByRole('button', { name: /Catalog & Sellers/i });
+  await catalogBtn.click();
+  await page.waitForTimeout(500);
+
+  // Take screenshot of Catalog Cards
+  const catScorecard = page.locator('text=Marketplace Product Categories Scorecard').first();
+  await catScorecard.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: path.join(artifactDir, 'catalog_category_cards_fixed.png') });
+
+  // Scroll down to cards 9 and 10 to inspect long titles
+  await page.evaluate(() => window.scrollBy(0, 400));
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: path.join(artifactDir, 'catalog_cards_row3_fixed.png') });
+
+  // 6. Test Marketing Funnel View with Scrolled Sidebar
+  const marketingBtn = page.getByRole('button', { name: /Marketing Funnel/i });
+  await marketingBtn.click();
+  await page.waitForTimeout(500);
+  await page.evaluate(() => window.scrollBy(0, 600));
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: path.join(artifactDir, 'marketing_funnel_scrolled_fixed.png') });
 });

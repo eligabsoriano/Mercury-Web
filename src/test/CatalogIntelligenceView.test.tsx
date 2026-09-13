@@ -28,7 +28,7 @@ describe('CatalogIntelligenceView Component', () => {
 
     // 4 KPI Cards
     expect(screen.getByText('Product Categories')).toBeInTheDocument();
-    expect(screen.getByText('8')).toBeInTheDocument();
+    expect(screen.getAllByText(String(mockCategories.total_categories)).length).toBeGreaterThanOrEqual(1);
 
     expect(screen.getByText('Products Catalogued')).toBeInTheDocument();
     expect(screen.getByText('32,951')).toBeInTheDocument();
@@ -50,7 +50,7 @@ describe('CatalogIntelligenceView Component', () => {
     );
 
     expect(screen.getByText(/Marketplace Product Categories Scorecard/i)).toBeInTheDocument();
-    expect(screen.getByText(/Displaying 8 product categories/i)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`Displaying ${mockCategories.total_categories} product categories`, 'i'))).toBeInTheDocument();
 
     // Check categories exist
     expect(screen.getAllByText(/Health Beauty/i).length).toBeGreaterThan(0);

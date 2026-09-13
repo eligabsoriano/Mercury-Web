@@ -42,7 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`relative z-30 flex flex-col h-full transition-all duration-300 ease-out border-r border-slate-200 bg-white shadow-sm ${
+      className={`relative z-30 flex flex-col h-full max-h-screen overflow-hidden transition-all duration-300 ease-out border-r border-slate-200 bg-white shadow-sm ${
         isCollapsed ? 'w-20' : 'w-72'
       }`}
       aria-label="Executive Navigation Sidebar"
@@ -108,7 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 py-4 px-2.5 space-y-1 overflow-y-auto" aria-label="Main Navigation">
+      <nav className="flex-1 min-h-0 py-4 px-2.5 space-y-1 overflow-y-auto custom-scrollbar" aria-label="Main Navigation">
         {!isCollapsed && (
           <div className="px-3 pb-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
             Intelligence Modules

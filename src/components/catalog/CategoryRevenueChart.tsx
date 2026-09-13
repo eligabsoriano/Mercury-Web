@@ -50,18 +50,18 @@ const CustomCategoryTooltip: React.FC<CustomTooltipProps> = ({ active, payload }
       data-testid="category-chart-tooltip"
       className="p-3.5 rounded-xl bg-white/95 border border-slate-200 shadow-xl backdrop-blur-md text-xs space-y-2 min-w-[220px]"
     >
-      <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
-        <div>
-          <span className="font-bold text-slate-900 font-display text-sm block">
+      <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 gap-2">
+        <div className="min-w-0 flex-1">
+          <span className="font-bold text-slate-900 font-display text-sm block truncate">
             {formatName(item.category)}
           </span>
           {item.category_pt && (
-            <span className="text-[10px] text-slate-500 italic">
+            <span className="text-[10px] text-slate-500 italic block truncate max-w-[220px]">
               {item.category_pt}
             </span>
           )}
         </div>
-        <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-mono font-bold text-[11px]">
+        <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-mono font-bold text-[11px] shrink-0">
           <Star size={11} className="fill-amber-500 text-amber-500" />
           <span>{(item.avg_review_score ?? 4.0).toFixed(1)}</span>
         </span>

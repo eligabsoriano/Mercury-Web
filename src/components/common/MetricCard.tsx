@@ -58,15 +58,15 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       interactive
       className={clsx('relative overflow-hidden group bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow', className)}
     >
-      <div className="flex items-start justify-between relative z-10">
-        <div>
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500">
+      <div className="flex items-start justify-between relative z-10 gap-3">
+        <div className="min-w-0 flex-1">
+          <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500 block truncate">
             {title}
           </span>
-          <div className="mt-2 flex items-baseline space-x-2">
+          <div className="mt-2 flex items-baseline space-x-2 flex-wrap">
             <span className="kpi-value text-slate-900">{value}</span>
             {subtitle && (
-              <span className="text-xs text-slate-500 font-normal">
+              <span className="text-xs text-slate-500 font-normal truncate">
                 {subtitle}
               </span>
             )}
@@ -76,7 +76,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {icon && (
           <div
             className={clsx(
-              'p-2.5 rounded-xl border flex items-center justify-center transition-transform duration-200 group-hover:scale-105',
+              'p-2.5 rounded-xl border flex items-center justify-center transition-transform duration-200 group-hover:scale-105 shrink-0',
               accentConfigs.iconBox
             )}
           >
