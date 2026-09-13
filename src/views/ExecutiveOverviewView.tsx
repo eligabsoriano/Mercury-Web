@@ -210,7 +210,7 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
           title="High Churn Risk Rate"
           value={
             overview
-              ? `${(overview.high_risk_percentage * 100).toFixed(1)}%`
+              ? `${(overview.high_risk_percentage > 1 ? overview.high_risk_percentage : overview.high_risk_percentage * 100).toFixed(1)}%`
               : '18.4%'
           }
           subtitle="P(Churn) ≥ 0.70"
@@ -233,7 +233,12 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
               : 'R$ 2.45M'
           }
           subtitle={`${
-            overview ? (overview.portfolio_risk_percentage * 100).toFixed(1) : '15.3'
+            overview
+              ? (overview.portfolio_risk_percentage > 1
+                  ? overview.portfolio_risk_percentage
+                  : overview.portfolio_risk_percentage * 100
+                ).toFixed(1)
+              : '15.3'
           }% of Portfolio GMV`}
           delta={{
             value: '15.3%',
@@ -250,7 +255,7 @@ export const ExecutiveOverviewView: React.FC<ExecutiveOverviewViewProps> = ({
           title="Repeat Buyer Rate"
           value={
             overview
-              ? `${(overview.repeat_buyer_rate * 100).toFixed(2)}%`
+              ? `${(overview.repeat_buyer_rate > 1 ? overview.repeat_buyer_rate : overview.repeat_buyer_rate * 100).toFixed(2)}%`
               : '2.99%'
           }
           subtitle="2,873 Multi-Order Buyers"

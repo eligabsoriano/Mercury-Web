@@ -6,6 +6,8 @@ dist-ssr
 *.tsbuildinfo
 vite.config.d.ts
 vite.config.js
+playwright-report
+test-results
 
 # Environment variables
 .env
