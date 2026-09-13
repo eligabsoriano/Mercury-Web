@@ -52,6 +52,7 @@ Comprehensive technical specifications, architecture blueprints, design tokens, 
 - 🏛️ **[docs/architecture.md](docs/architecture.md)** — System data flow, component tree, client directory structure, and customer identity resolution.
 - 🎨 **[docs/design_system.md](docs/design_system.md)** — Visual design language, dark glassmorphism parameters, HSL tokens, and UI primitives.
 - 📡 **[docs/api_integration.md](docs/api_integration.md)** — Typed API client architecture, dual authentication (API Key & Bearer JWT), and offline resilience mocks.
+- 🪄 **[docs/ui_ux_pro_max_guide.md](docs/ui_ux_pro_max_guide.md)** — UI/UX Pro Max design intelligence setup, search CLI commands, and design system reasoning.
 
 ---
 
