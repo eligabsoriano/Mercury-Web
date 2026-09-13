@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Mercury Customer Intelligence & Retention Analytics Dashboard
+   Design System Tokens & Executive Dark Glassmorphism
+   ========================================================================== */
+
+:root {
+  /* Canvas & Base Surfaces */
+  --bg-canvas: hsl(222, 47%, 7%);           /* #0b0f19 - Deep Space Canvas */
+  --bg-canvas-subtle: hsl(222, 45%, 9%);    /* #0f1523 - Slightly elevated canvas */
+  --bg-panel: hsla(222, 40%, 12%, 0.75);    /* Elevated glassmorphic card */
+  --bg-panel-hover: hsla(222, 40%, 16%, 0.85);
+  --bg-panel-active: hsla(222, 40%, 19%, 0.95);
+  --bg-modal: hsla(222, 44%, 10%, 0.92);
+
+  /* Surface Borders & Specular Highlights */
+  --border-subtle: hsla(217, 33%, 25%, 0.45);   /* Specular subtle edge */
+  --border-focus: hsla(263, 70%, 58%, 0.60);    /* Violet simulation focus */
+  --border-emerald: hsla(158, 64%, 52%, 0.40);  /* Revenue/Safe border */
+  --border-crimson: hsla(354, 70%, 54%, 0.40);  /* Churn Risk border */
+
+  /* Analytical Color Palette (Mercury Domain Semantics) */
+  --accent-emerald: hsl(158, 64%, 52%);       /* #34d399 - Revenue, Low Churn Risk, Saved GMV */
+  --accent-emerald-glow: hsla(158, 64%, 52%, 0.15);
+  --accent-crimson: hsl(354, 70%, 54%);       /* #f43f5e - High Churn Risk (P>=0.70), Revenue at Risk */
+  --accent-crimson-glow: hsla(354, 70%, 54%, 0.15);
+  --accent-violet: hsl(263, 70%, 58%);        /* #8b5cf6 - ML Predictions & Counterfactual Simulator */
+  --accent-violet-glow: hsla(263, 70%, 58%, 0.18);
+  --accent-amber: hsl(38, 92%, 50%);          /* #fbbf24 - Medium Churn Risk, Delivery Delay Warnings */
+  --accent-amber-glow: hsla(38, 92%, 50%, 0.15);
+  --accent-cyan: hsl(199, 89%, 48%);          /* #38bdf8 - Marketing Funnel & B2B Leads */
+  --accent-cyan-glow: hsla(199, 89%, 48%, 0.15);
+  --accent-indigo: hsl(231, 75%, 60%);        /* #6366f1 - Customer 360 & RFM Scores */
+
+  /* Neutral Text & Typography Hierarchy */
+  --text-primary: hsl(210, 40%, 98%);         /* Main high-contrast text */
+  --text-secondary: hsl(215, 20%, 75%);       /* Subtitles, table body */
+  --text-muted: hsl(215, 16%, 50%);           /* Column labels, helper text */
+  --text-inverse: hsl(222, 47%, 7%);
+
+  /* Typography Pairing */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Shadows & Glassmorphic Elevation */
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  --shadow-glass-hover: 0 14px 44px 0 rgba(0, 0, 0, 0.60);
+  --shadow-emerald: 0 0 24px -4px hsla(158, 64%, 52%, 0.30);
+  --shadow-crimson: 0 0 24px -4px hsla(354, 70%, 54%, 0.30);
+  --shadow-violet: 0 0 24px -4px hsla(263, 70%, 58%, 0.35);
+
+  /* Spacing & Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Typography Classes */
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism Panel Utilities */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-interactive:hover {
+  background: var(--bg-panel-hover);
+  border-color: hsla(217, 33%, 38%, 0.65);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glass-hover);
+}
+
+.glass-panel-glow-violet {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-violet);
+}
+
+.glass-panel-glow-emerald {
+  border-color: var(--border-emerald);
+  box-shadow: var(--shadow-emerald);
+}
+
+.glass-panel-glow-crimson {
+  border-color: var(--border-crimson);
+  box-shadow: var(--shadow-crimson);
+}
+
+/* Executive KPI Display Number */
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* Gradient Text Accents */
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-crimson {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-violet {
+  background: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Status Badges & Pills */
+.badge-risk-high {
+  background: hsla(354, 70%, 54%, 0.15);
+  color: #fb7185;
+  border: 1px solid hsla(354, 70%, 54%, 0.35);
+}
+
+.badge-risk-medium {
+  background: hsla(38, 92%, 50%, 0.15);
+  color: #fcd34d;
+  border: 1px solid hsla(38, 92%, 50%, 0.35);
+}
+
+.badge-risk-low {
+  background: hsla(158, 64%, 52%, 0.15);
+  color: #6ee7b7;
+  border: 1px solid hsla(158, 64%, 52%, 0.35);
+}
+
+.badge-violet {
+  background: hsla(263, 70%, 58%, 0.18);
+  color: #c4b5fd;
+  border: 1px solid hsla(263, 70%, 58%, 0.35);
+}
+
+.badge-cyan {
+  background: hsla(199, 89%, 48%, 0.15);
+  color: #7dd3fc;
+  border: 1px solid hsla(199, 89%, 48%, 0.35);
+}
+
+/* Pulse Indicators */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.pulse-dot-emerald {
+  background-color: var(--accent-emerald);
+  box-shadow: 0 0 10px var(--accent-emerald);
+}
+
+.pulse-dot-crimson {
+  background-color: var(--accent-crimson);
+  box-shadow: 0 0 10px var(--accent-crimson);
+}
+
+.pulse-dot-amber {
+  background-color: var(--accent-amber);
+  box-shadow: 0 0 10px var(--accent-amber);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.9; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.9; }
+}
+
+/* Custom Scrollbar for Dense Analytics */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(217, 33%, 25%, 0.6);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(217, 33%, 38%, 0.8);
+}
+
+/* Slider Custom Styling for Counterfactual Simulation */
+input[type="range"].mercury-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: hsla(217, 33%, 25%, 0.5);
+  border-radius: var(--radius-full);
+  outline: none;
+  transition: background 0.2s;
+}
+
+input[type="range"].mercury-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-violet);
+  box-shadow: 0 0 12px var(--accent-violet);
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+input[type="range"].mercury-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 18px var(--accent-violet);
+}
+
+input[type="range"].mercury-slider:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 20px var(--accent-violet);
+}
