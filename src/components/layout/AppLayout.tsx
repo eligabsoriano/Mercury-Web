@@ -65,7 +65,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       </div>
 
       {/* Desktop Persistent Navigation Sidebar */}
-      <div className="hidden md:flex shrink-0">
+      <div className="hidden lg:flex shrink-0">
         <Sidebar
           activeView={activeView}
           onSelectView={onSelectView}
@@ -77,7 +77,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
       {/* Mobile Drawer Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 flex md:hidden" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-40 flex lg:hidden" role="dialog" aria-modal="true">
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm backdrop-fade-in"
             onClick={() => setIsMobileMenuOpen(false)}

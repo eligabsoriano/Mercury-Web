@@ -1,0 +1,45 @@
+name: Mercury Web Quality Gates CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gates:
+    name: Node.js ${{ matrix.node-version }} Quality Gates
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Locked Dependencies
+        run: npm ci
+
+      - name: Type Safety Audit (TypeScript Strict Mode)
+        run: npx tsc --noEmit
+
+      - name: Code Style & Static Linting Audit (ESLint)
+        run: npm run lint
+
+      - name: Unit & Component Test Suite (Vitest)
+        run: npm test
+
+      - name: Production Bundle Optimization & Build
+        run: npm run build

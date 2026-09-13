@@ -153,14 +153,14 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           type="button"
           onClick={onToggleMobileMenu}
-          className="md:hidden p-2 rounded-lg text-[var(--text-secondary)] hover:text-white hover:bg-[rgba(255,255,255,0.06)]"
+          className="lg:hidden p-2 rounded-lg text-[var(--text-secondary)] hover:text-white hover:bg-[rgba(255,255,255,0.06)]"
           aria-label="Toggle Navigation Drawer"
         >
           <Menu size={20} />
         </button>
 
         {/* Dynamic Breadcrumbs */}
-        <nav aria-label="Breadcrumbs" className="hidden sm:flex items-center space-x-1.5 text-xs">
+        <nav aria-label="Breadcrumbs" className="hidden md:flex items-center space-x-1.5 text-xs">
           {currentNavItem.breadcrumbs.map((crumb, idx) => {
             const isLast = idx === currentNavItem.breadcrumbs.length - 1;
             return (
@@ -181,14 +181,14 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* View Title on Mobile */}
-        <span className="sm:hidden font-display font-bold text-sm text-white truncate">
+        {/* View Title on Mobile/Tablet */}
+        <span className="md:hidden font-display font-bold text-sm text-white truncate">
           {currentNavItem.label}
         </span>
       </div>
 
       {/* Center: Global Quick Customer Lookup Search */}
-      <div ref={searchContainerRef} className="relative flex-1 max-w-md hidden md:block">
+      <div ref={searchContainerRef} className="relative flex-1 max-w-md hidden xl:block">
         <div className="relative flex items-center">
           <Search
             size={15}
