@@ -1062,18 +1062,29 @@ export function simulateChurn(input: Partial<ChurnPredictionInput>): ChurnPredic
 export function simulateCounterfactual(
   req: CounterfactualSimulationRequest
 ): CounterfactualSimulationResponse {
+  const foundCust = req.customer_unique_id
+    ? mockCustomersList.find((c) => c.customer_unique_id === req.customer_unique_id)
+    : null;
+
   const baseInput: Partial<ChurnPredictionInput> = req.base_features || {
-    customer_lifespan_days: 145,
-    lifetime_orders: 1,
-    lifetime_spend: 340.0,
-    avg_delivery_delay_days: 3.5,
-    avg_review_score: 3.0,
+    customer_lifespan_days: foundCust?.customer_lifespan_days ?? 145,
+    lifetime_orders: foundCust?.lifetime_orders ?? 1,
+    lifetime_spend: foundCust?.lifetime_spend ?? 340.0,
+    avg_delivery_delay_days: foundCust
+      ? (foundCust.risk_tier === 'High' ? 4.5 : foundCust.risk_tier === 'Medium' ? 1.5 : -2.0)
+      : 3.5,
+    avg_review_score: foundCust
+      ? (foundCust.risk_tier === 'High' ? 2.5 : foundCust.risk_tier === 'Medium' ? 3.5 : 4.8)
+      : 3.0,
   };
 
   const baseline = simulateChurn(baseInput);
 
   // Apply adjustments
-  const adj = req.adjustments as Record<string, number>;
+  const adj = (req.adjustments || {}) as Record<string, number>;
+  const discountMitigation = adj.discount_rate ? (adj.discount_rate / 100) * 0.15 : 0;
+  const outreachMitigation = adj.proactive_outreach ? 0.08 : 0;
+
   const simulatedInput: Partial<ChurnPredictionInput> = {
     ...baseInput,
     avg_delivery_delay_days:
@@ -1090,7 +1101,34 @@ export function simulateCounterfactual(
         : baseInput.lifetime_orders,
   };
 
-  const simulated = simulateChurn(simulatedInput);
+  const rawSimulated = simulateChurn(simulatedInput);
+  const mitigatedProb = Math.max(
+    0.05,
+    Math.min(0.95, rawSimulated.churn_probability - discountMitigation - outreachMitigation)
+  );
+  const roundedProb = Number(mitigatedProb.toFixed(3));
+  const simulatedSpend = simulatedInput.lifetime_spend ?? baseInput.lifetime_spend ?? 340;
+  const simulatedRevenueAtRisk = Number((simulatedSpend * roundedProb).toFixed(2));
+
+  let simulatedRiskTier = 'Low';
+  let simulatedRetentionPriority = 'Priority 4 (Baseline Operational)';
+  if (roundedProb >= 0.7) {
+    simulatedRiskTier = 'High';
+    simulatedRetentionPriority =
+      simulatedSpend >= 400 ? 'Priority 1 (VIP Retention)' : 'Priority 2 (Logistics Recovery)';
+  } else if (roundedProb >= 0.3) {
+    simulatedRiskTier = 'Medium';
+    simulatedRetentionPriority = 'Priority 3 (Win-Back)';
+  }
+
+  const simulated = {
+    ...rawSimulated,
+    churn_probability: roundedProb,
+    risk_tier: simulatedRiskTier,
+    retention_priority: simulatedRetentionPriority,
+    revenue_at_risk: simulatedRevenueAtRisk,
+  };
+
   const deltaProb = Number((simulated.churn_probability - baseline.churn_probability).toFixed(4));
   const deltaRevenue = Number((simulated.revenue_at_risk - baseline.revenue_at_risk).toFixed(2));
 

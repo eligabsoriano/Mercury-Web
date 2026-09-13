@@ -297,36 +297,43 @@ Provide an operational directory for filtering customers, prioritizing intervent
 
 ---
 
-### Phase 6: Views 3 & 4 — ML Churn Engine & Retention Budget Optimizer
+### Phase 6: Views 3 & 4 — ML Churn Engine & Retention Budget Optimizer (✅ Complete)
 
 #### 6.1 Goal
 Build interactive simulation workspaces empowering leaders to model what-if scenarios and optimize retention capital allocation using Knapsack economics.
 
 #### 6.2 Concrete Deliverables
 - [src/views/ChurnSimulatorView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/ChurnSimulatorView.tsx):
-  - **What-If Counterfactual Simulator** (`POST /api/predictions/churn/simulate`):
-    - Real-time controlled sliders:
+  - [x] **What-If Counterfactual Simulator** (`POST /api/predictions/churn/simulate`):
+    - [x] Real-time controlled sliders:
       - Delivery Delay Adjustment: $-10$ days to $+10$ days.
       - Review Score Delta: $-2.0$ stars to $+2.0$ stars.
       - Discount Incentive: $0\%$ to $30\%$.
       - Order Frequency Delta: $-2$ to $+5$ orders.
-    - Live Delta Card: Visualizes $\Delta P(\text{Churn})$, $\Delta \text{Revenue at Risk}$, Before-and-After Risk Tier transitions.
-    - Executive Natural Language Impact Summary (e.g. *"Reducing delivery delay by 4 days lowers churn probability by 18.2%, protecting R$ 145,200 in revenue"*).
-    - Customer Lookup Mode: Load any customer unique ID to hydrate baseline features from DB.
-    - Model Transparency Card (`GET /api/predictions/model/info`): HistGradientBoosting algorithm parameters, ROC-AUC score (0.87+), training date, and top feature weights.
+    - [x] Proactive VIP Concierge outreach toggle switch.
+    - [x] 4 Action Presets: Reset, Logistics Crisis, Win-Back Push, Optimal Preset.
+    - [x] Live Delta Card: Visualizes $\Delta P(\text{Churn})$, $\Delta \text{Revenue at Risk}$, Before-and-After Risk Tier transitions, and Retention Priority shifts.
+    - [x] Executive Natural Language Impact Summary (e.g. *"Retention Strategy Highly Effective: Operational improvements reduce churn risk by 18.2%, protecting R$ 145,200 in revenue"*).
+    - [x] Customer Lookup Mode: Load candidate accounts or search customer unique ID to hydrate baseline features from DB.
+    - [x] Model Transparency Card (`GET /api/predictions/model/info`): HistGradientBoosting algorithm parameters, ROC-AUC score (0.874), PR-AUC (0.628), Precision/Recall, and top feature weights.
 - [src/views/RetentionPlannerView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/RetentionPlannerView.tsx):
-  - **Playbooks Catalog**: Cards for all 6 prescriptive retention strategies (`vip_concierge`, `logistics_friction_recovery`, `sentiment_repair_service`, `automated_reengagement`, `loyalty_nurture`, `organic_nurture`) showing unit costs, save rates, and outreach templates.
-  - **Campaign ROI Simulator** (`POST /api/retention/campaigns/simulate-roi`):
-    - Controls for target customer count, cost per customer, and expected save rate.
-    - Dynamic calculation: Total Cost, Gross Revenue Saved, Net Value Created, ROI %, Break-Even Save Rate.
-  - **Knapsack Capital Deployment Optimizer** (`POST /api/retention/campaigns/optimize-budget`):
-    - Total Budget Slider (R$ 5,000 to R$ 250,000).
-    - Visual knapsack allocation bars showing funded vs unfunded customer candidate pools.
-    - Scorecard: Allocated Budget, Remaining Budget, Customers Targeted, Total Net Value, Portfolio Efficiency.
+  - [x] **Playbooks Catalog**: Cards for all 6 prescriptive retention strategies (`vip_concierge`, `logistics_friction_recovery`, `sentiment_repair_service`, `automated_reengagement`, `loyalty_nurture`, `organic_nurture`) showing unit costs, save rates, and 1-click copy outreach templates.
+  - [x] **Campaign ROI Simulator** (`POST /api/retention/campaigns/simulate-roi`):
+    - [x] Controls for target customer count, cost per customer, expected save rate, and target revenue at risk.
+    - [x] Dynamic calculation: Total Cost, Gross Revenue Saved, Net Value Created, ROI %, Break-Even Save Rate.
+  - [x] **Knapsack Capital Deployment Optimizer** (`POST /api/retention/campaigns/optimize-budget`):
+    - [x] Total Budget Slider (R$ 5,000 to R$ 250,000) and 5 quick preset buttons.
+    - [x] Visual knapsack allocation bars showing funded vs unfunded customer candidate pools.
+    - [x] Scorecard: Allocated Budget, Remaining Budget, Customers Targeted, Total Net Value, Portfolio Efficiency.
 
 #### 6.3 Definition of Done
-- Sliders debounce API calls cleanly (300ms) and render smooth delta transitions.
-- Budget slider recalculates Knapsack allocation and returns non-negative remaining budget.
+- [x] Sliders debounce API calls cleanly (300ms) and render smooth delta transitions.
+- [x] Budget slider recalculates Knapsack allocation and returns non-negative remaining budget.
+- [x] 41/41 Vitest unit tests passing across all 7 test suites (`npm test`).
+- [x] 21/21 Playwright E2E tests passing across all 3 suites (`npm run test:e2e`).
+- [x] TypeScript compiles cleanly with 0 errors (`npx tsc --noEmit`).
+- [x] ESLint passes with 0 warnings (`npm run lint`).
+- [x] Production build passes cleanly in <2s (`npm run build`).
 
 ---
 

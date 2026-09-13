@@ -33,14 +33,20 @@ if (typeof URL !== 'undefined') {
 }
 
 // Polyfill navigator.clipboard for JSDOM
-if (typeof navigator !== 'undefined' && !navigator.clipboard) {
+if (typeof navigator !== 'undefined') {
   Object.defineProperty(navigator, 'clipboard', {
     value: {
       writeText: async () => Promise.resolve(),
     },
     writable: true,
+    configurable: true,
   });
 }
 
-
-
+// Polyfill Element.prototype.scrollIntoView for JSDOM
+if (typeof Element !== 'undefined') {
+  Element.prototype.scrollIntoView = () => {};
+}
+if (typeof window !== 'undefined' && window.HTMLElement) {
+  window.HTMLElement.prototype.scrollIntoView = () => {};
+}

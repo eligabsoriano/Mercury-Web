@@ -119,7 +119,12 @@ export const App: React.FC = () => {
         />
       )}
 
-      {activeView === 'churn-simulator' && <ChurnSimulatorView />}
+      {activeView === 'churn-simulator' && (
+        <ChurnSimulatorView
+          initialCustomerId={selectedCustomerId}
+          onSelectCustomer={setSelectedCustomerId}
+        />
+      )}
 
       {activeView === 'retention-planner' && <RetentionPlannerView />}
 

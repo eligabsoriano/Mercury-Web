@@ -82,7 +82,10 @@ const env =
 const BASE_URL = (env.VITE_API_BASE_URL as string) || 'http://localhost:8000';
 const API_KEY = (env.VITE_API_KEY as string) || '';
 const AUTH_TOKEN = (env.VITE_AUTH_TOKEN as string) || '';
-const FORCE_MOCK = (env.VITE_FORCE_MOCK as string) === 'true';
+const FORCE_MOCK =
+  (env.VITE_FORCE_MOCK as string) === 'true' ||
+  env.MODE === 'test' ||
+  (typeof process !== 'undefined' && process.env?.NODE_ENV === 'test');
 
 // -------------------------------------------------------------------------
 // Type Helpers for Path Operations
@@ -177,7 +180,8 @@ export async function apiFetch<
   }
 
   // Timeout handling via AbortController
-  const timeoutMs = options?.timeoutMs || 4000;
+  const timeoutMs =
+    options?.timeoutMs || (import.meta.env?.MODE === 'test' ? 100 : 4000);
   const controller = new AbortController();
   const timeoutTimer = setTimeout(() => controller.abort(), timeoutMs);
 
