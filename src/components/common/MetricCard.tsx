@@ -29,50 +29,62 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   accent = 'emerald',
   className,
 }) => {
-  const accentStyles = {
+  const accentConfigs = {
     emerald: {
       text: 'text-[var(--accent-emerald)]',
-      bg: 'bg-[var(--accent-emerald-glow)]',
-      border: 'border-[var(--border-emerald)]',
-      gradient: 'text-gradient-emerald',
+      bgGlow: 'bg-[radial-gradient(circle,#34d399_0%,transparent_70%)]',
+      iconBox: 'bg-[rgba(52,211,153,0.14)] border-[rgba(52,211,153,0.35)] text-[#34d399] shadow-[0_0_15px_rgba(52,211,153,0.25)]',
+      glow: 'emerald' as const,
     },
     crimson: {
       text: 'text-[var(--accent-crimson)]',
-      bg: 'bg-[var(--accent-crimson-glow)]',
-      border: 'border-[var(--border-crimson)]',
-      gradient: 'text-gradient-crimson',
+      bgGlow: 'bg-[radial-gradient(circle,#f43f5e_0%,transparent_70%)]',
+      iconBox: 'bg-[rgba(244,63,94,0.14)] border-[rgba(244,63,94,0.35)] text-[#f43f5e] shadow-[0_0_15px_rgba(244,63,94,0.25)]',
+      glow: 'crimson' as const,
     },
     violet: {
       text: 'text-[var(--accent-violet)]',
-      bg: 'bg-[var(--accent-violet-glow)]',
-      border: 'border-[var(--border-focus)]',
-      gradient: 'text-gradient-violet',
+      bgGlow: 'bg-[radial-gradient(circle,#8b5cf6_0%,transparent_70%)]',
+      iconBox: 'bg-[rgba(139,92,246,0.16)] border-[rgba(139,92,246,0.40)] text-[#c084fc] shadow-[0_0_15px_rgba(139,92,246,0.25)]',
+      glow: 'violet' as const,
     },
     amber: {
       text: 'text-[var(--accent-amber)]',
-      bg: 'bg-[var(--accent-amber-glow)]',
-      border: 'border-[hsla(38,92%,50%,0.35)]',
-      gradient: '',
+      bgGlow: 'bg-[radial-gradient(circle,#fbbf24_0%,transparent_70%)]',
+      iconBox: 'bg-[rgba(251,191,36,0.14)] border-[rgba(251,191,36,0.35)] text-[#fbbf24] shadow-[0_0_15px_rgba(251,191,36,0.25)]',
+      glow: 'none' as const,
     },
     cyan: {
       text: 'text-[var(--accent-cyan)]',
-      bg: 'bg-[var(--accent-cyan-glow)]',
-      border: 'border-[hsla(199,89%,48%,0.35)]',
-      gradient: 'text-gradient-cyan',
+      bgGlow: 'bg-[radial-gradient(circle,#38bdf8_0%,transparent_70%)]',
+      iconBox: 'bg-[rgba(56,189,248,0.14)] border-[rgba(56,189,248,0.35)] text-[#38bdf8] shadow-[0_0_15px_rgba(56,189,248,0.25)]',
+      glow: 'cyan' as const,
     },
   }[accent];
 
   return (
-    <GlassCard padding="md" className={clsx('relative overflow-hidden', className)}>
-      <div className="flex items-start justify-between">
+    <GlassCard
+      padding="md"
+      interactive
+      className={clsx('relative overflow-hidden group', className)}
+    >
+      {/* Ambient Internal Backlight Halo */}
+      <div
+        className={clsx(
+          'absolute -top-12 -right-12 w-36 h-36 rounded-full blur-2xl opacity-25 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none',
+          accentConfigs.bgGlow
+        )}
+      />
+
+      <div className="flex items-start justify-between relative z-10">
         <div>
-          <span className="text-xs uppercase tracking-wider font-medium text-[var(--text-muted)]">
+          <span className="text-[11px] uppercase tracking-wider font-semibold text-[var(--text-secondary)]">
             {title}
           </span>
-          <div className="mt-2 flex items-baseline space-x-2">
-            <span className="kpi-value text-primary">{value}</span>
+          <div className="mt-2.5 flex items-baseline space-x-2">
+            <span className="kpi-value">{value}</span>
             {subtitle && (
-              <span className="text-xs text-[var(--text-muted)] font-normal">
+              <span className="text-xs text-[var(--text-secondary)] font-normal">
                 {subtitle}
               </span>
             )}
@@ -82,10 +94,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {icon && (
           <div
             className={clsx(
-              'p-2.5 rounded-xl border flex items-center justify-center',
-              accentStyles.bg,
-              accentStyles.border,
-              accentStyles.text
+              'p-3 rounded-xl border flex items-center justify-center transition-transform duration-200 group-hover:scale-105',
+              accentConfigs.iconBox
             )}
           >
             {icon}
@@ -94,27 +104,27 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {(delta || takeaway) && (
-        <div className="mt-4 pt-3 border-t border-[hsla(217,33%,25%,0.35)] flex items-center justify-between text-xs">
+        <div className="mt-4 pt-3.5 border-t border-[rgba(255,255,255,0.07)] flex items-center justify-between text-xs relative z-10">
           {delta && (
             <div
               className={clsx(
-                'flex items-center space-x-1 font-medium px-2 py-0.5 rounded-md',
+                'flex items-center space-x-1.5 font-medium px-2.5 py-0.5 rounded-full border backdrop-blur-md',
                 delta.neutral
-                  ? 'bg-[hsla(215,16%,50%,0.15)] text-[var(--text-muted)]'
+                  ? 'bg-[rgba(255,255,255,0.06)] text-[var(--text-secondary)] border-[rgba(255,255,255,0.1)]'
                   : delta.isPositive
-                  ? 'bg-[hsla(158,64%,52%,0.15)] text-[var(--accent-emerald)]'
-                  : 'bg-[hsla(354,70%,54%,0.15)] text-[var(--accent-crimson)]'
+                  ? 'bg-[rgba(52,211,153,0.12)] text-[var(--accent-emerald)] border-[rgba(52,211,153,0.3)] shadow-[0_0_10px_rgba(52,211,153,0.15)]'
+                  : 'bg-[rgba(244,63,94,0.12)] text-[var(--accent-crimson)] border-[rgba(244,63,94,0.3)] shadow-[0_0_10px_rgba(244,63,94,0.15)]'
               )}
             >
               {delta.neutral ? (
-                <Minus size={13} />
+                <Minus size={12} />
               ) : delta.isPositive ? (
-                <TrendingUp size={13} />
+                <TrendingUp size={12} />
               ) : (
-                <TrendingDown size={13} />
+                <TrendingDown size={12} />
               )}
               <span>{delta.value}</span>
-              {delta.label && <span className="opacity-75 ml-0.5">{delta.label}</span>}
+              {delta.label && <span className="opacity-75 ml-0.5 text-[11px]">{delta.label}</span>}
             </div>
           )}
 

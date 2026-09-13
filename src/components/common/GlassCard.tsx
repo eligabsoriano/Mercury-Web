@@ -5,7 +5,7 @@ export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: string;
   headerAction?: React.ReactNode;
-  glow?: 'none' | 'violet' | 'emerald' | 'crimson';
+  glow?: 'none' | 'violet' | 'emerald' | 'crimson' | 'cyan';
   interactive?: boolean;
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
@@ -30,16 +30,17 @@ export const GlassCard: React.FC<GlassCardProps> = ({
 
   const glowClasses = {
     none: '',
-    violet: 'glass-panel-glow-violet',
-    emerald: 'glass-panel-glow-emerald',
-    crimson: 'glass-panel-glow-crimson',
+    violet: 'liquid-glass-violet',
+    emerald: 'liquid-glass-emerald',
+    crimson: 'liquid-glass-crimson',
+    cyan: 'liquid-glass-cyan',
   }[glow];
 
   return (
     <div
       className={clsx(
-        'glass-panel flex flex-col',
-        interactive && 'glass-panel-interactive cursor-pointer',
+        'liquid-glass flex flex-col',
+        interactive && 'liquid-glass-interactive',
         glowClasses,
         paddingClasses,
         className
@@ -47,21 +48,25 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       {...rest}
     >
       {(title || headerAction) && (
-        <div className="flex items-center justify-between pb-3 mb-3 border-b border-[hsla(217,33%,25%,0.35)]">
+        <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[rgba(255,255,255,0.07)]">
           <div>
             {title && (
-              <h3 className="font-display text-base font-semibold text-primary tracking-tight">
+              <h3 className="font-display text-base font-bold text-[var(--text-primary)] tracking-tight">
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="text-xs text-[var(--text-muted)] mt-0.5">{subtitle}</p>
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5 font-normal">
+                {subtitle}
+              </p>
             )}
           </div>
-          {headerAction && <div className="flex items-center space-x-2">{headerAction}</div>}
+          {headerAction && (
+            <div className="flex items-center space-x-2">{headerAction}</div>
+          )}
         </div>
       )}
-      <div className="flex-1">{children}</div>
+      <div className="flex-1 relative z-10">{children}</div>
     </div>
   );
 };

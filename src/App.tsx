@@ -9,6 +9,10 @@ import {
   ExternalLink,
   ChevronRight,
   Layers,
+  Sparkles,
+  Zap,
+  Server,
+  ArrowRight,
 } from 'lucide-react';
 import {
   GlassCard,
@@ -20,51 +24,67 @@ import {
 } from './components/common';
 
 export const App: React.FC = () => {
-  // Interactive what-if simulation demo state
-  const [deliveryDelay, setDeliveryDelay] = useState<number>(0);
-  const [reviewScoreDelta, setReviewScoreDelta] = useState<number>(0);
-  const [discountRate, setDiscountRate] = useState<number>(10);
+  // Interactive what-if simulation state
+  const [deliveryDelay, setDeliveryDelay] = useState<number>(-3);
+  const [reviewScoreDelta, setReviewScoreDelta] = useState<number>(0.5);
+  const [discountRate, setDiscountRate] = useState<number>(15);
 
   // Computed simulated deltas
+  const baselineChurnProb = 0.74;
   const simulatedChurnProb = Math.max(
-    0.05,
-    Math.min(0.95, 0.72 - (deliveryDelay < 0 ? Math.abs(deliveryDelay) * 0.03 : -deliveryDelay * 0.02) - reviewScoreDelta * 0.08 - (discountRate / 100) * 0.25)
+    0.08,
+    Math.min(
+      0.95,
+      baselineChurnProb -
+        (deliveryDelay < 0 ? Math.abs(deliveryDelay) * 0.035 : -deliveryDelay * 0.02) -
+        reviewScoreDelta * 0.075 -
+        (discountRate / 100) * 0.22
+    )
   );
-  const baselineChurnProb = 0.72;
   const deltaChurn = simulatedChurnProb - baselineChurnProb;
-  const protectedRevenue = Math.max(0, -deltaChurn * 1250);
+  const baselineRevenueAtRisk = 1850.0;
+  const simulatedRevenueAtRisk = baselineRevenueAtRisk * simulatedChurnProb;
+  const protectedRevenue = Math.max(0, baselineRevenueAtRisk - simulatedRevenueAtRisk);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col">
-      {/* Executive Top Navigation Header */}
-      <header className="sticky top-0 z-40 bg-[hsla(222,47%,7%,0.85)] backdrop-blur-md border-b border-[var(--border-subtle)] px-6 py-3.5 flex items-center justify-between">
+    <div className="min-h-screen bg-[var(--bg-canvas)] text-[var(--text-primary)] flex flex-col relative overflow-hidden">
+      {/* Living Aurora Mesh (Dynamic Bioluminescent Substrate behind Liquid Glass) */}
+      <div className="aurora-canvas" aria-hidden="true">
+        <div className="aurora-orb aurora-orb-1" />
+        <div className="aurora-orb aurora-orb-2" />
+        <div className="aurora-orb aurora-orb-3" />
+        <div className="aurora-orb aurora-orb-4" />
+      </div>
+
+      {/* Apple-Grade Liquid Glass Top Bar */}
+      <header className="sticky top-0 z-40 liquid-glass rounded-none border-x-0 border-t-0 border-b border-[rgba(255,255,255,0.08)] px-6 py-3.5 flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[hsla(263,70%,58%,0.2)] border border-[var(--border-focus)] flex items-center justify-center text-[var(--accent-violet)] shadow-violet">
-              <Activity size={18} />
+          <div className="flex items-center space-x-3">
+            <div className="w-9 h-9 rounded-xl bg-[rgba(139,92,246,0.22)] border border-[rgba(139,92,246,0.45)] flex items-center justify-center text-[#c084fc] shadow-[0_0_20px_rgba(139,92,246,0.35)]">
+              <Zap size={19} />
             </div>
             <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-display font-bold text-lg tracking-tight text-primary">
+              <div className="flex items-center space-x-2.5">
+                <span className="font-display font-extrabold text-xl tracking-tight text-white">
                   MERCURY
                 </span>
-                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[hsla(158,64%,52%,0.15)] text-[var(--accent-emerald)] border border-[var(--border-emerald)] font-semibold">
-                  Phase 1 Live
+                <span className="text-[10px] uppercase font-mono px-2.5 py-0.5 rounded-full bg-[rgba(139,92,246,0.18)] text-[#d8b4fe] border border-[rgba(139,92,246,0.4)] font-bold tracking-wider shadow-[0_0_10px_rgba(139,92,246,0.25)]">
+                  Liquid Glass HUD
                 </span>
               </div>
-              <p className="text-[11px] text-[var(--text-muted)]">
-                Executive Customer Intelligence & Retention Platform
+              <p className="text-[11px] text-[var(--text-secondary)]">
+                Executive Customer Intelligence & Predictive Retention Cockpit
               </p>
             </div>
           </div>
         </div>
 
         <div className="flex items-center space-x-4">
-          <div className="hidden md:flex items-center space-x-2 bg-[var(--bg-panel)] px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] text-xs">
-            <span className="pulse-dot pulse-dot-emerald"></span>
-            <span className="text-[var(--text-secondary)]">Backend API:</span>
-            <span className="font-mono text-[var(--accent-emerald)] font-semibold">
-              40 Endpoints Ready
+          <div className="hidden md:flex items-center space-x-2.5 bg-[rgba(255,255,255,0.05)] px-3.5 py-1.5 rounded-full border border-[rgba(255,255,255,0.1)] text-xs backdrop-blur-md">
+            <span className="gem-dot gem-dot-emerald"></span>
+            <span className="text-[var(--text-secondary)]">Backend REST API:</span>
+            <span className="font-mono text-[#34d399] font-bold">
+              40 Endpoints Active
             </span>
           </div>
 
@@ -72,52 +92,52 @@ export const App: React.FC = () => {
             href="/docs/roadmap.md"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center space-x-1.5 text-xs text-[var(--text-secondary)] hover:text-primary transition-colors"
+            className="flex items-center space-x-1.5 text-xs text-[var(--text-secondary)] hover:text-white transition-colors"
           >
             <span>Roadmap</span>
             <ExternalLink size={12} />
           </a>
 
           <Button variant="violet" size="sm" icon={<Sliders size={14} />}>
-            Interactive Workspace
+            Interactive Simulation Lab
           </Button>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 space-y-8">
-        {/* Executive Hero Intro */}
-        <section className="space-y-2">
-          <div className="flex items-center space-x-2 text-xs font-mono text-[var(--accent-violet)]">
-            <Layers size={14} />
-            <span className="uppercase tracking-wider">Executive Command Center</span>
-            <span>/</span>
-            <span>Design System & Architecture Baseline</span>
+      {/* Main Executive Workspace */}
+      <main className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 space-y-8 relative z-10">
+        {/* Executive Hero Intro Banner */}
+        <section className="space-y-2.5">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[rgba(139,92,246,0.12)] border border-[rgba(139,92,246,0.3)] text-xs font-mono text-[#c4b5fd]">
+            <Sparkles size={13} className="text-[#a78bfa]" />
+            <span className="uppercase tracking-wider font-semibold">
+              Quantum Refractive Material Architecture
+            </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight">
-            Customer Intelligence, Churn Risk & Retention Optimization
+          <h1 className="font-display text-3xl md:text-5xl font-black tracking-tight leading-tight">
+            Precision Customer Intelligence & Retention Economics
           </h1>
-          <p className="text-sm md:text-base text-[var(--text-secondary)] max-w-3xl">
-            Synthesizing 100k+ Brazilian E-Commerce orders (Olist) into predictive churn models,
-            real-time counterfactual simulations, and Knapsack-optimized budget allocation.
+          <p className="text-sm md:text-base text-[var(--text-secondary)] max-w-3xl leading-relaxed">
+            Synthesizing 100k+ Brazilian E-Commerce orders (Olist) into real-time counterfactual churn simulations,
+            prescriptive decision playbooks, and Knapsack-optimized marketing budget allocation.
           </p>
         </section>
 
-        {/* Macro KPI Row (Olist Production Metrics Baseline) */}
+        {/* Macro KPI Row (Olist Production Metrics with Ambient Backlights) */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <MetricCard
-            title="Total Portfolio GMV"
+            title="Portfolio Gross Merchandise Value"
             value="R$ 15.98M"
-            subtitle="96,096 Customers"
-            delta={{ value: '+12.4%', isPositive: true, label: 'vs last cycle' }}
-            takeaway="Total lifetime delivered sales volume"
+            subtitle="100k+ Orders Delivered"
+            delta={{ value: '+12.4%', isPositive: true, label: 'vs baseline' }}
+            takeaway="Total lifetime delivered marketplace volume"
             icon={<DollarSign size={20} />}
             accent="emerald"
           />
           <MetricCard
             title="Active Customer Base"
             value="93,358"
-            subtitle="Unique Returning Keys"
+            subtitle="Returning Customer Keys"
             delta={{ value: '2.99%', neutral: true, label: 'repeat rate' }}
             takeaway="Aggregated strictly on customer_unique_id"
             icon={<Users size={20} />}
@@ -126,14 +146,14 @@ export const App: React.FC = () => {
           <MetricCard
             title="Portfolio Revenue at Risk"
             value="R$ 2.45M"
-            subtitle="15.3% of Total GMV"
+            subtitle="15.3% Total Financial Exposure"
             delta={{ value: '18.4%', isPositive: false, label: 'churn exposure' }}
-            takeaway="17,680 customers at risk of churn"
+            takeaway="17,680 customers in High Risk tier"
             icon={<AlertTriangle size={20} />}
             accent="crimson"
           />
           <MetricCard
-            title="ML Model Accuracy"
+            title="ML Churn Classification"
             value="0.871"
             subtitle="ROC-AUC Score"
             delta={{ value: 'HistGradientBoosting', neutral: true }}
@@ -143,31 +163,31 @@ export const App: React.FC = () => {
           />
         </section>
 
-        {/* Two-Column Showcase: Interactive What-If Simulator & RFM Segment Badges */}
+        {/* Interactive What-If Simulation Laboratory & Segment Intelligence */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left: What-If Counterfactual Churn Simulator Preview */}
+          {/* Left: Interactive What-If Counterfactual Simulator */}
           <div className="lg:col-span-7">
             <GlassCard
-              title="Counterfactual What-If Churn Simulator"
-              subtitle="Adjust simulated operational features to preview real-time changes in churn probability"
+              title="Counterfactual What-If Churn Laboratory"
+              subtitle="Drag simulated operational dials to project real-time shifts in churn probability and protected revenue"
               glow="violet"
               className="h-full"
               headerAction={
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[hsla(263,70%,58%,0.15)] text-[var(--accent-violet)] border border-[var(--border-focus)]">
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[rgba(139,92,246,0.16)] text-[#d8b4fe] border border-[rgba(139,92,246,0.4)] font-semibold">
                   POST /api/predictions/churn/simulate
                 </span>
               }
             >
-              <div className="space-y-6 mt-2">
+              <div className="space-y-6 mt-3">
                 <Slider
-                  label="Delivery Delay Adjustment"
+                  label="Delivery Delay Reduction"
                   value={deliveryDelay}
                   min={-10}
                   max={10}
                   step={1}
                   unit="days"
                   onChange={setDeliveryDelay}
-                  helperText="Faster transit reduces post-purchase friction"
+                  helperText="Speeding carrier transit eliminates primary post-purchase customer friction"
                   deltaBadge={{
                     text: deliveryDelay <= 0 ? `${deliveryDelay} days` : `+${deliveryDelay} days`,
                     isPositive: deliveryDelay <= 0,
@@ -175,14 +195,14 @@ export const App: React.FC = () => {
                 />
 
                 <Slider
-                  label="Review Score Delta"
+                  label="Review Score Intervention"
                   value={reviewScoreDelta}
                   min={-2}
                   max={2}
                   step={0.5}
                   unit="★"
                   onChange={setReviewScoreDelta}
-                  helperText="Proactive customer sentiment resolution"
+                  helperText="Proactive customer satisfaction repair and support outreach"
                   deltaBadge={{
                     text: `${reviewScoreDelta >= 0 ? '+' : ''}${reviewScoreDelta}★`,
                     isPositive: reviewScoreDelta >= 0,
@@ -190,34 +210,56 @@ export const App: React.FC = () => {
                 />
 
                 <Slider
-                  label="Retention Discount Voucher"
+                  label="Retention Incentive Voucher"
                   value={discountRate}
                   min={0}
                   max={30}
                   step={5}
                   unit="%"
                   onChange={setDiscountRate}
-                  helperText="Promotional re-engagement coupon"
+                  helperText="Algorithmic promotional discount applied to high-affinity categories"
                   deltaBadge={{
-                    text: `${discountRate}% off`,
+                    text: `${discountRate}% voucher`,
                     isPositive: true,
                   }}
                 />
 
-                {/* Live Output Delta Comparison Card */}
-                <div className="p-4 rounded-xl bg-[hsla(222,45%,9%,0.8)] border border-[var(--border-subtle)] space-y-3">
-                  <div className="flex items-center justify-between text-xs text-[var(--text-muted)] font-mono">
-                    <span>BASELINE: P(CHURN) 72%</span>
-                    <span>SIMULATED OUTCOME</span>
+                {/* Dual-Prism Simulation Outcome Visualizer */}
+                <div className="p-5 rounded-2xl bg-[rgba(11,16,28,0.7)] border border-[rgba(255,255,255,0.09)] space-y-4 backdrop-blur-xl relative overflow-hidden">
+                  <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-mono">
+                    <span className="flex items-center space-x-1.5">
+                      <span className="gem-dot gem-dot-crimson" />
+                      <span>BASELINE STATE</span>
+                    </span>
+                    <ArrowRight size={14} className="text-[#a78bfa] animate-pulse" />
+                    <span className="flex items-center space-x-1.5">
+                      <span className="gem-dot gem-dot-emerald" />
+                      <span>PROJECTED COUNTERFACTUAL</span>
+                    </span>
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="grid grid-cols-2 gap-4 pt-2 border-t border-[rgba(255,255,255,0.06)]">
                     <div>
-                      <span className="text-xs text-[var(--text-secondary)] block">
-                        Simulated Churn Risk:
+                      <span className="text-xs text-[var(--text-muted)] block uppercase font-medium">
+                        Baseline Churn Risk:
                       </span>
                       <div className="flex items-center space-x-2 mt-1">
-                        <span className="font-display text-2xl font-bold">
+                        <span className="font-display text-2xl font-bold opacity-60">
+                          {(baselineChurnProb * 100).toFixed(0)}%
+                        </span>
+                        <RiskTierBadge tier="High Risk" probability={baselineChurnProb} />
+                      </div>
+                      <span className="text-[11px] text-[var(--text-muted)] font-mono mt-1 block">
+                        Exposure: R$ {baselineRevenueAtRisk.toFixed(2)}
+                      </span>
+                    </div>
+
+                    <div className="text-right">
+                      <span className="text-xs text-[var(--text-muted)] block uppercase font-medium">
+                        Simulated Outcome:
+                      </span>
+                      <div className="flex items-center justify-end space-x-2 mt-1">
+                        <span className="font-display text-2xl font-extrabold text-[#6ee7b7]">
                           {(simulatedChurnProb * 100).toFixed(1)}%
                         </span>
                         <RiskTierBadge
@@ -231,43 +273,33 @@ export const App: React.FC = () => {
                           probability={simulatedChurnProb}
                         />
                       </div>
-                    </div>
-
-                    <div className="text-right">
-                      <span className="text-xs text-[var(--text-secondary)] block">
-                        Net Revenue Protected:
-                      </span>
-                      <span className="font-display text-2xl font-bold text-gradient-emerald mt-1 block">
-                        R$ {protectedRevenue.toFixed(2)}
+                      <span className="text-[11px] font-mono text-[var(--accent-emerald)] font-bold mt-1 block">
+                        Recovered: +R$ {protectedRevenue.toFixed(2)}
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-[var(--text-secondary)] italic border-t border-[hsla(217,33%,25%,0.3)] pt-2 mt-2">
-                    {deltaChurn < 0 ? (
-                      <>
-                        Simulated intervention reduces churn probability by{' '}
-                        <strong className="text-[var(--accent-emerald)]">
-                          {(Math.abs(deltaChurn) * 100).toFixed(1)}%
-                        </strong>
-                        , shifting customer into a safer retention tier.
-                      </>
-                    ) : (
-                      'No positive intervention applied yet.'
-                    )}
-                  </p>
+                  <div className="p-3 rounded-xl bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] flex items-center justify-between text-xs">
+                    <span className="text-[var(--text-secondary)]">
+                      Net Churn Risk Delta:
+                    </span>
+                    <span className="font-mono font-bold text-[#34d399] text-sm">
+                      {(deltaChurn * 100).toFixed(1)}% ({deltaChurn < 0 ? 'Risk Reduced' : 'Risk Elevated'})
+                    </span>
+                  </div>
                 </div>
               </div>
             </GlassCard>
           </div>
 
-          {/* Right: RFM Segmentation & Prescriptive Playbooks Overview */}
+          {/* Right: RFM Segmentation & Pipeline Telemetry */}
           <div className="lg:col-span-5 space-y-6">
             <GlassCard
-              title="RFM Customer Segments (11 Canonical Cohorts)"
-              subtitle="Quintile scoring (R, F, M: 1–5) based on Olist transaction percentiles"
+              title="RFM Customer Segmentation Matrix"
+              subtitle="Quintile scoring (R, F, M: 1–5) mapping Olist transaction percentiles into 11 canonical cohorts"
+              glow="cyan"
             >
-              <div className="flex flex-wrap gap-2 mt-2">
+              <div className="flex flex-wrap gap-2.5 mt-3">
                 <SegmentBadge segment="Champions" />
                 <SegmentBadge segment="Loyal Customers" />
                 <SegmentBadge segment="Potential Loyalists" />
@@ -281,42 +313,67 @@ export const App: React.FC = () => {
                 <SegmentBadge segment="Lost" />
               </div>
 
-              <div className="mt-5 p-3.5 rounded-lg bg-[hsla(222,40%,14%,0.6)] border border-[var(--border-subtle)] space-y-1.5 text-xs">
-                <div className="flex justify-between font-medium">
-                  <span className="text-primary">VIP Retention Priority 1:</span>
-                  <span className="text-[var(--accent-crimson)] font-mono">R$ 412,800 at risk</span>
+              <div className="mt-5 p-4 rounded-xl bg-[rgba(18,25,43,0.7)] border border-[rgba(244,63,94,0.3)] shadow-[0_0_15px_rgba(244,63,94,0.15)] space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold text-[#fecdd3] uppercase tracking-wider">
+                    VIP Retention Priority 1 Alert:
+                  </span>
+                  <span className="text-xs font-mono text-[#f43f5e] font-extrabold">
+                    R$ 412,800 Exposure
+                  </span>
                 </div>
-                <p className="text-[var(--text-muted)] text-[11px]">
-                  Champions and Loyal accounts currently exhibiting P(Churn) &ge; 70% requiring immediate executive outreach.
+                <p className="text-[var(--text-secondary)] text-xs leading-relaxed">
+                  High-spend Champions and Loyal accounts experiencing delivery delay friction.
+                  Prescribed playbook: <strong className="text-white">VIP Concierge & Dedicated Account Outreach</strong>.
                 </p>
               </div>
             </GlassCard>
 
             <GlassCard
-              title="Data Pipeline & Observability Engine"
-              subtitle="Real-time storage verification and health checks"
-              headerAction={<span className="pulse-dot pulse-dot-emerald"></span>}
+              title="Pipeline Observability Engine"
+              subtitle="Direct data health diagnostics from GET /api/health/pipeline"
+              headerAction={
+                <div className="flex items-center space-x-1.5 text-xs text-[#34d399] font-mono">
+                  <span className="gem-dot gem-dot-emerald" />
+                  <span>ONLINE</span>
+                </div>
+              }
             >
-              <div className="space-y-2.5 text-xs">
-                <div className="flex justify-between py-1 border-b border-[hsla(217,33%,25%,0.3)]">
-                  <span className="text-[var(--text-secondary)]">Database Latency:</span>
-                  <span className="font-mono text-[var(--accent-emerald)] font-semibold">
+              <div className="space-y-3 text-xs">
+                <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
+                  <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
+                    <Server size={13} className="text-[#a78bfa]" />
+                    <span>Database Latency:</span>
+                  </span>
+                  <span className="font-mono text-[#34d399] font-bold">
                     42 ms (Neon PostgreSQL 16)
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[hsla(217,33%,25%,0.3)]">
-                  <span className="text-[var(--text-secondary)]">Raw Orders Ingested:</span>
-                  <span className="font-mono text-primary font-semibold">100,000+ rows</span>
+
+                <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
+                  <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
+                    <Layers size={13} className="text-[#38bdf8]" />
+                    <span>Raw Orders Ingested:</span>
+                  </span>
+                  <span className="font-mono text-white font-bold">100,000+ records</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[hsla(217,33%,25%,0.3)]">
-                  <span className="text-[var(--text-secondary)]">dbt Mart Analytics:</span>
-                  <span className="font-mono text-[var(--accent-cyan)] font-semibold">
+
+                <div className="flex justify-between py-1.5 border-b border-[rgba(255,255,255,0.06)]">
+                  <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
+                    <ShieldCheck size={13} className="text-[#34d399]" />
+                    <span>dbt Analytical Mart:</span>
+                  </span>
+                  <span className="font-mono text-[#38bdf8] font-bold">
                     mart_customer_metrics (Fresh)
                   </span>
                 </div>
-                <div className="flex justify-between py-1">
-                  <span className="text-[var(--text-secondary)]">Churn Model Artifact:</span>
-                  <span className="font-mono text-[var(--accent-violet)] font-semibold">
+
+                <div className="flex justify-between py-1.5">
+                  <span className="text-[var(--text-secondary)] flex items-center space-x-1.5">
+                    <Activity size={13} className="text-[#c084fc]" />
+                    <span>Serialized Churn Model:</span>
+                  </span>
+                  <span className="font-mono text-[#c084fc] font-bold">
                     churn_model.joblib (1.2 MB)
                   </span>
                 </div>
@@ -325,29 +382,29 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Phased Roadmap Progress Indicator */}
-        <section className="p-5 rounded-2xl bg-[hsla(222,40%,12%,0.5)] border border-[var(--border-subtle)] flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-[hsla(158,64%,52%,0.15)] border border-[var(--border-emerald)] flex items-center justify-center text-[var(--accent-emerald)]">
-              <ShieldCheck size={22} />
+        {/* Phase Progress Card */}
+        <section className="p-6 rounded-2xl liquid-glass border border-[rgba(255,255,255,0.12)] flex flex-col md:flex-row items-center justify-between gap-5">
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-2xl bg-[rgba(52,211,153,0.15)] border border-[rgba(52,211,153,0.4)] flex items-center justify-center text-[#34d399] shadow-[0_0_20px_rgba(52,211,153,0.25)]">
+              <ShieldCheck size={24} />
             </div>
             <div>
-              <h4 className="font-display font-semibold text-sm text-primary">
-                Phase 1 Complete: Project Scaffold & Design System Tokens
+              <h4 className="font-display font-bold text-base text-white">
+                Liquid Glass Quantum Refractive Design System Active
               </h4>
-              <p className="text-xs text-[var(--text-muted)]">
-                Next up: Phase 2 — Strongly-Typed API Client & Offline Mock Engine
+              <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                Ready for Phase 2: Strongly-Typed API Client & Offline Mock Engine
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
             <Button
               variant="outline"
               size="sm"
               onClick={() => window.open('/docs/roadmap.md', '_blank')}
             >
-              View Full Roadmap
+              View Roadmap
             </Button>
             <Button variant="primary" size="sm" icon={<ChevronRight size={14} />}>
               Proceed to Phase 2
@@ -357,12 +414,12 @@ export const App: React.FC = () => {
       </main>
 
       {/* Executive Footer */}
-      <footer className="border-t border-[var(--border-subtle)] px-6 py-4 text-center text-xs text-[var(--text-muted)] flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto w-full">
+      <footer className="border-t border-[rgba(255,255,255,0.08)] px-6 py-4 text-center text-xs text-[var(--text-secondary)] flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto w-full relative z-10">
         <span>
           Mercury Platform &bull; Executive Customer Intelligence & Churn Analytics
         </span>
-        <span className="mt-2 sm:mt-0 font-mono text-[11px]">
-          TypeScript &bull; React 18 &bull; Vite 5 &bull; Recharts
+        <span className="mt-2 sm:mt-0 font-mono text-[11px] text-[var(--text-muted)]">
+          TypeScript &bull; React 18 &bull; Vite 5 &bull; Liquid Glass Architecture
         </span>
       </footer>
     </div>

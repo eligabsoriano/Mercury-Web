@@ -1,62 +1,93 @@
 /* ==========================================================================
-   Mercury Customer Intelligence & Retention Analytics Dashboard
-   Design System Tokens & Executive Dark Glassmorphism
+   Mercury Customer Intelligence & Retention Analytics
+   Liquid Glass Design System Tokens & Quantum Refractive HUD
    ========================================================================== */
 
 :root {
-  /* Canvas & Base Surfaces */
-  --bg-canvas: hsl(222, 47%, 7%);           /* #0b0f19 - Deep Space Canvas */
-  --bg-canvas-subtle: hsl(222, 45%, 9%);    /* #0f1523 - Slightly elevated canvas */
-  --bg-panel: hsla(222, 40%, 12%, 0.75);    /* Elevated glassmorphic card */
-  --bg-panel-hover: hsla(222, 40%, 16%, 0.85);
-  --bg-panel-active: hsla(222, 40%, 19%, 0.95);
-  --bg-modal: hsla(222, 44%, 10%, 0.92);
+  /* Ultra-Dark Deep Space Canvas */
+  --bg-canvas: #070a13;
+  --bg-canvas-subtle: #0c111e;
 
-  /* Surface Borders & Specular Highlights */
-  --border-subtle: hsla(217, 33%, 25%, 0.45);   /* Specular subtle edge */
-  --border-focus: hsla(263, 70%, 58%, 0.60);    /* Violet simulation focus */
-  --border-emerald: hsla(158, 64%, 52%, 0.40);  /* Revenue/Safe border */
-  --border-crimson: hsla(354, 70%, 54%, 0.40);  /* Churn Risk border */
+  /* Liquid Glass Panels (Apple VisionOS / macOS Refractive Material) */
+  --glass-bg: linear-gradient(
+    135deg,
+    rgba(18, 25, 43, 0.72) 0%,
+    rgba(11, 16, 28, 0.58) 100%
+  );
+  --glass-bg-hover: linear-gradient(
+    135deg,
+    rgba(25, 35, 59, 0.82) 0%,
+    rgba(16, 23, 40, 0.70) 100%
+  );
+  --glass-bg-active: linear-gradient(
+    135deg,
+    rgba(32, 45, 75, 0.90) 0%,
+    rgba(20, 29, 50, 0.80) 100%
+  );
 
-  /* Analytical Color Palette (Mercury Domain Semantics) */
-  --accent-emerald: hsl(158, 64%, 52%);       /* #34d399 - Revenue, Low Churn Risk, Saved GMV */
-  --accent-emerald-glow: hsla(158, 64%, 52%, 0.15);
-  --accent-crimson: hsl(354, 70%, 54%);       /* #f43f5e - High Churn Risk (P>=0.70), Revenue at Risk */
-  --accent-crimson-glow: hsla(354, 70%, 54%, 0.15);
-  --accent-violet: hsl(263, 70%, 58%);        /* #8b5cf6 - ML Predictions & Counterfactual Simulator */
-  --accent-violet-glow: hsla(263, 70%, 58%, 0.18);
-  --accent-amber: hsl(38, 92%, 50%);          /* #fbbf24 - Medium Churn Risk, Delivery Delay Warnings */
-  --accent-amber-glow: hsla(38, 92%, 50%, 0.15);
-  --accent-cyan: hsl(199, 89%, 48%);          /* #38bdf8 - Marketing Funnel & B2B Leads */
-  --accent-cyan-glow: hsla(199, 89%, 48%, 0.15);
-  --accent-indigo: hsl(231, 75%, 60%);        /* #6366f1 - Customer 360 & RFM Scores */
+  /* Specular Rim Lighting & Bevels (Simulating Precision-Milled Glass Edges) */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  --glass-specular-top: inset 0 1px 1px 0 rgba(255, 255, 255, 0.20);
+  --glass-specular-bottom: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.40);
+  --glass-inner-bevel: var(--glass-specular-top), var(--glass-specular-bottom);
 
-  /* Neutral Text & Typography Hierarchy */
-  --text-primary: hsl(210, 40%, 98%);         /* Main high-contrast text */
-  --text-secondary: hsl(215, 20%, 75%);       /* Subtitles, table body */
-  --text-muted: hsl(215, 16%, 50%);           /* Column labels, helper text */
-  --text-inverse: hsl(222, 47%, 7%);
+  /* Multi-Layered Liquid Glass Shadow Hierarchy */
+  --shadow-liquid: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.25),
+    0 20px 35px -4px rgba(0, 0, 0, 0.55),
+    var(--glass-inner-bevel);
 
-  /* Typography Pairing */
+  --shadow-liquid-hover: 
+    0 8px 12px -2px rgba(0, 0, 0, 0.30),
+    0 28px 50px -4px rgba(0, 0, 0, 0.70),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28),
+    var(--glass-specular-bottom);
+
+  /* Semantic Analytical Accent Tokens */
+  --accent-emerald: #34d399;           /* Revenue, Low Risk, Saved GMV */
+  --accent-emerald-glow: rgba(52, 211, 153, 0.16);
+  --accent-emerald-halo: rgba(52, 211, 153, 0.35);
+
+  --accent-crimson: #f43f5e;           /* Churn Risk (P>=0.70), Exposure, Delays */
+  --accent-crimson-glow: rgba(244, 63, 94, 0.16);
+  --accent-crimson-halo: rgba(244, 63, 94, 0.35);
+
+  --accent-violet: #8b5cf6;            /* ML Predictions, AI Simulator, Shapley */
+  --accent-violet-glow: rgba(139, 92, 246, 0.18);
+  --accent-violet-halo: rgba(139, 92, 246, 0.40);
+
+  --accent-amber: #fbbf24;             /* Medium Churn Risk, Delivery Delay Warning */
+  --accent-amber-glow: rgba(251, 191, 36, 0.16);
+  --accent-amber-halo: rgba(251, 191, 36, 0.35);
+
+  --accent-cyan: #38bdf8;              /* Marketplace Funnel, Origin Channels, B2B */
+  --accent-cyan-glow: rgba(56, 189, 248, 0.16);
+  --accent-cyan-halo: rgba(56, 189, 248, 0.35);
+
+  --accent-indigo: #6366f1;            /* Customer 360 & RFM Scores */
+
+  /* Text Hierarchy */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #070a13;
+
+  /* Typography */
   --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Shadows & Glassmorphic Elevation */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
-  --shadow-glass-hover: 0 14px 44px 0 rgba(0, 0, 0, 0.60);
-  --shadow-emerald: 0 0 24px -4px hsla(158, 64%, 52%, 0.30);
-  --shadow-crimson: 0 0 24px -4px hsla(354, 70%, 54%, 0.30);
-  --shadow-violet: 0 0 24px -4px hsla(263, 70%, 58%, 0.35);
-
-  /* Spacing & Radii */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  /* Squircle Radii (Apple Fluid Geometry) */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
 }
 
-/* Base Styles */
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -71,191 +102,368 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Typography Classes */
+/* ==========================================================================
+   Living Aurora Mesh (Substrate Layer behind Liquid Glass)
+   ========================================================================== */
+.aurora-canvas {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.28;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  animation-duration: 22s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  animation-direction: alternate;
+}
+
+.aurora-orb-1 {
+  width: 580px;
+  height: 580px;
+  background: radial-gradient(circle, #8b5cf6 0%, rgba(139, 92, 246, 0) 70%);
+  top: -120px;
+  right: -80px;
+  animation-name: aurora-float-1;
+}
+
+.aurora-orb-2 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #34d399 0%, rgba(52, 211, 153, 0) 70%);
+  bottom: -100px;
+  left: -80px;
+  animation-name: aurora-float-2;
+  animation-duration: 26s;
+}
+
+.aurora-orb-3 {
+  width: 460px;
+  height: 460px;
+  background: radial-gradient(circle, #38bdf8 0%, rgba(56, 189, 248, 0) 70%);
+  top: 40%;
+  left: 35%;
+  animation-name: aurora-float-3;
+  animation-duration: 30s;
+  opacity: 0.18;
+}
+
+.aurora-orb-4 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, #f43f5e 0%, rgba(244, 63, 94, 0) 70%);
+  top: 15%;
+  left: 10%;
+  animation-name: aurora-float-4;
+  animation-duration: 24s;
+  opacity: 0.15;
+}
+
+@keyframes aurora-float-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-80px, 60px) scale(1.12); }
+  100% { transform: translate(-30px, 120px) scale(0.95); }
+}
+
+@keyframes aurora-float-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, -60px) scale(1.08); }
+  100% { transform: translate(120px, -20px) scale(0.92); }
+}
+
+@keyframes aurora-float-3 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(-60px, -50px) scale(1.15); }
+  100% { transform: translate(50px, 40px) scale(1); }
+}
+
+@keyframes aurora-float-4 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 70px) scale(1.1); }
+  100% { transform: translate(-50px, 30px) scale(0.9); }
+}
+
+/* ==========================================================================
+   Liquid Glass Physical Materials (Apple VisionOS / macOS Style)
+   ========================================================================== */
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(210%) brightness(108%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%) brightness(108%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-liquid);
+  border-radius: var(--radius-lg);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.0) 70%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.liquid-glass-interactive {
+  cursor: pointer;
+}
+
+.liquid-glass-interactive:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-liquid-hover);
+  transform: translateY(-2px) scale(1.004);
+}
+
+/* Glowing Refraction Tiers */
+.liquid-glass-violet {
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 
+    var(--shadow-liquid),
+    0 0 35px -6px var(--accent-violet-halo);
+}
+
+.liquid-glass-emerald {
+  border-color: rgba(52, 211, 153, 0.35);
+  box-shadow: 
+    var(--shadow-liquid),
+    0 0 35px -6px var(--accent-emerald-halo);
+}
+
+.liquid-glass-crimson {
+  border-color: rgba(244, 63, 94, 0.35);
+  box-shadow: 
+    var(--shadow-liquid),
+    0 0 35px -6px var(--accent-crimson-halo);
+}
+
+.liquid-glass-cyan {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 
+    var(--shadow-liquid),
+    0 0 35px -6px var(--accent-cyan-halo);
+}
+
+/* ==========================================================================
+   Typography & KPI Display
+   ========================================================================== */
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
-/* Glassmorphism Panel Utilities */
-.glass-panel {
-  background: var(--bg-panel);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-glass);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel-interactive:hover {
-  background: var(--bg-panel-hover);
-  border-color: hsla(217, 33%, 38%, 0.65);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glass-hover);
-}
-
-.glass-panel-glow-violet {
-  border-color: var(--border-focus);
-  box-shadow: var(--shadow-violet);
-}
-
-.glass-panel-glow-emerald {
-  border-color: var(--border-emerald);
-  box-shadow: var(--shadow-emerald);
-}
-
-.glass-panel-glow-crimson {
-  border-color: var(--border-crimson);
-  box-shadow: var(--shadow-crimson);
-}
-
-/* Executive KPI Display Number */
 .kpi-value {
   font-family: var(--font-display);
   font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Gradient Text Accents */
 .text-gradient-emerald {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #059669 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-crimson {
-  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #fda4af 0%, #f43f5e 50%, #be123c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-violet {
-  background: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #d8b4fe 0%, #a855f7 50%, #7e22ce 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-cyan {
-  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  background: linear-gradient(135deg, #bae6fd 0%, #38bdf8 50%, #0284c7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Status Badges & Pills */
-.badge-risk-high {
-  background: hsla(354, 70%, 54%, 0.15);
-  color: #fb7185;
-  border: 1px solid hsla(354, 70%, 54%, 0.35);
-}
-
-.badge-risk-medium {
-  background: hsla(38, 92%, 50%, 0.15);
-  color: #fcd34d;
-  border: 1px solid hsla(38, 92%, 50%, 0.35);
-}
-
-.badge-risk-low {
-  background: hsla(158, 64%, 52%, 0.15);
-  color: #6ee7b7;
-  border: 1px solid hsla(158, 64%, 52%, 0.35);
-}
-
-.badge-violet {
-  background: hsla(263, 70%, 58%, 0.18);
-  color: #c4b5fd;
-  border: 1px solid hsla(263, 70%, 58%, 0.35);
-}
-
-.badge-cyan {
-  background: hsla(199, 89%, 48%, 0.15);
-  color: #7dd3fc;
-  border: 1px solid hsla(199, 89%, 48%, 0.35);
-}
-
-/* Pulse Indicators */
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-}
-
-.pulse-dot-emerald {
-  background-color: var(--accent-emerald);
-  box-shadow: 0 0 10px var(--accent-emerald);
-}
-
-.pulse-dot-crimson {
-  background-color: var(--accent-crimson);
-  box-shadow: 0 0 10px var(--accent-crimson);
-}
-
-.pulse-dot-amber {
-  background-color: var(--accent-amber);
-  box-shadow: 0 0 10px var(--accent-amber);
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.9; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.9; }
-}
-
-/* Custom Scrollbar for Dense Analytics */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-canvas);
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsla(217, 33%, 25%, 0.6);
+/* ==========================================================================
+   Crystalline Semiconductor Badges (Innovative Risk Tiers)
+   ========================================================================== */
+.crystal-gem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.75rem;
   border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  position: relative;
+  transition: all 0.2s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: hsla(217, 33%, 38%, 0.8);
+.crystal-gem-crimson {
+  background: rgba(244, 63, 94, 0.14);
+  color: #fecdd3;
+  border: 1px solid rgba(244, 63, 94, 0.38);
+  box-shadow: 
+    0 0 14px -2px rgba(244, 63, 94, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
 }
 
-/* Slider Custom Styling for Counterfactual Simulation */
-input[type="range"].mercury-slider {
+.crystal-gem-amber {
+  background: rgba(251, 191, 36, 0.14);
+  color: #fef3c7;
+  border: 1px solid rgba(251, 191, 36, 0.38);
+  box-shadow: 
+    0 0 14px -2px rgba(251, 191, 36, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+}
+
+.crystal-gem-emerald {
+  background: rgba(52, 211, 153, 0.14);
+  color: #d1fae5;
+  border: 1px solid rgba(52, 211, 153, 0.38);
+  box-shadow: 
+    0 0 14px -2px rgba(52, 211, 153, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+}
+
+.crystal-gem-violet {
+  background: rgba(139, 92, 246, 0.16);
+  color: #ede9fe;
+  border: 1px solid rgba(139, 92, 246, 0.40);
+  box-shadow: 
+    0 0 14px -2px rgba(139, 92, 246, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Glowing Core Gem Dot */
+.gem-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.gem-dot-crimson {
+  background: #f43f5e;
+  box-shadow: 0 0 8px #f43f5e, 0 0 16px rgba(244, 63, 94, 0.6);
+  animation: pulse-gem 2s infinite ease-in-out;
+}
+
+.gem-dot-amber {
+  background: #fbbf24;
+  box-shadow: 0 0 8px #fbbf24, 0 0 16px rgba(251, 191, 36, 0.6);
+  animation: pulse-gem 2s infinite ease-in-out;
+}
+
+.gem-dot-emerald {
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399, 0 0 16px rgba(52, 211, 153, 0.6);
+  animation: pulse-gem 2s infinite ease-in-out;
+}
+
+.gem-dot-violet {
+  background: #8b5cf6;
+  box-shadow: 0 0 8px #8b5cf6, 0 0 16px rgba(139, 92, 246, 0.6);
+  animation: pulse-gem 2s infinite ease-in-out;
+}
+
+@keyframes pulse-gem {
+  0%, 100% { transform: scale(0.9); opacity: 0.85; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* ==========================================================================
+   Liquid Plasma Slider Track (Interactive Simulator)
+   ========================================================================== */
+input[type="range"].plasma-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 6px;
-  background: hsla(217, 33%, 25%, 0.5);
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.25) 0%,
+    rgba(56, 189, 248, 0.25) 100%
+  );
   border-radius: var(--radius-full);
   outline: none;
-  transition: background 0.2s;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
-input[type="range"].mercury-slider::-webkit-slider-thumb {
+input[type="range"].plasma-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: var(--accent-violet);
-  box-shadow: 0 0 12px var(--accent-violet);
-  cursor: pointer;
-  border: 2px solid #ffffff;
-  transition: transform 0.15s, box-shadow 0.15s;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #c084fc 40%, #7c3aed 100%);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 0 15px rgba(139, 92, 246, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  cursor: grab;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
 }
 
-input[type="range"].mercury-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 18px var(--accent-violet);
+input[type="range"].plasma-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 
+    0 0 24px rgba(139, 92, 246, 1),
+    0 6px 14px rgba(0, 0, 0, 0.5);
 }
 
-input[type="range"].mercury-slider:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 20px var(--accent-violet);
+input[type="range"].plasma-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.15);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 1);
+}
+
+/* Custom Refractive Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(7, 10, 19, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
 }

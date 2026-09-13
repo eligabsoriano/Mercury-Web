@@ -19,29 +19,29 @@ export const RiskTierBadge: React.FC<RiskTierBadgeProps> = ({
   return (
     <span
       className={clsx(
-        'inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide',
+        'crystal-gem',
         isHigh
-          ? 'badge-risk-high'
+          ? 'crystal-gem-crimson'
           : isMedium
-          ? 'badge-risk-medium'
-          : 'badge-risk-low',
+          ? 'crystal-gem-amber'
+          : 'crystal-gem-emerald',
         className
       )}
     >
       <span
         className={clsx(
-          'w-1.5 h-1.5 rounded-full',
+          'gem-dot',
           isHigh
-            ? 'bg-[#f43f5e]'
+            ? 'gem-dot-crimson'
             : isMedium
-            ? 'bg-[#fbbf24]'
-            : 'bg-[#34d399]'
+            ? 'gem-dot-amber'
+            : 'gem-dot-emerald'
         )}
       />
       <span>{tier}</span>
       {probability !== undefined && (
-        <span className="opacity-75 font-mono text-[11px]">
-          ({(probability * 100).toFixed(0)}%)
+        <span className="opacity-80 font-mono text-[11px] ml-0.5">
+          {(probability * 100).toFixed(0)}%
         </span>
       )}
     </span>
@@ -54,34 +54,33 @@ export interface SegmentBadgeProps {
 }
 
 export const SegmentBadge: React.FC<SegmentBadgeProps> = ({ segment, className }) => {
-  // Styles for the 11 RFM canonical segments
   const getStyle = (seg: string) => {
     switch (seg.toLowerCase()) {
       case 'champions':
-        return 'bg-[hsla(158,64%,52%,0.18)] text-[#34d399] border-[hsla(158,64%,52%,0.35)]';
+        return 'bg-[rgba(52,211,153,0.12)] text-[#6ee7b7] border-[rgba(52,211,153,0.35)] shadow-[0_0_12px_rgba(52,211,153,0.18)]';
       case 'loyal customers':
       case 'potential loyalists':
-        return 'bg-[hsla(199,89%,48%,0.18)] text-[#38bdf8] border-[hsla(199,89%,48%,0.35)]';
+        return 'bg-[rgba(56,189,248,0.12)] text-[#7dd3fc] border-[rgba(56,189,248,0.35)] shadow-[0_0_12px_rgba(56,189,248,0.18)]';
       case 'at risk':
       case "can't lose them":
-        return 'bg-[hsla(354,70%,54%,0.18)] text-[#f43f5e] border-[hsla(354,70%,54%,0.35)]';
+        return 'bg-[rgba(244,63,94,0.14)] text-[#fda4af] border-[rgba(244,63,94,0.40)] shadow-[0_0_12px_rgba(244,63,94,0.22)]';
       case 'customers needing attention':
       case 'about to sleep':
-        return 'bg-[hsla(38,92%,50%,0.18)] text-[#fbbf24] border-[hsla(38,92%,50%,0.35)]';
+        return 'bg-[rgba(251,191,36,0.12)] text-[#fde68a] border-[rgba(251,191,36,0.35)] shadow-[0_0_12px_rgba(251,191,36,0.18)]';
       case 'recent customers':
       case 'promising':
-        return 'bg-[hsla(263,70%,58%,0.18)] text-[#a78bfa] border-[hsla(263,70%,58%,0.35)]';
+        return 'bg-[rgba(139,92,246,0.14)] text-[#d8b4fe] border-[rgba(139,92,246,0.38)] shadow-[0_0_12px_rgba(139,92,246,0.20)]';
       case 'hibernating':
       case 'lost':
       default:
-        return 'bg-[hsla(215,16%,48%,0.15)] text-[#94a3b8] border-[hsla(215,16%,48%,0.30)]';
+        return 'bg-[rgba(255,255,255,0.06)] text-[#94a3b8] border-[rgba(255,255,255,0.12)]';
     }
   };
 
   return (
     <span
       className={clsx(
-        'inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium border',
+        'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border backdrop-blur-md transition-all duration-200 hover:scale-105 select-none',
         getStyle(segment),
         className
       )}
@@ -103,12 +102,12 @@ export const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority, classNam
   return (
     <span
       className={clsx(
-        'inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider border',
+        'inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider border backdrop-blur-md',
         isP1
-          ? 'bg-[hsla(354,70%,54%,0.20)] text-[#fb7185] border-[hsla(354,70%,54%,0.40)]'
+          ? 'bg-[rgba(244,63,94,0.18)] text-[#fecdd3] border-[rgba(244,63,94,0.45)] shadow-[0_0_10px_rgba(244,63,94,0.25)]'
           : isP2
-          ? 'bg-[hsla(38,92%,50%,0.20)] text-[#fcd34d] border-[hsla(38,92%,50%,0.40)]'
-          : 'bg-[hsla(217,33%,25%,0.35)] text-[var(--text-secondary)] border-[var(--border-subtle)]',
+          ? 'bg-[rgba(251,191,36,0.18)] text-[#fef3c7] border-[rgba(251,191,36,0.45)] shadow-[0_0_10px_rgba(251,191,36,0.25)]'
+          : 'bg-[rgba(255,255,255,0.08)] text-[var(--text-secondary)] border-[rgba(255,255,255,0.15)]',
         className
       )}
     >
