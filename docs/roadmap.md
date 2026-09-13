@@ -237,12 +237,16 @@ Construct the persistent application layout, executive navigation sidebar, top s
 
 ---
 
-### Phase 4: View 1 — Executive Overview Dashboard
+### Phase 4: View 1 — Executive Overview Dashboard (✅ Complete)
 
 #### 4.1 Goal
 Deliver the executive command center displaying macro portfolio health, revenue exposure, time-series trends, and RFM cohort dynamics.
 
 #### 4.2 Concrete Deliverables
+- [src/components/charts/RevenueTrendChart.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/charts/RevenueTrendChart.tsx): Recharts ComposedChart (Area + Bar) rendering monthly GMV, delivered order counts, and late delivery rates with time-range tabs and Liquid Glass tooltips.
+- [src/components/charts/RFMSegmentsMatrix.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/charts/RFMSegmentsMatrix.tsx): Interactive 11-quintile RFM customer segmentation matrix with grid view, revenue share bar chart, and strategy drilldown.
+- [src/components/charts/CohortRetentionHeatmap.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/charts/CohortRetentionHeatmap.tsx): 12-month cohort retention survival decay matrix with survival gradient cells and hover popovers.
+- [src/components/charts/RevenueAtRiskBreakdown.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/components/charts/RevenueAtRiskBreakdown.tsx): Tri-tier risk distribution bars, 4-tier actionable retention priority matrix, and executive fast-action triage banner.
 - [src/views/ExecutiveOverviewView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/ExecutiveOverviewView.tsx):
   - **Macro KPI Row (5 Cards)**:
     1. *Total Portfolio GMV*: R$ 15.98M (+12.4% vs last period).
@@ -250,19 +254,14 @@ Deliver the executive command center displaying macro portfolio health, revenue 
     3. *High Churn Risk Rate*: 18.4% (17,680 customers at risk).
     4. *Portfolio Revenue at Risk*: R$ 2.45M (15.3% of total GMV).
     5. *Repeat Buyer Rate*: 2.99% (highlighting retention opportunity).
-  - **Interactive Revenue Trends Chart**:
-    - Recharts ComposedChart (Area + Bar) rendering monthly GMV, delivered order counts, and average order value.
-    - Date range filter selector (All Time, Last 12 Months, Last 6 Months).
-  - **RFM Customer Segmentation Matrix**:
-    - 11-segment visual grid cards (Champions, Loyal Customers, At Risk, Can't Lose Them, etc.) with customer count, GMV contribution, and average churn probability.
-  - **Cohort Retention Heatmap**:
-    - Matrix grid showing survival retention rates across monthly acquisition cohorts from Period 0 to Period 12+.
-  - **Revenue-at-Risk Breakdown**:
-    - Segmented progress bars for High Risk ($P \ge 0.70$), Medium Risk ($0.40 \le P < 0.70$), and Low Risk ($P < 0.40$), featuring Priority 1 (VIP Retention) callout.
+  - Integrated charts, counterfactual what-if churn laboratory, and pipeline telemetry engine.
 
 #### 4.3 Definition of Done
-- All charts render responsively with interactive tooltips.
-- Visual hierarchy guides executive attention immediately to revenue exposure.
+- [x] All charts render responsively with interactive tooltips and liquid glass styling.
+- [x] Visual hierarchy guides executive attention immediately to revenue exposure.
+- [x] TypeScript compiles cleanly with 0 errors (`npx tsc --noEmit`).
+- [x] ESLint passes with 0 warnings (`npm run lint`).
+- [x] Production build passes cleanly (`npm run build`).
 
 ---
 

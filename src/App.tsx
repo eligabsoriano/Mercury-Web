@@ -101,6 +101,10 @@ export const App: React.FC = () => {
           pipelineHealth={pipelineHealth}
           modelMeta={modelMeta}
           onNavigateToView={(viewId) => setActiveView(viewId as NavViewId)}
+          onSelectCustomer={handleCustomerSelected}
+          onSelectSegment={() => {
+            setActiveView('customers');
+          }}
         />
       )}
 
