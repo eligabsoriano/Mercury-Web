@@ -39,6 +39,14 @@ export type PipelineHealthResponse = components['schemas']['PipelineHealthRespon
 export type HealthResponse = components['schemas']['HealthResponse'];
 export type TokenResponse = components['schemas']['TokenResponse'];
 export type UserIdentity = components['schemas']['UserIdentity'];
+export type ChannelAttribution = components['schemas']['ChannelAttribution'];
+export type VelocityBySegment = components['schemas']['VelocityBySegment'];
+export type VelocityByLeadType = components['schemas']['VelocityByLeadType'];
+export type MarketingLeadSummary = components['schemas']['MarketingLeadSummary'];
+export type CategorySummary = components['schemas']['CategorySummary'];
+export type CategoryPerformance = CategorySummary;
+export type SellerSummary = components['schemas']['SellerSummary'];
+export type PaginationMeta = components['schemas']['PaginationMeta'];
 
 // -------------------------------------------------------------------------
 // 1. Health & Pipeline Observability

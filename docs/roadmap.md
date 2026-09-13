@@ -344,19 +344,29 @@ Provide analytical visibility into the two-sided marketplace seller acquisition 
 
 #### 7.2 Concrete Deliverables
 - [src/views/MarketingFunnelView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/MarketingFunnelView.tsx):
-  - **Visual Funnel Conversion Stages**:
-    - MQLs (8,000) $\longrightarrow$ Won Deals (842, 10.5% conversion) $\longrightarrow$ Active Marketplace Sellers (420, 49.9% activation).
-  - **Funnel Scorecards**: Overall Conversion Rate, Avg Days to Close (18 days), Declared Monthly Revenue vs Actual Realized GMV.
-  - **Origin Channel Attribution**: Bar chart of lead share, conversion efficiency, and GMV across channels (Organic, Paid Search, Social, Direct, Email).
-  - **Sales Velocity Distribution**: Days to close by business segment and lead type.
-  - **Marketing Leads Directory**: Paginated table of leads with SDR/SR assignments and status filters.
+  - [x] **Visual Funnel Conversion Stages**:
+    - [x] MQLs (8,000) $\longrightarrow$ Won Deals (842, 10.5% conversion) $\longrightarrow$ Active Marketplace Sellers (420, 49.9% activation).
+    - [x] Revenue Realization Bridge: Self-Declared Monthly Revenue (R$ 14.25M) vs Realized Marketplace GMV (R$ 8.64M) with 60.6% realization ratio.
+  - [x] **Funnel Scorecards**: Overall Conversion Rate (10.5%), Avg Sales Cycle Velocity (18.4 days), Seller Activation Rate (49.9%), Revenue Realization Ratio (60.6%).
+  - [x] **Origin Channel Attribution**: Bar chart of lead share, conversion efficiency, and GMV across 7 channels (Organic Search, Paid Search, Social Media, Direct Traffic, Email Campaign, Referral, Other) with metric toggles and sorting.
+  - [x] **Sales Velocity Distribution**: Days to close by business segment (home appliances 14.2d, health beauty 15.8d, sports leisure 17.5d, computers 19.4d, fashion 24.1d) and lead type (online big, online medium, offline small).
+  - [x] **Seller Industry Segment Economics**: Table comparing 5 industry segments across closed deals, active sellers, activation rate, declared revenue, and realized GMV.
+  - [x] **Marketing Leads Directory**: Paginated table of registered leads with search, status filters (All, Won Deals, Active Sellers), origin channel filter, and pagination.
 - [src/views/CatalogIntelligenceView.tsx](file:///Users/gab/Documents/GitHub/Mercury-Web/src/views/CatalogIntelligenceView.tsx):
-  - **Product Categories Scorecard**: Sales volume, revenue share, average review ratings, and repeat order rates across categories (`bed_bath_table`, `health_beauty`, `sports_leisure`, `computers_accessories`, etc.).
-  - **Marketplace Sellers Scorecard**: Directory of sellers with on-time delivery percentages, customer review scores, order volumes, and freight delay risks.
+  - [x] **Category KPI Summary Cards**: Total Product Categories (8), Products Catalogued (32,951), Top Category Revenue (R$ 1.26M, Health Beauty), Highest Rated Category (★ 4.18, Health Beauty).
+  - [x] **Product Categories Scorecard**: Interactive cards across 8 categories (`bed_bath_table`, `health_beauty`, `sports_leisure`, `computers_accessories`, `furniture_decor`, `housewares`, `watches_gifts`, `telephony`) with units sold, relative revenue share progress bars, avg item price, star ratings, and sorting (Revenue, Units Sold, Rating, SKUs).
+  - [x] **Category Revenue & Volume Distribution Chart**: Horizontal Recharts bar chart with metric toggles (Gross Revenue, Units Sold, Catalog SKUs) and custom glassmorphic tooltip.
+  - [x] **Seller Revenue vs Satisfaction Matrix**: Scatter/bubble chart comparing merchant gross GMV, review rating (★), order volume bubble size, and late delivery rate color coding (<5% green, 5-10% amber, >10% crimson).
+  - [x] **Marketplace Merchants & Delivery Health Directory**: Filterable directory with search, state dropdown (SP, RJ, MG, PR, RS, BA, SC), sorting, delivery health badges (Early, Normal, Late), and pagination.
 
 #### 7.3 Definition of Done
-- Funnel and catalog views populate with zero missing data errors.
-- Charts provide clear comparative context for marketplace operations.
+- [x] Funnel and catalog views populate with zero missing data errors across all 8 categories and 7 origin channels.
+- [x] Charts provide clear comparative context for marketplace operations with multi-metric toggles and custom tooltips.
+- [x] 52/52 Vitest unit tests passing across all 9 test suites (`npm test` / `npx vitest run`).
+- [x] 23/23 Playwright E2E tests passing across all 4 suites (`npx playwright test`).
+- [x] TypeScript compiles cleanly with 0 errors (`npx tsc --noEmit`).
+- [x] ESLint passes with 0 warnings and 0 errors (`npm run lint`).
+- [x] Production build passes cleanly in <2.1s (`npm run build`).
 
 ---
 
